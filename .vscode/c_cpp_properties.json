@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "linux",
+      "includePath": [
+        "${default}",
+        "lib/libscarf/include",
+        "lib/libscarf/include/types",
+        "lib/mlx_linux",
+        "include",
+        "include/linux",
+        "include/types"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "intelliSenseMode": "linux-clang-x64"
+    }
+  ],
+  "version": 4
+}
