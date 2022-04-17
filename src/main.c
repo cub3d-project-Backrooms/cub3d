@@ -13,7 +13,7 @@ int main(void)
 	void * mlx = mlx_init();
 	void * win = mlx_new_window(mlx, 100, 100, "Hello, World!");
 
-	mlx_key_hook(win, NULL, NULL);
+	mlx_key_hook(win, key_hook, NULL);
 	mlx_do_key_autorepeaton(mlx);
 	mlx_loop(mlx);
 	return 0;
