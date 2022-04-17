@@ -1,6 +1,6 @@
 [submodule "lib/libscarf"]
 	path = lib/libscarf
 	url = git@github.com:42cursus-youkim/libscarf.git
-[submodule "mlx_linux"]
+[submodule "lib/mlx_linux"]
 	path = lib/mlx_linux
 	url = git@github.com:42Paris/minilibx-linux.git
