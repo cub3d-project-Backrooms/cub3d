@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "name": "linux",
+      "includePath": [
+        "${workspaceRoot}/../lib/libscarf/include",
+        "${workspaceRoot}/../lib/libscarf/include/types",
+        "${workspaceRoot}/../lib/mlx_linux",
+        "${workspaceRoot}/../include",
+        "${workspaceRoot}/../include/linux",
+        "${workspaceRoot}/../include/types",
+        "${default}",
+        "/home/scarf/Repo/cub3d/include/types"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "intelliSenseMode": "linux-clang-x64"
+    }
+  ],
+  "version": 4
+}

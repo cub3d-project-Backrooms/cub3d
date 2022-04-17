@@ -1,10 +1,7 @@
 # Packages
-PKGS = engine raycast graphic
+PKGS = engine input parser renderer
 
 #FIXME: specify packages
-engineV  := alloc util
-raycastV := error
-graphicV := alloc dalloc write
 
 SRC = src/
 
