@@ -18,13 +18,11 @@ env:
   node_pr: ${{ github.event.pull_request.node_id }}
 
 jobs:
-  which:
+  move-card:
     runs-on: ubuntu-latest
-    outputs:
-      to: ${{ steps.figure.outputs.moveto }}
-      node_id: ${{ steps.figure.outputs.nodedata }}
     steps:
-      - id: figure
+      - name: figure type of card
+        id: figure
         run: |
           case $event_name in
             issues)
@@ -32,34 +30,27 @@ jobs:
               case $event_action in
                 opened | reopened | review_requested | unassigned)
                   TO="$triage";;
-                assigned)
-                  TO="$todo";;
-                closed)
-                  TO="$done";;
+                assigned) TO="$todo";;
+                closed) TO="$done";;
               esac
             ;;
             pull_request)
               NODE="$node_pr"
               case $event_action in
-                opened | reopened | review_requested)
-                  TO="$in_progress";;
-                closed)
-                  TO="$done";;
+                opened | reopened | review_requested) TO="$in_progress";;
+                closed) TO="$done";;
               esac
             ;;
           esac
           echo "will move to $TO using node: $NODE"
           echo "::set-output name=moveto::$TO"
-          echo "::set-output name=nodedata::$NODE"
-  move_card:
-    runs-on: ubuntu-latest
-    needs: which
-    steps:
-      - name: Move issue to ${{ needs.which.outputs.to }}
+          echo "::set-output name=node_id::$NODE"
+
+      - name: Move issue to ${{ steps.figure.outputs.moveto }}
         uses: leonsteinhaeuser/project-beta-automations@v1.2.1
         with:
           gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          organization: DIY-3D
+          organization: cub3d-project-Backrooms
           project_id: 1
-          resource_node_id: ${{ needs.which.outputs.node_id }}
-          status_value: ${{ needs.which.outputs.to }} # Target status
+          resource_node_id: ${{ steps.figure.outputs.node_id }}
+          status_value: ${{ steps.figure.outputs.moveto }} # Target status
