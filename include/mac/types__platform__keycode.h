@@ -1,5 +1,5 @@
-#ifndef ENUMS_H
-# define ENUMS_H
+#ifndef TYPES__PLATFORM__KEYCODE_H
+#define TYPES__PLATFORM__KEYCODE_H
 
 # define TILE_SIZE 64
 
@@ -41,7 +41,7 @@ typedef enum e_keycode
 	KEY_X = 7,
 	KEY_Y = 16,
 	KEY_Z = 6,
-	
+
 	KEY_0 = 29,
 	KEY_1 = 18,
 	KEY_2 = 19,

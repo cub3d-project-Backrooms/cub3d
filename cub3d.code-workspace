@@ -1,12 +1,19 @@
 {
   "folders": [
     {
+      "name": "config",
       "path": "config"
     },
     {
+      "name": "include",
+      "path": "lib/libscarf/include"
+    },
+    {
+      "name": "include",
       "path": "include"
     },
     {
+      "name": "src",
       "path": "src"
     }
   ],

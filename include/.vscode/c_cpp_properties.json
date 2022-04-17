@@ -5,8 +5,6 @@
       "includePath": [
         "${workspaceRoot}/../lib/libscarf/include",
         "${workspaceRoot}/../lib/mlx_linux",
-        "${workspaceRoot}/../include",
-        "${workspaceRoot}/../include/linux",
         "${default}"
       ],
       "defines": [],
