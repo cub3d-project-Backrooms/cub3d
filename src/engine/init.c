@@ -10,12 +10,18 @@ static void engine__init__keyinput(t_engine *this) {
            &this->inputhandler);
 }
 
-void engine__init(t_engine *this, t_camera camera) {
+void engine__init(t_engine *this) {
+  t_camera camera = {
+      .pos = {12, 5},
+      .dir = {-1, 0},
+      .plane = {0, 0.66},
+  };
+
   renderer__init(&this->renderer);
   // camera position will be determined by parsed map result someday
   this->camera = camera;
   inputhandler__init(&this->inputhandler);
   this->moveSpeed = 0.01;
-  this->rotSpeed = 0.003;
+  this->rotSpeed = 0.005;
   engine__init__keyinput(this);
 }

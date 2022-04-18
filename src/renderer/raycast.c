@@ -1,8 +1,8 @@
+#include <math.h>
 #include "engine.h"
 #include "renderer.h"
 #include "types__color.h"
 #include "types__renderer.h"
-#include <math.h>
 
 const extern int worldMap[24][24];
 
@@ -16,74 +16,19 @@ t_colors get_color(int map_y, int map_x) {
   return colors[index];
 }
 
-bool is_ray_hit_wall(const t_ivec *pos) {
-  return (worldMap[pos->x][pos->y] > 0);
-}
-
-t_vec camera__cast_ray(t_camera *this, double x) {
-  return (t_vec){this->dir.x + this->plane.x * x,
-                 this->dir.y + this->plane.y * x};
-}
-
-t_ivec camera__to_pos_at_map(t_camera *this) {
-  return (t_ivec){(int)this->pos.x, (int)this->pos.y};
-}
-
-// length of ray from one x or y-side to next x or y-side
-t_vec raycast__dist_to_next_closest_wall(t_vec ray_dir) {
-  return (t_vec){fabs(1 / ray_dir.x), fabs(1 / ray_dir.y)};
-}
-
-void renderer__raycast(t_renderer *e, t_camera *cam) {
+void renderer__raycast(t_renderer* e, t_camera* cam) {
   clear_grid(e->buf);
 
   for (int x = 0; x < WIDTH; x++) {
-    double cameraX = 2 * x / (double)WIDTH - 1;
-    t_vec ray_dir = camera__cast_ray(cam, cameraX);
+    double camera_x = dda__normalized_plane_x(x);
+    t_vec ray_dir = camera__ray_dir_at_position(cam, camera_x);
     t_ivec map_pos = camera__to_pos_at_map(cam);
+    t_vec delta_dist = dda__dist_to_next_closest_grid(&ray_dir);
+    t_dda__step step = dda__initial_step(cam, &map_pos, &ray_dir, &delta_dist);
+    dda__advance_step_until_hit(&step, &map_pos, &delta_dist);
 
-    t_vec delta_dist = raycast__dist_to_next_closest_wall(ray_dir);
-
-    // what direction to step in x or y-direction (either +1 or -1)
-    t_ivec step;
-
-    int side; // was a NS or a EW wall hit?
-
-    // length of ray from current position to next x or y-side
-    t_vec side_dist;
-    if (ray_dir.x < 0) {
-      step.x = -1;
-      side_dist.x = (cam->pos.x - map_pos.x) * delta_dist.x;
-    } else {
-      step.x = 1;
-      side_dist.x = (map_pos.x + 1.0 - cam->pos.x) * delta_dist.x;
-    }
-    if (ray_dir.y < 0) {
-      step.y = -1;
-      side_dist.y = (cam->pos.y - map_pos.y) * delta_dist.y;
-    } else {
-      step.y = 1;
-      side_dist.y = (map_pos.y + 1.0 - cam->pos.y) * delta_dist.y;
-    }
-
-    while (!is_ray_hit_wall(&map_pos)) {
-      // jump to next map square, OR in x-direction, OR in y-direction
-      if (side_dist.x < side_dist.y) {
-        side_dist.x += delta_dist.x;
-        map_pos.x += step.x;
-        side = 0;
-      } else {
-        side_dist.y += delta_dist.y;
-        map_pos.y += step.y;
-        side = 1;
-      }
-    }
-
-    double perpWallDist;
-    if (side == 0)
-      perpWallDist = (map_pos.x - cam->pos.x + (1 - step.x) / 2) / ray_dir.x;
-    else
-      perpWallDist = (map_pos.y - cam->pos.y + (1 - step.y) / 2) / ray_dir.y;
+    double perpWallDist =
+        dda__perpendicular_dist_to_closest_grid(&step, cam, &map_pos, &ray_dir);
 
     // Calculate HEIGHT of line to draw on screen
     int lineHeight = (int)(HEIGHT / perpWallDist);
@@ -98,7 +43,7 @@ void renderer__raycast(t_renderer *e, t_camera *cam) {
         drawEnd = HEIGHT - 1;
       int color = get_color(map_pos.y, map_pos.x);
 
-      if (side == 1)
+      if (step.is_hit_y_side)
         color = color / 2;
 
       for (int y = drawStart; y < drawEnd; y++)

@@ -11,8 +11,8 @@ void engine__refresh(t_engine *this) {
 int engine__loop(t_engine *this) {
   if (inputhandler__is_movement(&this->inputhandler)) {
     engine__refresh(this);
+    engine__move_player(this);
   }
-  engine__move_player(this);
   return (0);
 }
 

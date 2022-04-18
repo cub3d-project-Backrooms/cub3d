@@ -41,18 +41,19 @@ typedef enum e_config {
 } t_config;
 
 typedef enum e_direction { UP, DOWN, LEFT, RIGHT } t_direction;
-typedef enum e_sign { PLUS = 1, MINUS = -1 } t_sign;
+typedef enum e_sign { POSITIVE = 1, NEGATIVE = -1 } t_sign;
+typedef struct s_step {
+  t_sign x_sign;
+  t_sign y_sign;
+  t_vec side_dist;
+  bool is_hit_y_side;
+} t_dda__step;
 
 typedef struct s_renderer {
   t_mlx__ref mlx;
   t_mlx__window_ref window;
   t_image buffer_window;
-  // t_camera camera;
   int buf[HEIGHT][WIDTH];
-  // double moveSpeed;
-  // double rotSpeed;
-  // t_inputhandler__keyinfo keyinfo;
 } t_renderer;
 
 #endif
-

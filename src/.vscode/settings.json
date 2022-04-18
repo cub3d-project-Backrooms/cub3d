@@ -24,5 +24,4 @@
     "*.lalrpop": "rust",
     "ios": "c"
   },
-  "C_Cpp.clang_format_style": "LLVM"
 }

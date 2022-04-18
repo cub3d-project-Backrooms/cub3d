@@ -13,7 +13,7 @@ void	clear_grid(int grid[HEIGHT][WIDTH]);
 /*
 ** < init.c > */
 
-void	engine__init(t_engine *this, t_camera camera);
+void	engine__init(t_engine *this);
 /*
 ** < keyinput.c > */
 

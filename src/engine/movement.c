@@ -22,8 +22,8 @@ static void engine__try_move_player(t_engine *e, t_sign x_sign, t_sign y_sign) {
 
 // both camera direction and camera plane must be rotated
 static void engine__rotate_player(t_engine *e, t_sign sign) {
-  e->camera.dir = vec__rotate(&e->camera.dir, -1 * sign * e->rotSpeed);
-  e->camera.plane = vec__rotate(&e->camera.plane, -1 * sign * e->rotSpeed);
+  vec__rotate_assign(&e->camera.dir, -1 * sign * e->rotSpeed);
+  vec__rotate_assign(&e->camera.plane, -1 * sign * e->rotSpeed);
 }
 
 void engine__move_player(t_engine *e) {
@@ -34,7 +34,7 @@ void engine__move_player(t_engine *e) {
   if (keyinfo.is_down_pressed)
     engine__try_move_player(e, -1, -1);
   if (keyinfo.is_right_pressed)
-    engine__rotate_player(e, PLUS);
+    engine__rotate_player(e, POSITIVE);
   if (keyinfo.is_left_pressed)
-    engine__rotate_player(e, MINUS);
+    engine__rotate_player(e, NEGATIVE);
 }
