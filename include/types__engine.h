@@ -1,34 +1,39 @@
-#ifndef TYPES__ENGINE_H
-#define TYPES__ENGINE_H
+#ifndef __TYPES__ENGINE_H__
+#define __TYPES__ENGINE_H__
 
-#include "std__types.h"
 #include "std__types__math.h"
-#include "types__graphic.h"
-#include "types__input.h"
-#include "types__platform__keycode.h"
+#include "types__engine.h"
+#include "types__mlx.h"
 
-typedef struct s_config {
-  t_string title;
-  // t_ivec map_size;
-  t_sizevec window_size;
-  double initial_player_move_speed;
-  double initial_player_rot_speed;
+typedef struct s_engine__keyinfo {
+  bool is_up_pressed;
+  bool is_down_pressed;
+  bool is_left_pressed;
+  bool is_right_pressed;
+} t_engine__keyinfo;
+
+typedef enum e_config {
+  mapWidth = 24,
+  mapHeight = 24,
+  WIDTH = 640,
+  HEIGHT = 480,
 } t_config;
 
 typedef struct s_engine {
-  t_mlx__ref mlx;
-  t_mlx__window_ref window;
-  t_image buffer_image;
-  t_config config;
-} t_engine;
-
-typedef struct s_camera {
+  t_vec pos;
   t_vec dir;
   t_vec plane;
-} t_camera;
+  void *mlx;
+  void *win;
+  void *buffer;
+  double moveSpeed;
+  double rotSpeed;
+  t_img img;
+  int buf[HEIGHT][WIDTH];
+  t_engine__keyinfo keyinfo;
+} t_engine;
 
-typedef struct s_map {
-  t_ivec size;
-  int **grid;
-} t_map;
-#endif
+typedef enum e_direction { UP, DOWN, LEFT, RIGHT } t_direction;
+typedef enum e_sign { PLUS = 1, MINUS = -1 } t_sign;
+
+#endif // __TYPES__ENGINE_H__

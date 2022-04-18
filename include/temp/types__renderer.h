@@ -1,5 +1,5 @@
-#ifndef TYPES__GRAPHIC_H
-#define TYPES__GRAPHIC_H
+#ifndef TYPES__RENDERER_H
+#define TYPES__RENDERER_H
 
 #include "mlx.h"
 
@@ -16,5 +16,19 @@ typedef struct s_image {
   int endian;
   t_sizevec size;
 } t_image;
+
+typedef struct s_camera {
+  t_vec pos;
+  t_vec dir;
+  t_vec plane;
+} t_camera;
+
+typedef struct s_renderer {
+  t_mlx__ref mlx;
+  t_mlx__window_ref window;
+  t_sizevec window_size;
+  t_image buffer_image;
+  t_camera camera;
+} t_renderer;
 
 #endif
