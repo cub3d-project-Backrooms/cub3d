@@ -27,6 +27,15 @@ void engine__rotate_player(t_engine* e, double angle) {
   vec__rotate_assign(&e->camera.plane, -1 * angle * e->rotSpeed);
 }
 
+void engine__rotate_player_to_mouse(t_engine* e) {
+  const double dx = e->inputhandler.mouse.x - (WIDTH / 2);
+  double angle = atan(dx);
+  // const double dy = e->inputhandler.mouse.y - e->camera.pos.y;
+  // double angle = atan2(dy, dx);
+  // modify angle
+  engine__rotate_player(e, angle);
+}
+
 void engine__move_player(t_engine* e) {
   t_inputhandler__keyinfo keyinfo = e->inputhandler.keyinfo;
 
@@ -34,6 +43,7 @@ void engine__move_player(t_engine* e) {
     engine__try_move_player(e, 1, 1);
   if (keyinfo.is_down_pressed)
     engine__try_move_player(e, -1, -1);
+  // engine__rotate_player_to_mouse(e);
   if (keyinfo.is_right_pressed)
     engine__rotate_player(e, 1);
   if (keyinfo.is_left_pressed)

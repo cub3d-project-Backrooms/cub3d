@@ -11,7 +11,8 @@ static void engine__init__input(t_engine* this) {
   mlx_hook(this->renderer.window, X11EVENTS__KeyRelease,
            X11MASKS__KeyReleaseMask, &inputhandler__key_release,
            &this->inputhandler);
-  // mlx_mouse_hook(this->renderer.window, &inputhandler__mouse,  &this->inputhandler);
+  // mlx_mouse_hook(this->renderer.window, &inputhandler__mouse,
+  // &this->inputhandler);
   mlx_hook(this->renderer.window, X11EVENTS__DestroyNotify,
            X11MASKS__NoEventMask, &engine__deinit, this);
 }
@@ -34,6 +35,6 @@ void engine__init(t_engine* this) {
   engine__rotate_player(this, M_PI / 2);
   inputhandler__init(&this->inputhandler);
   this->moveSpeed = 0.02;
-  this->rotSpeed = 0.01;
+  this->rotSpeed = 0.015;
   engine__init__input(this);
 }

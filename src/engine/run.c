@@ -32,14 +32,15 @@ char mouse[40];
 int engine__loop(t_engine* this) {
   if (this->inputhandler.keyinfo.is_exit) {
     engine__deinit(this);
-  } else if (inputhandler__is_movement(&this->inputhandler) ||
-             inputhandler__is_mouse_movement(&this->inputhandler)) {
-    engine__refresh(this);
-    engine__move_player(this);
-    sprintf(pos, "X: %f Y: %f", this->camera.pos.x, this->camera.pos.y);
-    sprintf(mouse, "mouse: (%d, %d)", this->inputhandler.mouse.x,
-            this->inputhandler.mouse.y);
   }
+  // else if (inputhandler__is_movement(&this->inputhandler) ||
+  //            inputhandler__is_mouse_movement(&this->inputhandler)) {
+  engine__refresh(this);
+  engine__move_player(this);
+  sprintf(pos, "X: %f Y: %f", this->camera.pos.x, this->camera.pos.y);
+  sprintf(mouse, "mouse: (%d, %d)", this->inputhandler.mouse.x,
+          this->inputhandler.mouse.y);
+  // }
   //
   engine__get_mouse_pos(this);
   //

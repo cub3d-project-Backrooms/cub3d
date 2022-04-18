@@ -23,6 +23,7 @@ int		inputhandler__key_press(t_keycode key, t_inputhandler* this);
 
 void	engine__try_move_player(t_engine* e, double x, double y);
 void	engine__rotate_player(t_engine* e, double angle);
+void	engine__rotate_player_to_mouse(t_engine* e);
 void	engine__move_player(t_engine* e);
 /*
 ** < run.c > */
