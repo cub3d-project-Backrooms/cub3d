@@ -41,5 +41,6 @@ void		renderer__init(t_renderer *this);
 ** < raycast.c > */
 
 t_colors	get_color(int map_y, int map_x);
-void		renderer__raycast(t_renderer* e, t_camera* cam);
+void		renderer__raycast__wall();
+void		renderer__raycast(t_renderer* this, t_camera* cam);
 #endif  // __ENGINE_H__
