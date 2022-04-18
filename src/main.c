@@ -1,14 +1,14 @@
+#include "data.h"
+#include "raycast.h"
+#include "renderer.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "data.h"
-#include "engine.h"
-#include "raycast.h"
 
 const extern int worldMap[24][24];
 
-int main_loop(t_engine* engine) {
+int main_loop(t_renderer *engine) {
   if (is_raycast_refresh(engine->keyinfo)) {
     raycast(engine);
     draw(engine);
@@ -19,7 +19,7 @@ int main_loop(t_engine* engine) {
 }
 
 int main(void) {
-  t_engine engine;
+  t_renderer engine;
   engine.mlx = mlx_init();
 
   engine.pos = (t_vec){12, 5};
@@ -31,9 +31,10 @@ int main(void) {
 
   engine.win = mlx_new_window(engine.mlx, WIDTH, HEIGHT, "mlx");
 
-  engine.img.img = mlx_new_image(engine.mlx, WIDTH, HEIGHT);
-  engine.img.data = (int*)mlx_get_data_addr(
-      engine.img.img, &engine.img.bpp, &engine.img.size_l, &engine.img.endian);
+  engine.image.img_ref = mlx_new_image(engine.mlx, WIDTH, HEIGHT);
+  engine.image.data = (int *)mlx_get_data_addr(
+      engine.image.img_ref, &engine.image.bits_per_pixel,
+      &engine.image.size_line, &engine.image.endian);
 
   mlx_loop_hook(engine.mlx, &main_loop, &engine);
   mlx_hook(engine.win, X11EVENTS__KeyPress, X11MASKS__KeyPressMask, &key_press,

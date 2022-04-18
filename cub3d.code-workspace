@@ -40,7 +40,14 @@
       "*.list": "properties",
       "*.sav": "json",
       "*.lalrpop": "rust",
-      "ios": "c"
+      "**/*.mk": "makefile",
+      "ios": "c",
+      "array": "c",
+      "string": "c",
+      "string_view": "c",
+      "ranges": "c",
+      "vector": "c",
+      "__config": "c"
     }
   }
 }

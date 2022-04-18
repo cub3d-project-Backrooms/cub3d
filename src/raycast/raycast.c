@@ -1,7 +1,7 @@
-#include <math.h>
-#include "engine.h"
+#include "renderer.h"
 #include "types__color.h"
-#include "types__engine.h"
+#include "types__renderer.h"
+#include <math.h>
 
 const extern int worldMap[24][24];
 
@@ -20,11 +20,11 @@ t_colors get_color(int map_y, int map_x) {
   return colors[index];
 }
 
-bool is_ray_hit_wall(const t_ivec* pos) {
+bool is_ray_hit_wall(const t_ivec *pos) {
   return (worldMap[pos->x][pos->y] > 0);
 }
 
-void raycast(t_engine* e) {
+void raycast(t_renderer *e) {
   clear_grid(e->buf);
 
   for (int x = 0; x < WIDTH; x++) {
@@ -43,7 +43,7 @@ void raycast(t_engine* e) {
     // what direction to step in x or y-direction (either +1 or -1)
     t_ivec step;
 
-    int side;  // was a NS or a EW wall hit?
+    int side; // was a NS or a EW wall hit?
 
     if (ray_dir.x < 0) {
       step.x = -1;

@@ -1,15 +1,15 @@
-#include "engine.h"
-#include "mlx_linux/mlx.h"
+#include "mlx.h"
+#include "renderer.h"
 
 const extern int worldMap[24][24];
 
-void draw(t_engine* info) {
+void draw(t_renderer *info) {
   for (int y = 0; y < HEIGHT; y++)
     for (int x = 0; x < WIDTH; x++)
-      info->img.data[y * WIDTH + x] =
-          info->buf[y][x];  // NOTE: for some reason its WIDTH?
+      info->image.data[y * WIDTH + x] =
+          info->buf[y][x]; // NOTE: for some reason its WIDTH?
 
-  mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
+  mlx_put_image_to_window(info->mlx, info->win, info->image.img_ref, 0, 0);
 }
 
 void clear_grid(int grid[HEIGHT][WIDTH]) {

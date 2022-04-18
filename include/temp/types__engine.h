@@ -28,9 +28,9 @@ typedef struct s_map {
   t_tile__type **grid;
 } t_map;
 
-typedef struct s_engine {
-  t_renderer renderer;
-  t_map map;
-} t_engine;
+// typedef struct s_engine {
+//   t_renderer renderer;
+//   t_map map;
+// } t_renderer;
 
 #endif
