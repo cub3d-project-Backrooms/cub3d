@@ -1,3 +1,5 @@
+#include "renderer.h"
+
 int worldMap[24][24] = {
     {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 7, 7, 7, 7, 7, 7, 7},
     {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 7},
@@ -23,3 +25,36 @@ int worldMap[24][24] = {
     {4, 0, 6, 0, 6, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 5, 0, 0, 2, 0, 0, 0, 2},
     {4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 0, 6, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2},
     {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3}};
+
+int texture[8][texHeight * texWidth];
+
+void init_texture() {
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < texHeight * texWidth; j++) {
+      texture[i][j] = 0;
+    }
+  }
+
+  for (int x = 0; x < texWidth; x++) {
+    for (int y = 0; y < texHeight; y++) {
+      int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+      int ycolor = y * 256 / texHeight;
+      int xycolor = y * 128 / texHeight + x * 128 / texWidth;
+      texture[0][texWidth * y + x] =
+          65536 * 254 *
+          (x != y && x != texWidth - y);  // flat red texture with black cross
+      texture[1][texWidth * y + x] =
+          xycolor + 256 * xycolor + 65536 * xycolor;  // sloped greyscale
+      texture[2][texWidth * y + x] =
+          256 * xycolor + 65536 * xycolor;  // sloped yellow gradient
+      texture[3][texWidth * y + x] =
+          xorcolor + 256 * xorcolor + 65536 * xorcolor;  // xor greyscale
+      texture[4][texWidth * y + x] = 256 * xorcolor;     // xor green
+      texture[5][texWidth * y + x] =
+          65536 * 192 * (x % 16 && y % 16);           // red bricks
+      texture[6][texWidth * y + x] = 65536 * ycolor;  // red gradient
+      texture[7][texWidth * y + x] =
+          128 + 256 * 128 + 65536 * 128;  // flat grey texture
+    }
+  }
+}

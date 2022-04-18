@@ -1,12 +1,15 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <stdbool.h>
 #include "mlx.h"
 #include "types__color.h"
 #include "types__platform__keycode.h"
 #include "types__renderer.h"
 #include "types__x11_events.h"
-#include <stdbool.h>
+
+#define texWidth 64
+#define texHeight 64
 
 // clang-format off
 //@func
@@ -51,6 +54,10 @@ void		renderer__init(t_renderer *this);
 void		renderer__draw_minimap_at(t_renderer* this, t_ivec player_pos,
 				t_irange x_range, t_irange y_range);
 void		renderer__draw_minimap(t_renderer* this, t_camera* camera);
+/*
+** < raw_data.c > */
+
+void		init_texture();
 /*
 ** < raycast.c > */
 
