@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "inputhandler.h"
 #include "mlx.h"
 #include "std__system.h"
 
@@ -14,4 +15,5 @@ void engine__init__mlx(t_engine *engine) {
 void engine__init(t_engine *engine, t_config config) {
   engine->config = config;
   engine__init__mlx(engine);
+  engine->inputhandler = inputhandler__init();
 }

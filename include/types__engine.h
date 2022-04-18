@@ -21,6 +21,7 @@ typedef struct s_engine {
   t_mlx__window_ref window;
   int **buffer;
   t_config config;
+  t_inputhandler inputhandler;
 } t_engine;
 
 typedef struct s_camera {
