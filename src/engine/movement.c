@@ -1,3 +1,4 @@
+#include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
 #include <math.h>
@@ -26,14 +27,16 @@ static void engine__rotate_player(t_renderer *e, t_sign sign) {
   e->camera.plane = vec__rotate(&e->camera.plane, -1 * sign * e->rotSpeed);
 }
 
-void engine__move_player(t_renderer *e) {
-  t_engine__keyinfo keyinfo = e->keyinfo;
+void engine__move_player(t_engine *e) {
+  t_inputhandler__keyinfo keyinfo = e->inputhandler.keyinfo;
+  t_renderer *renderer = &e->renderer;
+
   if (keyinfo.is_up_pressed)
-    engine__try_move_player(e, 1, 1);
+    engine__try_move_player(renderer, 1, 1);
   if (keyinfo.is_down_pressed)
-    engine__try_move_player(e, -1, -1);
+    engine__try_move_player(renderer, -1, -1);
   if (keyinfo.is_right_pressed)
-    engine__rotate_player(e, PLUS);
+    engine__rotate_player(renderer, PLUS);
   if (keyinfo.is_left_pressed)
-    engine__rotate_player(e, MINUS);
+    engine__rotate_player(renderer, MINUS);
 }

@@ -16,7 +16,7 @@ void renderer__init(t_renderer *this, t_camera camera) {
       this->buffer_window.img_ref, &this->buffer_window.bits_per_pixel,
       &this->buffer_window.size_line, &this->buffer_window.endian);
   this->camera = camera;
-  this->moveSpeed = 0.0225;
+  this->moveSpeed = 0.01;
   this->rotSpeed = 0.01;
-  this->keyinfo = (t_engine__keyinfo){false, false, false, false};
+  // this->keyinfo = (t_inputhandler__keyinfo){false, false, false, false};
 }

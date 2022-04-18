@@ -18,7 +18,7 @@ void		renderer__init(t_renderer *this, t_camera camera);
 /*
 ** < raycast.c > */
 
-bool		is_raycast_refresh(t_engine__keyinfo keyinfo);
+bool		is_raycast_refresh(t_inputhandler__keyinfo keyinfo);
 t_colors	get_color(int map_y, int map_x);
 bool		is_ray_hit_wall(const t_ivec *pos);
 t_vec		camera__cast_ray(t_camera *this, double x);

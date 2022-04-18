@@ -6,7 +6,7 @@
 
 const extern int worldMap[24][24];
 
-bool is_raycast_refresh(t_engine__keyinfo keyinfo) {
+bool is_raycast_refresh(t_inputhandler__keyinfo keyinfo) {
   return (keyinfo.is_up_pressed || keyinfo.is_down_pressed ||
           keyinfo.is_left_pressed || keyinfo.is_right_pressed);
 }

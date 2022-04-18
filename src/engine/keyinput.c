@@ -1,8 +1,9 @@
+#include "engine.h"
 #include "renderer.h"
 #include <stdlib.h>
 
 // FIXME: implement key library
-int key_release(t_keycode key, t_renderer *this) {
+int key_release(t_keycode key, t_inputhandler *this) {
   if (key == KEY_W)
     this->keyinfo.is_up_pressed = false;
   if (key == KEY_S)
@@ -14,7 +15,7 @@ int key_release(t_keycode key, t_renderer *this) {
   return 0;
 }
 
-int key_press(t_keycode key, t_renderer *this) {
+int key_press(t_keycode key, t_inputhandler *this) {
   if (key == KEY_W)
     this->keyinfo.is_up_pressed = true;
   if (key == KEY_S)
