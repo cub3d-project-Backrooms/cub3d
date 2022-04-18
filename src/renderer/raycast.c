@@ -77,9 +77,11 @@ void renderer__raycast__floor(t_renderer* this, t_camera* camera) {
       floorX += floorStepX;
       floorY += floorStepY;
 
+      bool checkerboard = ((int)floorX + (int)floorY) % 2;
+
       // choose texture and draw the pixel
-      int floorTexture = 6;
-      int ceilingTexture = 6;
+      int floorTexture = checkerboard ? 6 : 1;
+      int ceilingTexture = checkerboard ? 3 : 5;
 
       int color;
 
