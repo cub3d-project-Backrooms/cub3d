@@ -1,9 +1,8 @@
-#include <assert.h>
 #include <math.h>
-#include <stdio.h>
 #include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
+
 const extern int worldMap[24][24];
 extern int texture[8][texHeight * texWidth];
 
@@ -79,10 +78,6 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, int x) {
       int texY = (int)texPos & (texHeight - 1);
       texPos += step_val;
 
-      if (!(texnum < 8))
-        printf("texnum is %d??????\n", texnum);
-      assert(texnum < 8);
-      assert(texHeight * texY + texX < texHeight * texWidth);
       int color = texture[texnum][texHeight * texY + texX];
       // make color darker for y-sides: R, G and B byte each divided through
       // with a "shift" and an "and"

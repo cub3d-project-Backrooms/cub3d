@@ -48,7 +48,9 @@
       "ranges": "c",
       "vector": "c",
       "__config": "c",
-      "locale": "c"
+      "locale": "c",
+      "random": "c",
+      "__locale": "c"
     }
   }
 }

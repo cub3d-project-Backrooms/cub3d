@@ -6,14 +6,14 @@
 #include "std__types__math.h"
 #include "types__platform__keycode.h"
 
-typedef void *t_mlx__ref;
-typedef void *t_mlx__window_ref;
-typedef void *t_mlx__image_ref;
+typedef void* t_mlx__ref;
+typedef void* t_mlx__window_ref;
+typedef void* t_mlx__image_ref;
 
 typedef struct s_image {
   t_mlx__image_ref img_ref;
   t_mlx__ref mlx_ref;
-  int *data;
+  int* data;
   int bits_per_pixel;
   int size_line;
   int endian;
@@ -31,6 +31,7 @@ typedef struct s_inputhandler__keyinfo {
   bool is_down_pressed;
   bool is_left_pressed;
   bool is_right_pressed;
+  bool is_exit;
 } t_inputhandler__keyinfo;
 
 typedef enum e_config {

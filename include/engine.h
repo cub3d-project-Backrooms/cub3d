@@ -8,14 +8,15 @@
 /*
 ** < init.c > */
 
+int		engine__deinit(t_engine* this);
 void	engine__init(t_engine* this);
 /*
 ** < keyinput.c > */
 
-void	inputhandler__init(t_inputhandler *this);
-bool	inputhandler__is_movement(t_inputhandler *this);
-int		inputhandler__key_release(t_keycode key, t_inputhandler *this);
-int		inputhandler__key_press(t_keycode key, t_inputhandler *this);
+void	inputhandler__init(t_inputhandler* this);
+bool	inputhandler__is_movement(t_inputhandler* this);
+int		inputhandler__key_release(t_keycode key, t_inputhandler* this);
+int		inputhandler__key_press(t_keycode key, t_inputhandler* this);
 /*
 ** < movement.c > */
 

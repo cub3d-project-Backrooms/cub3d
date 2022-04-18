@@ -17,19 +17,16 @@ void engine__refresh(t_engine* this) {
 char pos[40];
 
 int engine__loop(t_engine* this) {
-  // oldtime = nowtime;
-  // nowtime = time(NULL);
-  if (inputhandler__is_movement(&this->inputhandler)) {
+  if (this->inputhandler.keyinfo.is_exit) {
+    engine__deinit(this);
+  } else if (inputhandler__is_movement(&this->inputhandler)) {
     engine__refresh(this);
     engine__move_player(this);
   }
+
   sprintf(pos, "X: %f Y: %f", this->camera.pos.x, this->camera.pos.y);
-  mlx_string_put(this->renderer.mlx, this->renderer.window, 5, 68, 0xFFFFFF,
-                 pos);
-  // double frametime = difftime(nowtime, oldtime);
-  // sprintf(fps, "FPS: %.10f", 1.0 / frametime);
-  // mlx_string_put(this->renderer.mlx, this->renderer.window, 10, 10, 0xFFFFFF,
-  //                fps);
+  mlx_string_put(this->renderer.mlx, this->renderer.window, 0, 96 + 13,
+                 0xFFFFFF, pos);
   return (0);
 }
 

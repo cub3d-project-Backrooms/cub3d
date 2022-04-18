@@ -36,6 +36,10 @@ bool		dda__is_ray_hit_wall(const t_ivec* pos);
 void		dda__advance_step_until_hit(t_dda__step* step, t_ivec* map_pos,
 				t_vec* delta_dist);
 /*
+** < deinit.c > */
+
+void		renderer__deinit(t_renderer* this);
+/*
 ** < draw.c > */
 
 void		renderer__draw_to_window(t_renderer* info);
