@@ -65,6 +65,8 @@ void renderer__init_texture(t_renderer* r) {
   load_image(r, texture[10], "asset/greenlight.xpm", &img);
 }
 
+int spriteOrder[numSprites];
+double spriteDistance[numSprites];
 t_entity sprite[numSprites] = {
     // green light in front of playerstart
     (t_entity){{20.5, 11.5}, 10},
@@ -93,3 +95,41 @@ t_entity sprite[numSprites] = {
     (t_entity){{10.0, 15.1}, 8},
     (t_entity){{10.5, 15.8}, 8},
 };
+
+void sort_order(t_pair* orders, int amount) {
+  t_pair tmp;
+
+  for (int i = 0; i < amount; i++) {
+    for (int j = 0; j < amount - 1; j++) {
+      if (orders[j].first > orders[j + 1].first) {
+        tmp.first = orders[j].first;
+        tmp.second = orders[j].second;
+        orders[j].first = orders[j + 1].first;
+        orders[j].second = orders[j + 1].second;
+        orders[j + 1].first = tmp.first;
+        orders[j + 1].second = tmp.second;
+      }
+    }
+  }
+}
+
+#include <stdlib.h>
+#include "std__system.h"
+void sortSprites(int* order, double* dist, int amount) {
+  t_pair* sprites;
+
+  // std::vector<std::pair<double, int>> sprites(amount);
+  sprites = std__allocate(amount, sizeof(t_pair));
+  // sprites = malloc(sizeof(t_pair) * amount);
+  for (int i = 0; i < amount; i++) {
+    sprites[i].first = dist[i];
+    sprites[i].second = order[i];
+  }
+  sort_order(sprites, amount);
+  // std::sort(sprites.begin(), sprites.end());
+  for (int i = 0; i < amount; i++) {
+    dist[i] = sprites[amount - i - 1].first;
+    order[i] = sprites[amount - i - 1].second;
+  }
+  free(sprites);
+}

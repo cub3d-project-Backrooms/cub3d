@@ -59,4 +59,8 @@ typedef struct s_renderer {
   int buf[HEIGHT][WIDTH];
 } t_renderer;
 
+typedef struct s_pair {
+  double first;
+  int second;
+} t_pair;
 #endif

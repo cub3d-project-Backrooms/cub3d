@@ -2,7 +2,7 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
-
+#include "types__entity.h"
 const extern int worldMap[24][24];
 extern int texture[8][texHeight * texWidth];
 
@@ -56,28 +56,28 @@ void renderer__raycast__floor(t_renderer* this, t_camera* camera) {
     // calculate the real world step vector we have to add for each x (parallel
     // to camera plane) adding step by step avoids multiplications with a weight
     // in the inner loop
-    float floorStepX = rowDistance * (ray_dir1.x - ray_dir0.x) / WIDTH;
-    float floorStepY = rowDistance * (ray_dir1.y - ray_dir0.y) / WIDTH;
+    float floorStepx = rowDistance * (ray_dir1.x - ray_dir0.x) / WIDTH;
+    float floorStepy = rowDistance * (ray_dir1.y - ray_dir0.y) / WIDTH;
 
     // real world coordinates of the leftmost column. This will be updated as we
     // step to the right.
-    float floorX = camera->pos.x + rowDistance * ray_dir0.x;
-    float floorY = camera->pos.y + rowDistance * ray_dir0.y;
+    float floorx = camera->pos.x + rowDistance * ray_dir0.x;
+    float floory = camera->pos.y + rowDistance * ray_dir0.y;
 
     for (int x = 0; x < WIDTH; ++x) {
-      // the cell coord is simply got from the integer parts of floorX and
-      // floorY
-      int cellX = (int)(floorX);
-      int cellY = (int)(floorY);
+      // the cell coord is simply got from the integer parts of floorx and
+      // floory
+      int cellx = (int)(floorx);
+      int celly = (int)(floory);
 
       // get the texture coordinate from the fractional part
-      int tx = (int)(texWidth * (floorX - cellX)) & (texWidth - 1);
-      int ty = (int)(texHeight * (floorY - cellY)) & (texHeight - 1);
+      int tx = (int)(texWidth * (floorx - cellx)) & (texWidth - 1);
+      int ty = (int)(texHeight * (floory - celly)) & (texHeight - 1);
 
-      floorX += floorStepX;
-      floorY += floorStepY;
+      floorx += floorStepx;
+      floory += floorStepy;
 
-      bool checkerboard = ((int)floorX + (int)floorY) % 2;
+      bool checkerboard = ((int)floorx + (int)floory) % 2;
 
       // choose texture and draw the pixel
       int floorTexture = checkerboard ? 6 : 1;
@@ -100,7 +100,9 @@ void renderer__raycast__floor(t_renderer* this, t_camera* camera) {
   }
 }
 
-void renderer__raycast__wall(t_renderer* this, t_camera* camera) {
+void renderer__raycast__wall(t_renderer* this,
+                             t_camera* camera,
+                             double zbuffer[WIDTH]) {
   for (int x = 0; x < WIDTH; x++) {
     double camera_x = dda__normalized_plane_x(x);
     t_vec ray_dir = camera__ray_dir_at_position(camera, camera_x);
@@ -112,6 +114,7 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera) {
 
     double perpWallDist = dda__perpendicular_dist_to_closest_grid(
         &step, camera, &map_pos, &ray_dir);
+    zbuffer[x] = perpWallDist;
 
     int lineheight = (int)(HEIGHT / perpWallDist * 1);
     // int color = get_color(&map_pos, step.is_hit_y_side);
@@ -121,20 +124,20 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera) {
       int draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
 
       int texnum = worldMap[map_pos.x][map_pos.y] - 1;
-      // calculate value of wallX
-      double wallX;  // where exactly the wall was hit
+      // calculate value of wallx
+      double wallx;  // where exactly the wall was hit
       if (step.is_hit_y_side == 0)
-        wallX = camera->pos.y + perpWallDist * ray_dir.y;
+        wallx = camera->pos.y + perpWallDist * ray_dir.y;
       else
-        wallX = camera->pos.x + perpWallDist * ray_dir.x;
-      wallX -= floor(wallX);
+        wallx = camera->pos.x + perpWallDist * ray_dir.x;
+      wallx -= floor(wallx);
 
       // x coordinate on the texture
-      int texX = (int)(wallX * (double)texWidth);
+      int texx = (int)(wallx * (double)texWidth);
       if (step.is_hit_y_side == 0 && ray_dir.x > 0)
-        texX = texWidth - texX - 1;
+        texx = texWidth - texx - 1;
       if (step.is_hit_y_side == 1 && ray_dir.y < 0)
-        texX = texWidth - texX - 1;
+        texx = texWidth - texx - 1;
       // How much to increase the texture coordinate per screen pixel
       double step_val = 1.0 * texHeight / lineheight;
       // Starting texture coordinate
@@ -143,10 +146,10 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera) {
       for (int y = draw_start; y < draw_end; y++) {
         // Cast the texture coordinate to integer, and mask with (texHeight - 1)
         // in case of overflow
-        int texY = (int)texPos & (texHeight - 1);
+        int texy = (int)texPos & (texHeight - 1);
         texPos += step_val;
 
-        int color = texture[texnum][texHeight * texY + texX];
+        int color = texture[texnum][texHeight * texy + texx];
         // make color darker for y-sides: R, G and B byte each divided through
         // with a "shift" and an "and"
         if (step.is_hit_y_side)
@@ -157,7 +160,110 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera) {
   }
 }
 
+extern int spriteOrder[numSprites];
+extern double spriteDistance[numSprites];
+extern t_entity sprite[numSprites];
+
+void renderer__raycast__sprite(t_renderer* this,
+                               t_camera* camera,
+                               double zbuffer[WIDTH]) {
+  // SPRITE CASTING
+  // sort sprites from far to close
+  for (int i = 0; i < numSprites; i++) {
+    spriteOrder[i] = i;
+    spriteDistance[i] =
+        ((camera->pos.x - sprite[i].pos.x) * (camera->pos.x - sprite[i].pos.x) +
+         (camera->pos.y - sprite[i].pos.y) *
+             (camera->pos.y - sprite[i].pos.y));  // sqrt not taken, unneeded
+  }
+  sortSprites(spriteOrder, spriteDistance, numSprites);
+  // after sorting the sprites, do the projection and draw them
+  for (int i = 0; i < numSprites; i++) {
+    // translate sprite position to relative to camera
+    double spritex = sprite[spriteOrder[i]].pos.x - camera->pos.x;
+    double spritey = sprite[spriteOrder[i]].pos.y - camera->pos.y;
+
+    /**
+     * transform sprite with the inverse camera matrix
+     *  [ planex dirx ] -1                                   [ diry      -dirx ]
+     *  [             ]     =  1/(planex*diry-dirx*planey) * [                 ]
+     *  [ planey diry ]                                      [ -planey  planex ]
+     */
+    // required for correct matrix multiplication
+    double invDet = 1.0 / (camera->plane.x * camera->dir.y -
+                           camera->dir.x * camera->plane.y);
+
+    double transformx =
+        invDet * (camera->dir.y * spritex - camera->dir.x * spritey);
+    double transformy =
+        invDet *
+        (-camera->plane.y * spritex +
+         camera->plane.x *
+             spritey);  // this is actually the depth inside the screen, that
+                        // what Z is in 3D, the distance of sprite to player,
+                        // matching sqrt(spriteDistance[i])
+
+    int spriteScreenx = (int)((WIDTH / 2) * (1 + transformx / transformy));
+
+// parameters for scaling and moving the sprites
+#define uDiv 1
+#define vDiv 1
+#define vMove 0.0
+    int vMoveScreen = (int)(vMove / transformy);
+
+    // calculate height of the sprite on screen
+    int spriteHeight = (int)fabs((HEIGHT / transformy) /
+                                 vDiv);  // using "transformy" instead of the
+                                         // real distance prevents fisheye
+    // calculate lowest and highest pixel to fill in current stripe
+    int drawStarty = -spriteHeight / 2 + HEIGHT / 2 + vMoveScreen;
+    if (drawStarty < 0)
+      drawStarty = 0;
+    int drawEndy = spriteHeight / 2 + HEIGHT / 2 + vMoveScreen;
+    if (drawEndy >= HEIGHT)
+      drawEndy = HEIGHT - 1;
+
+    // calculate width of the sprite
+    int spriteWidth = (int)fabs((HEIGHT / transformy) / uDiv);
+    int drawStartx = -spriteWidth / 2 + spriteScreenx;
+    if (drawStartx < 0)
+      drawStartx = 0;
+    int drawEndx = spriteWidth / 2 + spriteScreenx;
+    if (drawEndx >= WIDTH)
+      drawEndx = WIDTH - 1;
+
+    // loop through every vertical stripe of the sprite on screen
+    for (int stripe = drawStartx; stripe < drawEndx; stripe++) {
+      int texx = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenx)) *
+                        texWidth / spriteWidth) /
+                       256);
+      // the conditions in the if are:
+      // 1) it's in front of camera plane so you don't see things behind you
+      // 2) it's on the screen (left)
+      // 3) it's on the screen (right)
+      // 4) ZBuffer, with perpendicular distance
+      if (transformy > 0 && stripe > 0 && stripe < WIDTH &&
+          transformy < zbuffer[stripe])
+        for (int y = drawStarty; y < drawEndy;
+             y++)  // for every pixel of the current stripe
+        {
+          int d = (y - vMoveScreen) * 256 - HEIGHT * 128 +
+                  spriteHeight * 128;  // 256 and 128 factors to avoid floats
+          int texy = ((d * texHeight) / spriteHeight) / 256;
+          int color = texture[sprite[spriteOrder[i]].texture]
+                             [texWidth * texy +
+                              texx];  // get current color from the texture
+          if ((color & 0x00FFFFFF) != 0)
+            this->buf[y][stripe] = color;  // paint pixel if it isn't black,
+                                           // black is the invisible color
+        }
+    }
+  }
+}
+
 void renderer__raycast(t_renderer* this, t_camera* camera) {
+  double zBuffer[WIDTH];
   renderer__raycast__floor(this, camera);
-  renderer__raycast__wall(this, camera);
+  renderer__raycast__wall(this, camera, zBuffer);
+  renderer__raycast__sprite(this, camera, zBuffer);
 }
