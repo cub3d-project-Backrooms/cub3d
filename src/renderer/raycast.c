@@ -1,8 +1,9 @@
+#include <assert.h>
 #include <math.h>
+#include <stdio.h>
 #include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
-
 const extern int worldMap[24][24];
 extern int texture[8][texHeight * texWidth];
 
@@ -15,7 +16,8 @@ t_colors get_color(t_ivec* map, bool is_hit_y_side) {
 
   if (index > 4)
     result = colors[0];
-  result = colors[index];
+  else
+    result = colors[index];
   if (is_hit_y_side)
     result /= 2;
   return result;
@@ -51,13 +53,13 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, int x) {
     int draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
     int draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
 
-    int texnum = worldMap[map_pos.y][map_pos.x];
+    int texnum = worldMap[map_pos.x][map_pos.y] - 1;
     // calculate value of wallX
     double wallX;  // where exactly the wall was hit
-    if (step.is_hit_y_side)
-      wallX = camera->pos.x + perpWallDist * ray_dir.x;
-    else
+    if (step.is_hit_y_side == 0)
       wallX = camera->pos.y + perpWallDist * ray_dir.y;
+    else
+      wallX = camera->pos.x + perpWallDist * ray_dir.x;
     wallX -= floor(wallX);
 
     // x coordinate on the texture
@@ -76,7 +78,12 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, int x) {
       // in case of overflow
       int texY = (int)texPos & (texHeight - 1);
       texPos += step_val;
-      t_u32 color = texture[texnum][texHeight * texY + texX];
+
+      if (!(texnum < 8))
+        printf("texnum is %d??????\n", texnum);
+      assert(texnum < 8);
+      assert(texHeight * texY + texX < texHeight * texWidth);
+      int color = texture[texnum][texHeight * texY + texX];
       // make color darker for y-sides: R, G and B byte each divided through
       // with a "shift" and an "and"
       if (step.is_hit_y_side)
