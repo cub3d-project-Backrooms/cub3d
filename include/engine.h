@@ -28,7 +28,7 @@ void	engine__move_player(t_engine *e);
 /*
 ** < run.c > */
 
-void	engine__refresh(t_engine *this);
-int		engine__loop(t_engine *this);
-void	engine__run(t_engine *this);
+void	engine__refresh(t_engine* this);
+int		engine__loop(t_engine* this);
+void	engine__run(t_engine* this);
 #endif

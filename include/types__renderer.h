@@ -36,6 +36,8 @@ typedef struct s_inputhandler__keyinfo {
 typedef enum e_config {
   mapWidth = 24,
   mapHeight = 24,
+  // WIDTH = 1920,
+  // HEIGHT = 1080,
   WIDTH = 640,
   HEIGHT = 480,
 } t_config;
