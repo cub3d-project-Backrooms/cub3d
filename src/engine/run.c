@@ -4,12 +4,12 @@
 #include <stdio.h>
 
 void engine__refresh(t_engine *this) {
-  raycast(&this->renderer, &this->camera);
-  draw(&this->renderer);
+  renderer__raycast(&this->renderer, &this->camera);
+  renderer__draw(&this->renderer);
 }
 
 int engine__loop(t_engine *this) {
-  if (is_raycast_refresh(this->inputhandler.keyinfo)) {
+  if (inputhandler__is_movement(&this->inputhandler)) {
     engine__refresh(this);
   }
   engine__move_player(this);
@@ -17,7 +17,7 @@ int engine__loop(t_engine *this) {
 }
 
 void engine__run(t_engine *this) {
-  engine__refresh(this);
   mlx_loop_hook(this->renderer.mlx, &engine__loop, this);
+  engine__refresh(this);
   mlx_loop(this->renderer.mlx);
 }

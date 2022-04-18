@@ -6,11 +6,6 @@
 
 const extern int worldMap[24][24];
 
-bool is_raycast_refresh(t_inputhandler__keyinfo keyinfo) {
-  return (keyinfo.is_up_pressed || keyinfo.is_down_pressed ||
-          keyinfo.is_left_pressed || keyinfo.is_right_pressed);
-}
-
 t_colors get_color(int map_y, int map_x) {
   const t_colors colors[] = {
       COLOR__YELLOW, COLOR__RED, COLOR__GREEN, COLOR__BLUE, COLOR__WHITE,
@@ -39,7 +34,7 @@ t_vec raycast__dist_to_next_closest_wall(t_vec ray_dir) {
   return (t_vec){fabs(1 / ray_dir.x), fabs(1 / ray_dir.y)};
 }
 
-void raycast(t_renderer *e, t_camera *cam) {
+void renderer__raycast(t_renderer *e, t_camera *cam) {
   clear_grid(e->buf);
 
   for (int x = 0; x < WIDTH; x++) {
@@ -94,19 +89,20 @@ void raycast(t_renderer *e, t_camera *cam) {
     int lineHeight = (int)(HEIGHT / perpWallDist);
 
     // calculate lowest and highest pixel to fill in current stripe
-    int drawStart = -lineHeight / 2 + HEIGHT / 2;
-    if (drawStart < 0)
-      drawStart = 0;
-    int drawEnd = lineHeight / 2 + HEIGHT / 2;
-    if (drawEnd >= HEIGHT)
-      drawEnd = HEIGHT - 1;
+    {
+      int drawStart = -lineHeight / 2 + HEIGHT / 2;
+      if (drawStart < 0)
+        drawStart = 0;
+      int drawEnd = lineHeight / 2 + HEIGHT / 2;
+      if (drawEnd >= HEIGHT)
+        drawEnd = HEIGHT - 1;
+      int color = get_color(map_pos.y, map_pos.x);
 
-    int color = get_color(map_pos.y, map_pos.x);
+      if (side == 1)
+        color = color / 2;
 
-    if (side == 1)
-      color = color / 2;
-
-    for (int y = drawStart; y < drawEnd; y++)
-      e->buf[y][x] = color;
+      for (int y = drawStart; y < drawEnd; y++)
+        e->buf[y][x] = color;
+    }
   }
 }

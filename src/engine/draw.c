@@ -13,7 +13,7 @@ const extern int worldMap[24][24];
  *
  * @param info
  */
-void draw(t_renderer *info) {
+void renderer__draw(t_renderer *info) {
   for (int y = 0; y < HEIGHT; y++)
     for (int x = 0; x < WIDTH; x++)
       info->buffer_window.data[y * WIDTH + x] = info->buf[y][x];

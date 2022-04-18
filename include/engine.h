@@ -8,7 +8,7 @@
 /*
 ** < draw.c > */
 
-void	draw(t_renderer *info);
+void	renderer__draw(t_renderer *info);
 void	clear_grid(int grid[HEIGHT][WIDTH]);
 /*
 ** < init.c > */
@@ -17,8 +17,10 @@ void	engine__init(t_engine *this, t_camera camera);
 /*
 ** < keyinput.c > */
 
-int		key_release(t_keycode key, t_inputhandler *this);
-int		key_press(t_keycode key, t_inputhandler *this);
+void	inputhandler__init(t_inputhandler *this);
+bool	inputhandler__is_movement(t_inputhandler *this);
+int		inputhandler__key_release(t_keycode key, t_inputhandler *this);
+int		inputhandler__key_press(t_keycode key, t_inputhandler *this);
 /*
 ** < movement.c > */
 
