@@ -1,5 +1,5 @@
-#ifndef TYPES__INPUT_H
-#define TYPES__INPUT_H
+#ifndef TYPES__INPUTHANDLER_H
+#define TYPES__INPUTHANDLER_H
 
 #include "types__platform__keycode.h"
 
@@ -26,11 +26,13 @@ typedef enum e_inputhandler__keybind__alternatives {
   INPUTHANDLER__ALTERNATIVE_ALPHABETS = 1,
 } t_inputhandler__keybind__alternatives;
 
-typedef struct s_inputhandler__keybind_list {
-  t_uint keybind_size;
-  t_uint keybind_alternatives;
-  int *keybinds;
-} t_inputhandler__keybind_list;
+// typedef struct s_inputhandler__keybind_list {
+//   t_uint keybind_size;
+//   t_uint keybind_alternatives;
+//   int *keybinds;
+// } t_inputhandler__keybind_list;
+
+typedef int *t_keybind_list;
 
 /**
  * @brief
@@ -40,9 +42,9 @@ typedef struct s_inputhandler__keybind_list {
 typedef struct s_inputhandler {
   // t_inputhandler__keybind_list arrows;
   // t_inputhandler_keybind_addr *addr_list;
-  int arrows__status[INPUTHANDLER__NUM_ARROWS];
-  int arrows__keymap[INPUTHANDLER__NUM_ARROWS *
-                     INPUTHANDLER__ALTERNATIVE_ARROWS];
+  bool arrows__status[INPUTHANDLER__NUM_ARROWS];
+  t_keycode arrows__keybinds[INPUTHANDLER__NUM_ARROWS *
+                       INPUTHANDLER__ALTERNATIVE_ARROWS];
   // int mouse[5];
   // int mouse__keybind[5];
   // int alphabets[INPUTHANDLER__NUM_ALPHABETS];

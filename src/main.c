@@ -22,9 +22,8 @@ int main(void) {
   engine__init(&engine, config);
   mlx_hook(engine.window, X11EVENTS__KeyPress, X11MASKS__KeyPressMask,
            inputhandler__key_press, &engine.inputhandler);
-  //  mlx_hook(engine.win,
-  // X11EVENTS__KeyRelease, X11MASKS__KeyReleaseMask, 		 &key_release,
-  // &engine); mlx_loop(mlx);
+  mlx_hook(engine.window, X11EVENTS__KeyRelease, X11MASKS__KeyReleaseMask,
+           inputhandler__key_release, &engine.inputhandler);
   mlx_loop(engine.mlx);
   return 0;
 }

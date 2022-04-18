@@ -3,7 +3,7 @@
 
 #include "std__types.h"
 #include "std__types__math.h"
-#include "types__input.h"
+#include "types__inputhandler.h"
 #include "types__mlx.h"
 #include "types__platform__keycode.h"
 
