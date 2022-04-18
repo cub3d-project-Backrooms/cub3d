@@ -29,10 +29,10 @@ void raycast(t_renderer *e) {
 
   for (int x = 0; x < WIDTH; x++) {
     double cameraX = 2 * x / (double)WIDTH - 1;
-    t_vec ray_dir = (t_vec){e->dir.x + e->plane.x * cameraX,
-                            e->dir.y + e->plane.y * cameraX};
+    t_vec ray_dir = (t_vec){e->camera.dir.x + e->camera.plane.x * cameraX,
+                            e->camera.dir.y + e->camera.plane.y * cameraX};
 
-    t_ivec map_pos = (t_ivec){(int)e->pos.x, (int)e->pos.y};
+    t_ivec map_pos = (t_ivec){(int)e->camera.pos.x, (int)e->camera.pos.y};
 
     // length of ray from current position to next x or y-side
     t_vec side_dist;
@@ -47,17 +47,17 @@ void raycast(t_renderer *e) {
 
     if (ray_dir.x < 0) {
       step.x = -1;
-      side_dist.x = (e->pos.x - map_pos.x) * delta_dist.x;
+      side_dist.x = (e->camera.pos.x - map_pos.x) * delta_dist.x;
     } else {
       step.x = 1;
-      side_dist.x = (map_pos.x + 1.0 - e->pos.x) * delta_dist.x;
+      side_dist.x = (map_pos.x + 1.0 - e->camera.pos.x) * delta_dist.x;
     }
     if (ray_dir.y < 0) {
       step.y = -1;
-      side_dist.y = (e->pos.y - map_pos.y) * delta_dist.y;
+      side_dist.y = (e->camera.pos.y - map_pos.y) * delta_dist.y;
     } else {
       step.y = 1;
-      side_dist.y = (map_pos.y + 1.0 - e->pos.y) * delta_dist.y;
+      side_dist.y = (map_pos.y + 1.0 - e->camera.pos.y) * delta_dist.y;
     }
 
     while (!is_ray_hit_wall(&map_pos)) {
@@ -75,9 +75,11 @@ void raycast(t_renderer *e) {
 
     double perpWallDist;
     if (side == 0)
-      perpWallDist = (map_pos.x - e->pos.x + (1 - step.x) / 2) / ray_dir.x;
+      perpWallDist =
+          (map_pos.x - e->camera.pos.x + (1 - step.x) / 2) / ray_dir.x;
     else
-      perpWallDist = (map_pos.y - e->pos.y + (1 - step.y) / 2) / ray_dir.y;
+      perpWallDist =
+          (map_pos.y - e->camera.pos.y + (1 - step.y) / 2) / ray_dir.y;
 
     // Calculate HEIGHT of line to draw on screen
     int lineHeight = (int)(HEIGHT / perpWallDist);

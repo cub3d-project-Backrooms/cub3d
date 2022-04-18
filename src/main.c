@@ -21,14 +21,15 @@ int main_loop(t_renderer *this) {
 int main(void) {
   t_renderer renderer;
   renderer.mlx = mlx_init();
-
-  renderer.pos = (t_vec){12, 5};
-  renderer.dir = (t_vec){-1, 0};
-  renderer.plane = (t_vec){0, 0.66};
+  t_camera camera = {
+      .pos = {12, 5},
+      .dir = {-1, 0},
+      .plane = {0, 0.66},
+  };
   renderer.moveSpeed = 0.025;
   renderer.rotSpeed = 0.01;
   renderer.keyinfo = (t_engine__keyinfo){false, false, false, false};
-
+  renderer.camera = camera;
   renderer.window = mlx_new_window(renderer.mlx, WIDTH, HEIGHT, "mlx");
 
   renderer.image.img_ref = mlx_new_image(renderer.mlx, WIDTH, HEIGHT);

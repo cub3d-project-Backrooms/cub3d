@@ -48,10 +48,7 @@ typedef struct s_renderer {
   t_mlx__window_ref window;
   // t_sizevec window_size;
   // t_image buffer_image;
-  // t_camera camera;
-  t_vec pos;
-  t_vec dir;
-  t_vec plane;
+  t_camera camera;
   void *buffer;
   double moveSpeed;
   double rotSpeed;

@@ -1,31 +1,32 @@
-#include <math.h>
-#include <stdio.h>
 #include "renderer.h"
 #include "std__math.h"
+#include <math.h>
+#include <stdio.h>
 
 const extern int worldMap[24][24];
 
-static bool is_collision_with_wall(const t_vec* pos) {
+static bool is_collision_with_wall(const t_vec *pos) {
   return (worldMap[(int)pos->x][(int)pos->y] > 0);
 }
 
-static void engine__try_move_player(t_renderer* e, t_sign x_sign, t_sign y_sign) {
-  const double dx = x_sign * e->dir.x * e->moveSpeed;
-  const double dy = y_sign * e->dir.y * e->moveSpeed;
+static void engine__try_move_player(t_renderer *e, t_sign x_sign,
+                                    t_sign y_sign) {
+  const double dx = x_sign * e->camera.dir.x * e->moveSpeed;
+  const double dy = y_sign * e->camera.dir.y * e->moveSpeed;
 
-  if (!is_collision_with_wall(&(t_vec){e->pos.x + dx, e->pos.y}))
-    e->pos.x += dx;
-  if (!is_collision_with_wall(&(t_vec){e->pos.x, e->pos.y + dy}))
-    e->pos.y += dy;
+  if (!is_collision_with_wall(&(t_vec){e->camera.pos.x + dx, e->camera.pos.y}))
+    e->camera.pos.x += dx;
+  if (!is_collision_with_wall(&(t_vec){e->camera.pos.x, e->camera.pos.y + dy}))
+    e->camera.pos.y += dy;
 }
 
 // both camera direction and camera plane must be rotated
-static void engine__rotate_player(t_renderer* e, t_sign sign) {
-  e->dir = vec__rotate(&e->dir, -1 * sign * e->rotSpeed);
-  e->plane = vec__rotate(&e->plane, -1 * sign * e->rotSpeed);
+static void engine__rotate_player(t_renderer *e, t_sign sign) {
+  e->camera.dir = vec__rotate(&e->camera.dir, -1 * sign * e->rotSpeed);
+  e->camera.plane = vec__rotate(&e->camera.plane, -1 * sign * e->rotSpeed);
 }
 
-void engine__move_player(t_renderer* e) {
+void engine__move_player(t_renderer *e) {
   t_engine__keyinfo keyinfo = e->keyinfo;
   if (keyinfo.is_up_pressed)
     engine__try_move_player(e, 1, 1);
