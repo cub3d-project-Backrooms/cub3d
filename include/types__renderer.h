@@ -44,16 +44,14 @@ typedef enum e_direction { UP, DOWN, LEFT, RIGHT } t_direction;
 typedef enum e_sign { PLUS = 1, MINUS = -1 } t_sign;
 
 typedef struct s_renderer {
-  // t_mlx__ref mlx;
-  // t_mlx__window_ref window;
+  t_mlx__ref mlx;
+  t_mlx__window_ref window;
   // t_sizevec window_size;
   // t_image buffer_image;
   // t_camera camera;
   t_vec pos;
   t_vec dir;
   t_vec plane;
-  void *mlx;
-  void *win;
   void *buffer;
   double moveSpeed;
   double rotSpeed;

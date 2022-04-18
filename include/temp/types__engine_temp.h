@@ -12,7 +12,7 @@ typedef struct s_renderer {
   t_vec dir;
   t_vec plane;
   void *mlx;
-  void *win;
+  void *window;
   void *buffer;
   double moveSpeed;
   double rotSpeed;

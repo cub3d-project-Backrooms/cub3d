@@ -9,7 +9,7 @@ void draw(t_renderer *info) {
       info->image.data[y * WIDTH + x] =
           info->buf[y][x]; // NOTE: for some reason its WIDTH?
 
-  mlx_put_image_to_window(info->mlx, info->win, info->image.img_ref, 0, 0);
+  mlx_put_image_to_window(info->mlx, info->window, info->image.img_ref, 0, 0);
 }
 
 void clear_grid(int grid[HEIGHT][WIDTH]) {
