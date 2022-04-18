@@ -61,7 +61,8 @@ void		renderer__draw_minimap(t_renderer* this, t_camera* camera);
 /*
 ** < raw_data.c > */
 
-void		init_texture();
+void		load_image(t_renderer* r, int* texture, char* path, t_image* img);
+void		renderer__init_texture(t_renderer* r);
 /*
 ** < raycast.c > */
 

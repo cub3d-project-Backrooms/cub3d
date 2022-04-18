@@ -11,7 +11,6 @@ int main(int argc, t_const_string argv[]) {
   (void)argv;
   t_engine engine;
 
-  init_texture();
   engine__init(&engine);
   engine__run(&engine);
   return (0);

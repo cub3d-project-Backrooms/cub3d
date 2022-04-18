@@ -27,7 +27,7 @@ void renderer__draw_minimap_at(t_renderer* this,
         color = 0xCCCCCC;
       else
         color = get_color(&pos_map, false);
-      this->buf[y][x] += color;
+      this->buf[y][x] = color;
     }
   }
 }

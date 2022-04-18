@@ -15,7 +15,7 @@ typedef struct s_image {
   t_mlx__ref mlx_ref;
   int* data;
   int bits_per_pixel;
-  int size_line;
+  int line_size;
   int endian;
   t_sizevec size;
 } t_image;

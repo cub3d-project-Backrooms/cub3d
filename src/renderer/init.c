@@ -12,5 +12,6 @@ void renderer__init(t_renderer *this) {
   this->buffer_window.img_ref = mlx_new_image(this->mlx, WIDTH, HEIGHT);
   this->buffer_window.data = (int *)mlx_get_data_addr(
       this->buffer_window.img_ref, &this->buffer_window.bits_per_pixel,
-      &this->buffer_window.size_line, &this->buffer_window.endian);
+      &this->buffer_window.line_size, &this->buffer_window.endian);
+  renderer__init_texture(this);
 }
