@@ -1,6 +1,7 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__types.h"
+#include "types__entity.h"
 
 int worldMap[24][24] = {
     {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 7, 7, 7, 7, 7, 7, 7},
@@ -29,7 +30,7 @@ int worldMap[24][24] = {
     {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3}};
 
 // TODO: make it stored where?
-int texture[8][texHeight * texWidth];
+int texture[11][texHeight * texWidth];
 #include <assert.h>
 void load_image(t_renderer* r, int* texture, char* path, t_image* img) {
   (void)texture;
@@ -59,4 +60,36 @@ void renderer__init_texture(t_renderer* r) {
   load_image(r, texture[5], "asset/mossy.xpm", &img);
   load_image(r, texture[6], "asset/wood.xpm", &img);
   load_image(r, texture[7], "asset/colorstone.xpm", &img);
+  load_image(r, texture[8], "asset/barrel.xpm", &img);
+  load_image(r, texture[9], "asset/pillar.xpm", &img);
+  load_image(r, texture[10], "asset/greenlight.xpm", &img);
 }
+
+t_entity sprite[numSprites] = {
+    // green light in front of playerstart
+    (t_entity){{20.5, 11.5}, 10},
+
+    // green lights in every room
+    (t_entity){{18.5, 4.5}, 10},
+    (t_entity){{10.0, 4.5}, 10},
+    (t_entity){{10.0, 12.5}, 10},
+    (t_entity){{3.5, 6.5}, 10},
+    (t_entity){{3.5, 20.5}, 10},
+    (t_entity){{3.5, 14.5}, 10},
+    (t_entity){{14.5, 20.5}, 10},
+
+    // row of pillars in front of wall}: fisheye test
+    (t_entity){{18.5, 10.5}, 9},
+    (t_entity){{18.5, 11.5}, 9},
+    (t_entity){{18.5, 12.5}, 9},
+
+    // some barrels around the map
+    (t_entity){{21.5, 1.5}, 8},
+    (t_entity){{15.5, 1.5}, 8},
+    (t_entity){{16.0, 1.8}, 8},
+    (t_entity){{16.2, 1.2}, 8},
+    (t_entity){{3.5, 2.5}, 8},
+    (t_entity){{9.5, 15.5}, 8},
+    (t_entity){{10.0, 15.1}, 8},
+    (t_entity){{10.5, 15.8}, 8},
+};

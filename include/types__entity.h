@@ -5,8 +5,9 @@
 
 typedef struct s_entity {
   t_vec pos;
-  double move_speed;
-  double rot_speed;
+  // double move_speed;
+  // double rot_speed;
+	int texture;
 } t_entity;
 
 #endif
