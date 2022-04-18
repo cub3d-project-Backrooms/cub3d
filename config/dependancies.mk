@@ -21,8 +21,7 @@ endif
 LIBFT_DIR := lib/libscarf
 LIBFT := $(LIBFT_DIR)/libft.a
 LIB += -L $(LIBFT_DIR) -lft
-CFLAGS += -I $(LIBFT_DIR)/include/ \
-          -I $(LIBFT_DIR)/include/types/
+CFLAGS += -I $(LIBFT_DIR)/include/
 
 # Dependencies
 DEPENDENCIES = $(LIBFT) $(LIBMLX)

@@ -2,10 +2,7 @@ NAME   := cub3d.out
 
 # Flags
 CC     := clang
-CFLAGS = -Wall -Wextra -Werror -std=c99
-
-CFLAGS += -I include/ -I include/types
-
+CFLAGS = -g3 -Wall -Wextra -Werror -std=c99
 
 # Packages
 include config/packages.mk

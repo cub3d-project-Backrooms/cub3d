@@ -1,6 +1,6 @@
 #include "std__types__error.h"
 #include "std__types__math.h"
-#include "types__mlx.h"
+#include "types__graphic.h"
 
 t_image image__new(t_mlx__ref mlx_ref, t_sizevec size) {
   t_image image;

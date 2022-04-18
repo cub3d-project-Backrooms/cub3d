@@ -1,5 +1,5 @@
-#ifndef TYPES__MLX_H
-#define TYPES__MLX_H
+#ifndef TYPES__GRAPHIC_H
+#define TYPES__GRAPHIC_H
 
 #include "mlx.h"
 
@@ -14,7 +14,7 @@ typedef struct s_image {
   int bits_per_pixel;
   int size_line;
   int endian;
-	t_sizevec size;
+  t_sizevec size;
 } t_image;
 
 #endif

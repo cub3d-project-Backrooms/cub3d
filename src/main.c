@@ -3,16 +3,13 @@
 #include "types__x11_events.h"
 #include <stdio.h>
 
-int key_hook(int keycode) {
-  printf("pressed %d\n", keycode);
-  return (0);
-}
-
 int main(void) {
+  t_engine engine;
   t_config config = (t_config){
-      .window_size = {.x = 800, .y = 600},
+      .window_size = {.width = 800, .height = 600},
       .title = "cub3d",
   };
+  engine__init(&engine, config);
   // printf("Hello, World!\n");
   // void *mlx = mlx_init();
   // void *win = mlx_new_window(mlx, 100, 100, "Hello, World!");

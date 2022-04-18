@@ -1,10 +1,12 @@
+CFLAGS += -I include/
+
 .PHONY: all clean fclean re
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(DEPENDENCIES)
-	$(CC) $(CFLAGS) -I $^ $(LIB) -o $@
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
 	@echo 🚪 compiled $@
 
 
