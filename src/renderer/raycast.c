@@ -2,8 +2,6 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
-#include "types__color.h"
-#include "types__renderer.h"
 
 const extern int worldMap[24][24];
 
@@ -51,8 +49,6 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, int x) {
 }
 
 void renderer__raycast(t_renderer* this, t_camera* camera) {
-  clear_grid(this->buf);
-
   for (int x = 0; x < WIDTH; x++) {
     renderer__raycast__wall(this, camera, x);
   }

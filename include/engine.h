@@ -6,14 +6,9 @@
 
 //@func
 /*
-** < draw.c > */
-
-void	renderer__draw(t_renderer *info);
-void	clear_grid(int grid[HEIGHT][WIDTH]);
-/*
 ** < init.c > */
 
-void	engine__init(t_engine *this);
+void	engine__init(t_engine* this);
 /*
 ** < keyinput.c > */
 
@@ -24,7 +19,9 @@ int		inputhandler__key_press(t_keycode key, t_inputhandler *this);
 /*
 ** < movement.c > */
 
-void	engine__move_player(t_engine *e);
+void	engine__try_move_player(t_engine* e, double x, double y);
+void	engine__rotate_player(t_engine* e, double angle);
+void	engine__move_player(t_engine* e);
 /*
 ** < run.c > */
 

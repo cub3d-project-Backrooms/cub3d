@@ -47,7 +47,8 @@
       "string_view": "c",
       "ranges": "c",
       "vector": "c",
-      "__config": "c"
+      "__config": "c",
+      "locale": "c"
     }
   }
 }

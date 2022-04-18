@@ -1,5 +1,5 @@
-#ifndef __TYPES__MLX_H__
-#define __TYPES__MLX_H__
+#ifndef TYPES__MLX_H
+#define TYPES__MLX_H
 
 typedef struct s_img {
   void* img;
@@ -12,4 +12,4 @@ typedef struct s_img {
   int img_height;
 } t_img;
 
-#endif // __TYPES__MLX_H__
+#endif

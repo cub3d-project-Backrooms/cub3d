@@ -33,10 +33,24 @@ bool		dda__is_ray_hit_wall(const t_ivec* pos);
 void		dda__advance_step_until_hit(t_dda__step* step, t_ivec* map_pos,
 				t_vec* delta_dist);
 /*
+** < draw.c > */
+
+void		renderer__draw_to_window(t_renderer* info);
+void		renderer__clear_grid(int grid[HEIGHT][WIDTH]);
+void		renderer__clear(t_renderer* this);
+void		renderer__draw_buf_by_ivec(t_renderer* this, t_ivec* pos,
+				int color);
+/*
 ** < init.c > */
 
 void		renderer__init__mlx(t_renderer *this);
 void		renderer__init(t_renderer *this);
+/*
+** < minimap.c > */
+
+void		renderer__draw_minimap_at(t_renderer* this, t_ivec player_pos,
+				t_irange x_range, t_irange y_range);
+void		renderer__draw_minimap(t_renderer* this, t_camera* camera);
 /*
 ** < raycast.c > */
 
