@@ -5,6 +5,9 @@
 
 typedef struct s_inputhandler {
   t_inputhandler__keyinfo keyinfo;
+  t_ivec mouse;
+  t_ivec old_mouse;
+  t_keycode mouse_status;
 } t_inputhandler;
 
 typedef struct s_engine {

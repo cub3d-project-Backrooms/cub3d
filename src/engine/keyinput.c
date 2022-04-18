@@ -13,6 +13,21 @@ bool inputhandler__is_movement(t_inputhandler* this) {
           keyinfo.is_left_pressed || keyinfo.is_right_pressed);
 }
 
+bool inputhandler__is_mouse_movement(t_inputhandler* this) {
+  return (this->old_mouse.x != this->mouse.x ||
+          this->old_mouse.y != this->mouse.y);
+  // t_inputhandler__mouseinfo mouseinfo = this->mouseinfo;
+  // return (mouseinfo.is_mouse_moved);
+}
+// int inputhandler__mouse(t_keycode mouse_input, t_inputhandler *this) {
+// 	if (mouse_input == X11EVENTS__ButtonPress) {
+// 		this->keyinfo.is_mouse_pressed = true;
+// 	} else if (mouse_input == X11EVENTS__ButtonRelease) {
+// 		this->keyinfo.is_mouse_pressed = false;
+// 	}
+// 	return (0);
+// }
+
 // FIXME: implement key library
 int inputhandler__key_release(t_keycode key, t_inputhandler* this) {
   if (key == KEY_W)
