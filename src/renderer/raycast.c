@@ -39,8 +39,7 @@ t_vec raycast__dist_to_next_closest_wall(t_vec ray_dir) {
   return (t_vec){fabs(1 / ray_dir.x), fabs(1 / ray_dir.y)};
 }
 
-void raycast(t_renderer *e) {
-  t_camera *cam = &e->camera;
+void raycast(t_renderer *e, t_camera *cam) {
   clear_grid(e->buf);
 
   for (int x = 0; x < WIDTH; x++) {

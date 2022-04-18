@@ -47,11 +47,12 @@ typedef struct s_renderer {
   t_mlx__ref mlx;
   t_mlx__window_ref window;
   t_image buffer_window;
-  t_camera camera;
+  // t_camera camera;
   int buf[HEIGHT][WIDTH];
-  double moveSpeed;
-  double rotSpeed;
+  // double moveSpeed;
+  // double rotSpeed;
   // t_inputhandler__keyinfo keyinfo;
 } t_renderer;
 
 #endif
+

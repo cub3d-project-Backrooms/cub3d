@@ -10,7 +10,9 @@ typedef struct s_inputhandler {
 typedef struct s_engine {
   t_renderer renderer;
   t_inputhandler inputhandler;
-  // t_camera camera;
+  t_camera camera;
+  double moveSpeed;
+  double rotSpeed;
 } t_engine;
 
 #endif
