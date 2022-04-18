@@ -46,11 +46,8 @@ typedef enum e_sign { PLUS = 1, MINUS = -1 } t_sign;
 typedef struct s_renderer {
   t_mlx__ref mlx;
   t_mlx__window_ref window;
-  // t_sizevec window_size;
-  // t_image buffer_image;
+  t_image buffer_window;
   t_camera camera;
-  void *buffer;
-  t_image image;
   int buf[HEIGHT][WIDTH];
   double moveSpeed;
   double rotSpeed;

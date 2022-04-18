@@ -1,5 +1,5 @@
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include "mlx.h"
 #include "types__color.h"
@@ -10,6 +10,11 @@
 
 // clang-format off
 //@func
+/*
+** < init.c > */
+
+void		renderer__init__mlx(t_renderer *this);
+void		renderer__init(t_renderer *this, t_camera camera);
 /*
 ** < raycast.c > */
 

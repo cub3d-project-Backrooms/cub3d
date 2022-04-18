@@ -16,9 +16,9 @@ const extern int worldMap[24][24];
 void draw(t_renderer *info) {
   for (int y = 0; y < HEIGHT; y++)
     for (int x = 0; x < WIDTH; x++)
-      info->image.data[y * WIDTH + x] = info->buf[y][x];
+      info->buffer_window.data[y * WIDTH + x] = info->buf[y][x];
 
-  mlx_put_image_to_window(info->mlx, info->window, info->image.img_ref, 0, 0);
+  mlx_put_image_to_window(info->mlx, info->window, info->buffer_window.img_ref, 0, 0);
 }
 
 void clear_grid(int grid[HEIGHT][WIDTH]) {
