@@ -1,11 +1,12 @@
 #include "data.h"
+#include "engine.h"
 #include "raycast.h"
 #include "renderer.h"
+#include "types__x11_events.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 const extern int worldMap[24][24];
 
 int main_loop(t_renderer *this) {
@@ -19,6 +20,7 @@ int main_loop(t_renderer *this) {
 }
 
 int main(void) {
+  // t_engine engine;
   t_renderer renderer;
   renderer.mlx = mlx_init();
   t_camera camera = {

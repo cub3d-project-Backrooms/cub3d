@@ -50,10 +50,10 @@ typedef struct s_renderer {
   // t_image buffer_image;
   t_camera camera;
   void *buffer;
-  double moveSpeed;
-  double rotSpeed;
   t_image image;
   int buf[HEIGHT][WIDTH];
+  double moveSpeed;
+  double rotSpeed;
   t_engine__keyinfo keyinfo;
 } t_renderer;
 
