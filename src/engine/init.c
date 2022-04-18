@@ -33,7 +33,7 @@ void engine__init(t_engine* this) {
   this->camera = camera;
   engine__rotate_player(this, M_PI / 2);
   inputhandler__init(&this->inputhandler);
-  this->moveSpeed = 0.01;
-  this->rotSpeed = 0.005;
+  this->moveSpeed = 0.02;
+  this->rotSpeed = 0.01;
   engine__init__input(this);
 }

@@ -33,6 +33,70 @@ void renderer__draw__vertical_wall(t_renderer* this,
   for (int y = draw_start; y < draw_end; y++)
     this->buf[y][x] = color;
 }
+// FLOOR CASTING
+void renderer__raycast__floor(t_renderer* this, t_camera* camera) {
+  for (int y = 0; y < HEIGHT; y++) {
+    // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+    t_vec ray_dir0 = (t_vec){camera->dir.x - camera->plane.x,
+                             camera->dir.y - camera->plane.y};
+    t_vec ray_dir1 = (t_vec){camera->dir.x + camera->plane.x,
+                             camera->dir.y + camera->plane.y};
+    // t_ivec map_pos = camera__to_pos_at_map(camera);
+
+    // Current y position compared to the center of the screen (the horizon)
+    int p = y - HEIGHT / 2;
+
+    // Vertical position of the camera.
+    float posZ = 0.5 * HEIGHT;
+
+    // Horizontal distance from the camera to the floor for the current row.
+    // 0.5 is the z position exactly in the middle between floor and ceiling.
+    float rowDistance = posZ / p;
+
+    // calculate the real world step vector we have to add for each x (parallel
+    // to camera plane) adding step by step avoids multiplications with a weight
+    // in the inner loop
+    float floorStepX = rowDistance * (ray_dir1.x - ray_dir0.x) / WIDTH;
+    float floorStepY = rowDistance * (ray_dir1.y - ray_dir0.y) / WIDTH;
+
+    // real world coordinates of the leftmost column. This will be updated as we
+    // step to the right.
+    float floorX = camera->pos.x + rowDistance * ray_dir0.x;
+    float floorY = camera->pos.y + rowDistance * ray_dir0.y;
+
+    for (int x = 0; x < WIDTH; ++x) {
+      // the cell coord is simply got from the integer parts of floorX and
+      // floorY
+      int cellX = (int)(floorX);
+      int cellY = (int)(floorY);
+
+      // get the texture coordinate from the fractional part
+      int tx = (int)(texWidth * (floorX - cellX)) & (texWidth - 1);
+      int ty = (int)(texHeight * (floorY - cellY)) & (texHeight - 1);
+
+      floorX += floorStepX;
+      floorY += floorStepY;
+
+      // choose texture and draw the pixel
+      int floorTexture = 6;
+      int ceilingTexture = 6;
+
+      int color;
+
+      // floor
+      color = texture[floorTexture][texWidth * ty + tx];
+      color = (color >> 1) & 8355711;  // make a bit darker
+
+      this->buf[y][x] = color;
+
+      // ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+      color = texture[ceilingTexture][texWidth * ty + tx];
+      color = (color >> 1) & 8355711;  // make a bit darker
+
+      this->buf[HEIGHT - y - 1][x] = color;
+    }
+  }
+}
 
 void renderer__raycast__wall(t_renderer* this, t_camera* camera, int x) {
   double camera_x = dda__normalized_plane_x(x);
@@ -90,6 +154,7 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, int x) {
 }
 
 void renderer__raycast(t_renderer* this, t_camera* camera) {
+  renderer__raycast__floor(this, camera);
   for (int x = 0; x < WIDTH; x++) {
     renderer__raycast__wall(this, camera, x);
   }

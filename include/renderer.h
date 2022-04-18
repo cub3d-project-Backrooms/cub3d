@@ -69,6 +69,7 @@ void		renderer__init_texture(t_renderer* r);
 t_colors	get_color(t_ivec* map, bool is_hit_y_side);
 void		renderer__draw__vertical_wall(t_renderer* this, int lineheight,
 				int color, int x);
+void		renderer__raycast__floor(t_renderer* this, t_camera* camera);
 void		renderer__raycast__wall(t_renderer* this, t_camera* camera, int x);
 void		renderer__raycast(t_renderer* this, t_camera* camera);
 #endif  // __ENGINE_H__
