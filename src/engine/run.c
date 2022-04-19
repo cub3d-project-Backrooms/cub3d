@@ -20,16 +20,17 @@ void	engine__set_movespeed(t_engine *this)
 {
 	if (this->inputhandler.is_shift_pressed)
 	{
-		this->movespeed = 0.05;
+		this->movespeed = 0.07;
 		this->rotspeed = 0.02;
 	}
 	else
 	{
-		this->movespeed = 0.025;
-		this->rotspeed = 0.03;
+		this->movespeed = 0.04;
+		this->rotspeed = 0.04;
 	}
 }
 
+// TODO: remove sprintf
 int	engine__loop(t_engine *this)
 {
 	static char	pos[80];

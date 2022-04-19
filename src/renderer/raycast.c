@@ -128,7 +128,6 @@ void renderer__raycast__wall(t_renderer* this,
 		int lineheight = (int)(HEIGHT / perpWallDist * 1);
 		// int color = get_color(&map_pos, step.is_hit_y_side);
 		// renderer__draw__vertical_wall(this, lineheight, color, x);
-		{ /** 01 - textured raycast */
 		int draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
 		int draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
 
@@ -165,9 +164,8 @@ void renderer__raycast__wall(t_renderer* this,
 			color = (color >> 1) & 8355711;
 			this->buf[y][x] = color;
 		}
-		}
 	}
-	}
+}
 
 
 
