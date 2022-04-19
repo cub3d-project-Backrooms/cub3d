@@ -15,13 +15,13 @@ bool	inputhandler__is_movement(t_inputhandler *this)
 
 int	inputhandler__key_release(t_keycode key, t_inputhandler *this)
 {
-	if (key == KEY_W)
+	if (key == KEY_W || key == KEY_UP)
 		this->is_up_pressed = false;
-	if (key == KEY_S)
+	if (key == KEY_S || key == KEY_DOWN)
 		this->is_down_pressed = false;
-	if (key == KEY_A)
+	if (key == KEY_A || key == KEY_LEFT)
 		this->is_left_pressed = false;
-	if (key == KEY_D)
+	if (key == KEY_D || key == KEY_RIGHT)
 		this->is_right_pressed = false;
 	if (key == KEY_ESC)
 		this->is_exit = true;
@@ -32,13 +32,13 @@ int	inputhandler__key_release(t_keycode key, t_inputhandler *this)
 
 int	inputhandler__key_press(t_keycode key, t_inputhandler *this)
 {
-	if (key == KEY_W)
+	if (key == KEY_W || key == KEY_UP)
 		this->is_up_pressed = true;
-	if (key == KEY_S)
+	if (key == KEY_S || key == KEY_DOWN)
 		this->is_down_pressed = true;
-	if (key == KEY_A)
+	if (key == KEY_A || key == KEY_LEFT)
 		this->is_left_pressed = true;
-	if (key == KEY_D)
+	if (key == KEY_D || key == KEY_RIGHT)
 		this->is_right_pressed = true;
 	if (key == KEY_ESC)
 		this->is_exit = true;

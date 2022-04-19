@@ -13,11 +13,9 @@ static bool	is_collision_with_wall(const t_vec *pos)
 
 void	engine__try_move_player(t_engine *e, double x, double y)
 {
-	double	dx;
-	double	dy;
+	const double	dx = x * e->camera.dir.x * e->movespeed;
+	const double	dy = y * e->camera.dir.y * e->movespeed;
 
-	dx = x * e->camera.dir.x * e->movespeed;
-	dy = y * e->camera.dir.y * e->movespeed;
 	if (!is_collision_with_wall(
 			&(t_vec){e->camera.pos.x + dx, e->camera.pos.y}))
 		e->camera.pos.x += dx;
