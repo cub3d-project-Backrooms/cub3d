@@ -13,6 +13,8 @@ $(NAME): $(OBJ) $(DEPENDENCIES)
 all: $(NAME)
 
 clean:
+	@make -C $(MLX_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 	@rm -f $(OBJ)
 	@echo "🗑 cleaned $(NAME)'s object files"
 
