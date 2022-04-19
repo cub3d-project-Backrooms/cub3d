@@ -4,11 +4,9 @@
       "name": "linux",
       "includePath": [
         "${workspaceRoot}/lib/libscarf/include",
-        "${workspaceRoot}/lib/libscarf/include/types",
         "${workspaceRoot}/lib/mlx_linux",
         "${workspaceRoot}/include",
         "${workspaceRoot}/include/linux",
-        "${workspaceRoot}/include/types",
         "${default}"
       ],
       "defines": [],

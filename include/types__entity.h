@@ -1,13 +1,14 @@
 #ifndef TYPES__ENTITY_H
-#define TYPES__ENTITY_H
+# define TYPES__ENTITY_H
 
-#include "std__types__math.h"
+# include "std__types__math.h"
 
-typedef struct s_entity {
-  t_vec pos;
-  // double move_speed;
-  // double rot_speed;
-	int texture;
-} t_entity;
+typedef struct s_entity
+{
+	t_vec	pos;
+	// double move_speed;
+	// double rot_speed;
+	int		texture;
+}			t_entity;
 
 #endif

@@ -1,57 +1,42 @@
-#include <stdlib.h>
 #include "engine.h"
 #include "renderer.h"
+#include <stdlib.h>
 
-void inputhandler__init(t_inputhandler* this) {
-  this->keyinfo = (t_inputhandler__keyinfo){true, false, false, true, false};
-}
-// {false, false, false, false, false}
-
-bool inputhandler__is_movement(t_inputhandler* this) {
-  t_inputhandler__keyinfo keyinfo = this->keyinfo;
-  return (keyinfo.is_up_pressed || keyinfo.is_down_pressed ||
-          keyinfo.is_left_pressed || keyinfo.is_right_pressed);
+t_inputhandler	inputhandler__init(void)
+{
+	return ((t_inputhandler){false, false, false, false, false});
 }
 
-bool inputhandler__is_mouse_movement(t_inputhandler* this) {
-  return (this->old_mouse.x != this->mouse.x ||
-          this->old_mouse.y != this->mouse.y);
-  // t_inputhandler__mouseinfo mouseinfo = this->mouseinfo;
-  // return (mouseinfo.is_mouse_moved);
-}
-// int inputhandler__mouse(t_keycode mouse_input, t_inputhandler *this) {
-// 	if (mouse_input == X11EVENTS__ButtonPress) {
-// 		this->keyinfo.is_mouse_pressed = true;
-// 	} else if (mouse_input == X11EVENTS__ButtonRelease) {
-// 		this->keyinfo.is_mouse_pressed = false;
-// 	}
-// 	return (0);
-// }
-
-// FIXME: implement key library
-int inputhandler__key_release(t_keycode key, t_inputhandler* this) {
-  if (key == KEY_W)
-    this->keyinfo.is_up_pressed = false;
-  if (key == KEY_S)
-    this->keyinfo.is_down_pressed = false;
-  if (key == KEY_A)
-    this->keyinfo.is_left_pressed = false;
-  if (key == KEY_D)
-    this->keyinfo.is_right_pressed = false;
-  return 0;
+bool	inputhandler__is_movement(t_inputhandler *this)
+{
+	return (this->is_up_pressed || this->is_down_pressed
+		|| this->is_left_pressed || this->is_right_pressed);
 }
 
-int inputhandler__key_press(t_keycode key, t_inputhandler* this) {
-  if (key == KEY_W)
-    this->keyinfo.is_up_pressed = true;
-  if (key == KEY_S)
-    this->keyinfo.is_down_pressed = true;
-  if (key == KEY_A)
-    this->keyinfo.is_left_pressed = true;
-  if (key == KEY_D)
-    this->keyinfo.is_right_pressed = true;
-  if (key == KEY_ESC)
-    this->keyinfo.is_exit = true;
+int	inputhandler__key_release(t_keycode key, t_inputhandler *this)
+{
+	if (key == KEY_W)
+		this->is_up_pressed = false;
+	if (key == KEY_S)
+		this->is_down_pressed = false;
+	if (key == KEY_A)
+		this->is_left_pressed = false;
+	if (key == KEY_D)
+		this->is_right_pressed = false;
+	return (0);
+}
 
-  return (0);
+int	inputhandler__key_press(t_keycode key, t_inputhandler *this)
+{
+	if (key == KEY_W)
+		this->is_up_pressed = true;
+	if (key == KEY_S)
+		this->is_down_pressed = true;
+	if (key == KEY_A)
+		this->is_left_pressed = true;
+	if (key == KEY_D)
+		this->is_right_pressed = true;
+	if (key == KEY_ESC)
+		this->is_exit = true;
+	return (0);
 }
