@@ -15,13 +15,13 @@ void renderer__draw_minimap_at(t_renderer* this,
   const t_irange map_range_x = (t_irange){0, 24};
   const t_irange map_range_y = (t_irange){0, 24};
 
-  for (int x = x_range.min; x < x_range.max; x++) {
-    for (int y = y_range.min; y < x_range.max; y++) {
+  for (int x = x_range.start; x < x_range.end; x++) {
+    for (int y = y_range.start; y < x_range.end; y++) {
       int nx = math__normalize(x, x_range, map_range_x);
       int ny = math__normalize(y, y_range, map_range_y);
       // printf("%d %d\n", nx, ny);
       pos_map = (t_ivec){nx, ny};
-      if (ivec__eq(&pos_map, &player_pos))
+      if (vec__ivec_eq(&pos_map, &player_pos))
         color = COLOR__RED;
       else if (!worldMap[nx][ny])
         color = 0xCCCCCC;
