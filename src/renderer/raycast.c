@@ -20,84 +20,111 @@ t_colors get_color(t_ivec* map, bool is_hit_y_side)
 		result = colors[index];
 	if (is_hit_y_side)
 		result /= 2;
-	return result;
+	return (result);
 }
 
 // calculate lowest and highest pixel to fill in current stripe
 void	renderer__draw__vertical_wall(t_renderer *this,
 								int lineheight, int color, int x)
 {
-	int draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
-	int draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
+	int draw_start;
+	int draw_end;
+	int	y;
 
-	for (int y = draw_start; y < draw_end; y++)
+	draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
+	draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
+	y = draw_start - 1;
+	while (++y < draw_end)
 		this->buf[y][x] = color;
+}
+
+void	renderer__raycast__set_raydir_vector(t_renderer *this, t_floordata *vecs, t_camera *camera)
+{
+	(void)this;
+	vecs->ray_dir0 = (t_vec){camera->dir.x - camera->plane.x, camera->dir.y - camera->plane.y};
+	vecs->ray_dir1 = (t_vec){camera->dir.x + camera->plane.x, camera->dir.y + camera->plane.y};
+}
+
+void renderer__raycast__set_row_distance(t_renderer *this, t_floordata *vecs, int current_y)
+{
+	int position_from_center;
+	float vertical_camera_position;
+
+	(void)this;
+	position_from_center = current_y - HEIGHT / 2;
+	vertical_camera_position = 0.5 * HEIGHT;
+	vecs->rowDistance = vertical_camera_position / position_from_center;
+}
+
+void renderer__raycast__set_floor_vectors(t_renderer *this, t_floordata *vecs, t_camera *camera)
+{
+	(void)this;
+	vecs->floorStep.x = vecs->rowDistance * (vecs->ray_dir1.x - vecs->ray_dir0.x) / WIDTH;
+	vecs->floorStep.y = vecs->rowDistance * (vecs->ray_dir1.y - vecs->ray_dir0.y) / WIDTH;
+	vecs->floor.x = camera->pos.x + vecs->rowDistance * vecs->ray_dir0.x;
+	vecs->floor.y = camera->pos.y + vecs->rowDistance * vecs->ray_dir0.y;
+}
+
+void renderer__raycast__set_delta_texture_vector(t_renderer *this, t_floordata *vecs)
+{
+	(void)this;
+	vecs->cell.x = (int)(vecs->floor.x);
+	vecs->cell.y = (int)(vecs->floor.y);
+	vecs->deltaT.x = (int)(TEX_WIDTH * (vecs->floor.x - vecs->cell.x)) & (TEX_WIDTH - 1);
+	vecs->deltaT.y = (int)(TEX_HEIGHT * (vecs->floor.y - vecs->cell.y)) & (TEX_HEIGHT - 1);
+	vecs->floor.x += vecs->floorStep.x;
+	vecs->floor.y += vecs->floorStep.y;
+}
+
+void renderer__draw__checkerboard(t_renderer *this, t_floordata *vecs)
+{
+	bool checkerboard;
+
+	(void)this;
+	checkerboard = ((int)vecs->floor.x + (int)vecs->floor.y) % 2;
+	if (checkerboard)
+	{
+		vecs->floorTexture = WOOD;
+		vecs->ceilingTexture = GRAYSTONE;
+	}
+	else
+	{
+		vecs->floorTexture = REDBRICK;
+		vecs->ceilingTexture = MOSSY;
+	}
+}
+
+void renderer__draw__floor(t_renderer *this, t_floordata *vecs, int current_x, int current_y)
+{
+	int color;
+
+	color = texture[vecs->floorTexture][(int)(TEX_WIDTH * vecs->deltaT.y + vecs->deltaT.x)];
+	color = (color >> 1) & 8355711;  // make a bit darker
+	this->buf[current_y][current_x] = color;
+	color = texture[vecs->ceilingTexture][(int)(TEX_WIDTH * vecs->deltaT.y + vecs->deltaT.x)];
+	color = (color >> 1) & 8355711;  // make a bit darker
+	this->buf[HEIGHT - current_y - 1][current_x] = color;
 }
 
 // FLOOR CASTING
 void renderer__raycast__floor(t_renderer* this, t_camera* camera)
 {
-	for (int y = HEIGHT / 2 + 1; y < HEIGHT; y++) {
-		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-		t_vec ray_dir0 = (t_vec){camera->dir.x - camera->plane.x,
-								camera->dir.y - camera->plane.y};
-		t_vec ray_dir1 = (t_vec){camera->dir.x + camera->plane.x,
-								camera->dir.y + camera->plane.y};
-		// t_ivec map_pos = camera__to_pos_at_map(camera);
+	t_floordata floordata;
+	int y;
+	int x;
 
-		// Current y position compared to the center of the screen (the horizon)
-		int p = y - HEIGHT / 2;
-
-		// Vertical position of the camera.
-		float posZ = 0.5 * HEIGHT;
-
-		// Horizontal distance from the camera to the floor for the current row.
-		// 0.5 is the z position exactly in the middle between floor and ceiling.
-		float rowDistance = posZ / p;
-
-		// calculate the real world step vector we have to add for each x (parallel
-		// to camera plane) adding step by step avoids multiplications with a weight
-		// in the inner loop
-		float floorStepx = rowDistance * (ray_dir1.x - ray_dir0.x) / WIDTH;
-		float floorStepy = rowDistance * (ray_dir1.y - ray_dir0.y) / WIDTH;
-
-		// real world coordinates of the leftmost column. This will be updated as we
-		// step to the right.
-		float floorx = camera->pos.x + rowDistance * ray_dir0.x;
-		float floory = camera->pos.y + rowDistance * ray_dir0.y;
-
-		for (int x = 0; x < WIDTH; ++x) {
-		// the cell coord is simply got from the integer parts of floorx and
-		// floory
-		int cellx = (int)(floorx);
-		int celly = (int)(floory);
-
-		// get the texture coordinate from the fractional part
-		int tx = (int)(TEX_WIDTH * (floorx - cellx)) & (TEX_WIDTH - 1);
-		int ty = (int)(TEX_HEIGHT * (floory - celly)) & (TEX_HEIGHT - 1);
-
-		floorx += floorStepx;
-		floory += floorStepy;
-
-		bool checkerboard = ((int)floorx + (int)floory) % 2;
-
-		// choose texture and draw the pixel
-		int floorTexture = checkerboard ? 6 : 1;
-		int ceilingTexture = checkerboard ? 3 : 5;
-
-		int color;
-
-		// floor
-		color = texture[floorTexture][TEX_WIDTH * ty + tx];
-		color = (color >> 1) & 8355711;  // make a bit darker
-
-		this->buf[y][x] = color;
-
-		// ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-		color = texture[ceilingTexture][TEX_WIDTH * ty + tx];
-		color = (color >> 1) & 8355711;  // make a bit darker
-
-		this->buf[HEIGHT - y - 1][x] = color;
+	y = HEIGHT / 2;
+	while (++y < HEIGHT)
+	{
+		renderer__raycast__set_raydir_vector(this, &floordata, camera);
+		renderer__raycast__set_row_distance(this, &floordata, y);
+		renderer__raycast__set_floor_vectors(this, &floordata, camera);
+		x = -1;
+		while (++x < WIDTH)
+		{
+			renderer__raycast__set_delta_texture_vector(this, &floordata);
+			renderer__draw__checkerboard(this, &floordata);
+			renderer__draw__floor(this, &floordata, x, y);
 		}
 	}
 }

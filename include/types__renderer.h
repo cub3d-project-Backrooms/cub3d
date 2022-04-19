@@ -64,4 +64,18 @@ typedef struct s_pair
 	double				first;
 	int					second;
 }	t_pair;
+
+typedef struct s_floordata
+{
+	t_vec ray_dir0;
+	t_vec ray_dir1;
+	float rowDistance;
+	t_vec floorStep;
+	t_vec floor;
+	t_vec cell;
+	t_vec deltaT;
+	int floorTexture;
+	int ceilingTexture;
+} t_floordata;
+
 #endif
