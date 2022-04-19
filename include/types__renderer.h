@@ -19,14 +19,14 @@ typedef struct s_image
 	int					line_size;
 	int					endian;
 	t_sizevec			size;
-}						t_image;
+}	t_image;
 
 typedef struct s_camera
 {
 	t_vec				pos;
 	t_vec				dir;
 	t_vec				plane;
-}						t_camera;
+}	t_camera;
 
 typedef enum e_config
 {
@@ -36,27 +36,20 @@ typedef enum e_config
 	// HEIGHT = 1080,
 	WIDTH = 640,
 	HEIGHT = 480,
-}						t_config;
+}	t_config;
 
-typedef enum e_direction
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-}						t_direction;
 typedef enum e_sign
 {
 	POSITIVE = 1,
 	NEGATIVE = -1
-}						t_sign;
+}	t_sign;
 typedef struct s_step
 {
 	t_sign				x_sign;
 	t_sign				y_sign;
 	t_vec				side_dist;
 	bool				is_hit_y_side;
-}						t_dda__step;
+}	t_dda__step;
 
 typedef struct s_renderer
 {
@@ -64,11 +57,11 @@ typedef struct s_renderer
 	t_mlx__window_ref	window;
 	t_image				buffer_window;
 	int					buf[HEIGHT][WIDTH];
-}						t_renderer;
+}	t_renderer;
 
 typedef struct s_pair
 {
 	double				first;
 	int					second;
-}						t_pair;
+}	t_pair;
 #endif

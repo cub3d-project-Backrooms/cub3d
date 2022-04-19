@@ -1,7 +1,6 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__types.h"
-#include "types__entity.h"
 
 int			g_worldmap[mapWidth][mapHeight] = {
 	{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 6, 4, 4, 6, 4, 6, 4, 4, 4, 6, 4},
@@ -30,7 +29,7 @@ int			g_worldmap[mapWidth][mapHeight] = {
 	{2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
 
 // TODO: make it stored where?
-int			texture[11][TEX_HEIGHT * TEX_WIDTH];
+int			texture[8][TEX_HEIGHT * TEX_WIDTH];
 #include <assert.h>
 void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 {
@@ -65,83 +64,4 @@ void	renderer__init_texture(t_renderer *r)
 	load_image(r, texture[5], "asset/mossy.xpm", &img);
 	load_image(r, texture[6], "asset/wood.xpm", &img);
 	load_image(r, texture[7], "asset/colorstone.xpm", &img);
-	load_image(r, texture[8], "asset/barrel.xpm", &img);
-	load_image(r, texture[9], "asset/pillar.xpm", &img);
-	load_image(r, texture[10], "asset/greenlight.xpm", &img);
-}
-
-int			spriteOrder[NUM_SPRITES];
-double		spriteDistance[NUM_SPRITES];
-t_entity	sprite[NUM_SPRITES] = {
-	// green light in front of playerstart
-	(t_entity){{20.5, 11.5}, 10},
-
-	// green lights in every room
-	(t_entity){{18.5, 4.5}, 10},
-	(t_entity){{10.0, 4.5}, 10},
-	(t_entity){{10.0, 12.5}, 10},
-	(t_entity){{3.5, 6.5}, 10},
-	(t_entity){{3.5, 20.5}, 10},
-	(t_entity){{3.5, 14.5}, 10},
-	(t_entity){{14.5, 20.5}, 10},
-
-	// row of pillars in front of wall}: fisheye test
-	(t_entity){{18.5, 10.5}, 9},
-	(t_entity){{18.5, 11.5}, 9},
-	(t_entity){{18.5, 12.5}, 9},
-
-	// some barrels around the map
-	(t_entity){{21.5, 1.5}, 8},
-	(t_entity){{15.5, 1.5}, 8},
-	(t_entity){{16.0, 1.8}, 8},
-	(t_entity){{16.2, 1.2}, 8},
-	(t_entity){{3.5, 2.5}, 8},
-	(t_entity){{9.5, 15.5}, 8},
-	(t_entity){{10.0, 15.1}, 8},
-	(t_entity){{10.5, 15.8}, 8},
-};
-
-void	sort_order(t_pair *orders, int amount)
-{
-	t_pair	tmp;
-
-	for (int i = 0; i < amount; i++)
-	{
-		for (int j = 0; j < amount - 1; j++)
-		{
-			if (orders[j].first > orders[j + 1].first)
-			{
-				tmp.first = orders[j].first;
-				tmp.second = orders[j].second;
-				orders[j].first = orders[j + 1].first;
-				orders[j].second = orders[j + 1].second;
-				orders[j + 1].first = tmp.first;
-				orders[j + 1].second = tmp.second;
-			}
-		}
-	}
-}
-
-#include "std__system.h"
-#include <stdlib.h>
-void	sortSprites(int *order, double *dist, int amount)
-{
-	t_pair	*sprites;
-
-	// std::vector<std::pair<double, int>> sprites(amount);
-	sprites = std__allocate(amount, sizeof(t_pair));
-	// sprites = malloc(sizeof(t_pair) * amount);
-	for (int i = 0; i < amount; i++)
-	{
-		sprites[i].first = dist[i];
-		sprites[i].second = order[i];
-	}
-	sort_order(sprites, amount);
-	// std::sort(sprites.begin(), sprites.end());
-	for (int i = 0; i < amount; i++)
-	{
-		dist[i] = sprites[amount - i - 1].first;
-		order[i] = sprites[amount - i - 1].second;
-	}
-	free(sprites);
 }

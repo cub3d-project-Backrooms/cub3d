@@ -64,8 +64,6 @@ void		renderer__draw_minimap(t_renderer *this, t_camera *camera);
 
 void		load_image(t_renderer *r, int *texture, char *path, t_image *img);
 void		renderer__init_texture(t_renderer *r);
-void		sort_order(t_pair *orders, int amount);
-void		sortSprites(int *order, double *dist, int amount);
 /*
 ** < raycast.c> */
 t_colors	get_color(t_ivec *map, bool is_hit_y_side);

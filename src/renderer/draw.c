@@ -29,25 +29,6 @@ void	renderer__draw_to_window(t_renderer *info)
 		info->buffer_window.img_ref, 0, 0);
 }
 
-void	renderer__clear_grid(int grid[HEIGHT][WIDTH])
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < HEIGHT)
-	{
-		j = -1;
-		while (++j < WIDTH)
-			grid[i][j] = 0;
-	}
-}
-
-void	renderer__clear(t_renderer *this)
-{
-	renderer__clear_grid(this->buf);
-}
-
 void	renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos, int color)
 {
 	this->buf[pos->y][pos->x] = color;

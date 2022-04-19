@@ -10,7 +10,6 @@ void	engine__refresh(t_engine *this)
 	t_renderer	*renderer;
 
 	renderer = &this->renderer;
-	renderer__clear(renderer);
 	renderer__raycast(renderer, &this->camera);
 	renderer__draw_minimap(renderer, &this->camera);
 	renderer__draw_to_window(renderer);

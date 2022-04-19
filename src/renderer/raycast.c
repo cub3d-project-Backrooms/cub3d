@@ -2,19 +2,9 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
-#include "types__entity.h"
 
 const extern int g_worldmap[24][24];
 extern int texture[8][TEX_HEIGHT * TEX_WIDTH];
-
-extern int spriteOrder[NUM_SPRITES];
-extern double spriteDistance[NUM_SPRITES];
-extern t_entity sprite[NUM_SPRITES];
-
-// parameters for scaling and moving the sprites
-#define uDiv 1
-#define vDiv 1
-#define vMove 0.0
 
 t_colors get_color(t_ivec* map, bool is_hit_y_side)
 {
@@ -33,7 +23,7 @@ t_colors get_color(t_ivec* map, bool is_hit_y_side)
 	return result;
 }
 
-	// calculate lowest and highest pixel to fill in current stripe
+// calculate lowest and highest pixel to fill in current stripe
 void	renderer__draw__vertical_wall(t_renderer *this,
 								int lineheight, int color, int x)
 {
@@ -42,10 +32,12 @@ void	renderer__draw__vertical_wall(t_renderer *this,
 
 	for (int y = draw_start; y < draw_end; y++)
 		this->buf[y][x] = color;
-	}
-	// FLOOR CASTING
-	void renderer__raycast__floor(t_renderer* this, t_camera* camera) {
-	for (int y = 0; y < HEIGHT; y++) {
+}
+
+// FLOOR CASTING
+void renderer__raycast__floor(t_renderer* this, t_camera* camera)
+{
+	for (int y = HEIGHT / 2 + 1; y < HEIGHT; y++) {
 		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
 		t_vec ray_dir0 = (t_vec){camera->dir.x - camera->plane.x,
 								camera->dir.y - camera->plane.y};
@@ -167,99 +159,10 @@ void renderer__raycast__wall(t_renderer* this,
 	}
 }
 
-
-
-void renderer__raycast__sprite(t_renderer* this,
-								t_camera* camera,
-								double zbuffer[WIDTH]) {
-	// SPRITE CASTING
-	// sort sprites from far to close
-	for (int i = 0; i < NUM_SPRITES; i++) {
-		spriteOrder[i] = i;
-		spriteDistance[i] =
-			((camera->pos.x - sprite[i].pos.x) * (camera->pos.x - sprite[i].pos.x) +
-			(camera->pos.y - sprite[i].pos.y) *
-				(camera->pos.y - sprite[i].pos.y));  // sqrt not taken, unneeded
-	}
-	sortSprites(spriteOrder, spriteDistance, NUM_SPRITES);
-	// after sorting the sprites, do the projection and draw them
-	for (int i = 0; i < NUM_SPRITES; i++) {
-		// translate sprite position to relative to camera
-		double spritex = sprite[spriteOrder[i]].pos.x - camera->pos.x;
-		double spritey = sprite[spriteOrder[i]].pos.y - camera->pos.y;
-
-		/**
-		 * transform sprite with the inverse camera matrix
-		 *  [ planex dirx ] -1                                   [ diry      -dirx ]
-		 *  [             ]     =  1/(planex*diry-dirx*planey) * [                 ]
-		 *  [ planey diry ]                                      [ -planey  planex ]
-		 */
-		// required for correct matrix multiplication
-		double invDet = 1.0 / (camera->plane.x * camera->dir.y -
-							camera->dir.x * camera->plane.y);
-
-		double transformx =
-			invDet * (camera->dir.y * spritex - camera->dir.x * spritey);
-		double transformy =
-			invDet *
-			(-camera->plane.y * spritex +
-			camera->plane.x *
-				spritey);  // this is actually the depth inside the screen, that
-							// what Z is in 3D, the distance of sprite to player,
-							// matching sqrt(spriteDistance[i])
-
-		int spriteScreenx = (int)((WIDTH / 2) * (1 + transformx / transformy));
-
-
-		int vMoveScreen = (int)(vMove / transformy);
-
-		// calculate height of the sprite on screen
-		int spriteHeight = (int)fabs((HEIGHT / transformy) /
-									vDiv);  // using "transformy" instead of the
-											// real distance prevents fisheye
-
-		// calculate lowest and highest pixel to fill in current stripe
-		int drawStarty = math__max(-spriteHeight / 2 + HEIGHT / 2 + vMoveScreen, 0);
-		int drawEndy =
-			math__min(spriteHeight / 2 + HEIGHT / 2 + vMoveScreen, HEIGHT - 1);
-
-		// calculate width of the sprite
-		int spriteWidth = (int)fabs((HEIGHT / transformy) / uDiv);
-		int drawStartx = math__max(-spriteWidth / 2 + spriteScreenx, 0);
-		int drawEndx = math__min(spriteWidth / 2 + spriteScreenx, WIDTH - 1);
-
-		// loop through every vertical stripe of the sprite on screen
-		for (int stripe = drawStartx; stripe < drawEndx; stripe++) {
-		int texx = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenx)) *
-							TEX_WIDTH / spriteWidth) /
-						256);
-		// the conditions in the if are:
-		// 1) it's in front of camera plane so you don't see things behind you
-		// 2) it's on the screen (left)
-		// 3) it's on the screen (right)
-		// 4) ZBuffer, with perpendicular distance
-		if (0 < transformy && transformy < zbuffer[stripe] && 0 < stripe &&
-			stripe < WIDTH)
-			// for every pixel of the current stripe
-			for (int y = drawStarty; y < drawEndy; y++) {
-			// 256 and 128 factors to avoid floats
-			int d = (y - vMoveScreen) * 256 - HEIGHT * 128 + spriteHeight * 128;
-			int texy = ((d * TEX_HEIGHT) / spriteHeight) / 256;
-			// get current color from the texture
-			int color =
-				texture[sprite[spriteOrder[i]].texture][TEX_WIDTH * texy + texx];
-			if ((color & 0x00FFFFFF) != 0)
-				this->buf[y][stripe] = color;  // paint pixel if it isn't black,
-											// black is the invisible color
-			}
-		}
-	}
-	}
-
 void renderer__raycast(t_renderer* this, t_camera* camera)
 {
 	double zBuffer[WIDTH];
+
 	renderer__raycast__floor(this, camera);
 	renderer__raycast__wall(this, camera, zBuffer);
-	renderer__raycast__sprite(this, camera, zBuffer);
 }

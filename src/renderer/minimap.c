@@ -6,6 +6,7 @@
 
 const extern int	g_worldmap[24][24];
 
+// TODO: use map struct for map range
 void	renderer__draw_minimap_at(t_renderer *this,
 								t_ivec player_pos,
 								t_irange x_range,
@@ -15,8 +16,6 @@ void	renderer__draw_minimap_at(t_renderer *this,
 	t_ivec		pos_map;
 	t_irange	map_range_x;
 	t_irange	map_range_y;
-	int			nx;
-	int			ny;
 
 	map_range_x = (t_irange){0, 24};
 	map_range_y = (t_irange){0, 24};
@@ -24,13 +23,13 @@ void	renderer__draw_minimap_at(t_renderer *this,
 	{
 		for (int y = y_range.start; y < x_range.end; y++)
 		{
-			nx = math__normalize(x, x_range, map_range_x);
-			ny = math__normalize(y, y_range, map_range_y);
 			// printf("%d %d\n", nx, ny);
-			pos_map = (t_ivec){nx, ny};
-			if (vec__ivec_eq(&pos_map, &player_pos))
+			pos_map = (t_ivec){
+				math__normalize(x, x_range, map_range_x),
+				math__normalize(y, y_range, map_range_y)};
+			if (ivec__is_equal(&pos_map, &player_pos))
 				color = COLOR__RED;
-			else if (!g_worldmap[nx][ny])
+			else if (!g_worldmap[pos_map.x][pos_map.y])
 				color = 0xCCCCCC;
 			else
 				color = get_color(&pos_map, false);
