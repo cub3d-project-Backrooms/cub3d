@@ -23,20 +23,19 @@ int	engine__deinit(t_engine *this)
 }
 
 // camera position will be determined by parsed map result someday
+// .dir = {-1, 0},
+// .plane = {0, 0.66},
 void	engine__init(t_engine *this)
 {
 	t_camera	camera;
 
 	camera = (t_camera){
-		.pos = {17, 2},
-		.dir = {-1, 0},
-		.plane = {0, 0.66},
+		.pos = {10, 14},
+		.dir = {0, 1},
+		.plane = {0.66, 0},
 	};
 	renderer__init(&this->renderer);
 	this->camera = camera;
-	engine__rotate_player(this, 3.14159265358979323846264338327950288 / 2);
 	this->inputhandler = inputhandler__init();
-	this->movespeed = 0.02;
-	this->rotspeed = 0.015;
 	engine__init__input(this);
 }

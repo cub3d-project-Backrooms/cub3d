@@ -28,11 +28,6 @@ typedef struct s_camera
 	t_vec				plane;
 }						t_camera;
 
-typedef struct s_inputhandler__keyinfo
-{
-
-}						t_inputhandler__keyinfo;
-
 typedef enum e_config
 {
 	mapWidth = 24,

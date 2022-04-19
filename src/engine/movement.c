@@ -18,8 +18,8 @@ void	engine__try_move_player(t_engine *e, double x, double y)
 
 	dx = x * e->camera.dir.x * e->movespeed;
 	dy = y * e->camera.dir.y * e->movespeed;
-	if (!is_collision_with_wall(&(t_vec){e->camera.pos.x + dx,
-											e->camera.pos.y}))
+	if (!is_collision_with_wall(
+			&(t_vec){e->camera.pos.x + dx, e->camera.pos.y}))
 		e->camera.pos.x += dx;
 	if (!is_collision_with_wall(&(t_vec){e->camera.pos.x, e->camera.pos.y
 			+ dy}))

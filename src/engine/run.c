@@ -16,10 +16,23 @@ void	engine__refresh(t_engine *this)
 	renderer__draw_to_window(renderer);
 }
 
+void	engine__set_movespeed(t_engine *this)
+{
+	if (this->inputhandler.is_shift_pressed)
+	{
+		this->movespeed = 0.05;
+		this->rotspeed = 0.02;
+	}
+	else
+	{
+		this->movespeed = 0.025;
+		this->rotspeed = 0.03;
+	}
+}
 
 int	engine__loop(t_engine *this)
 {
-	static char	pos[40];
+	static char	pos[80];
 
 	if (this->inputhandler.is_exit)
 	{
@@ -28,8 +41,11 @@ int	engine__loop(t_engine *this)
 	else if (inputhandler__is_movement(&this->inputhandler))
 	{
 		engine__refresh(this);
+		engine__set_movespeed(this);
 		engine__move_player(this);
-		sprintf(pos, "X: %f Y: %f", this->camera.pos.x, this->camera.pos.y);
+		sprintf(pos, "X: %f Y: %f dir: %f, %f",
+			this->camera.pos.x, this->camera.pos.y,
+			this->camera.dir.x, this->camera.dir.y);
 	}
 	mlx_string_put(this->renderer.mlx, this->renderer.window, 0, 96 + 13,
 		0xFFFFFF, pos);

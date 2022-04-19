@@ -1,6 +1,7 @@
 #ifndef TYPES__PLATFORM__KEYCODE_H
 # define TYPES__PLATFORM__KEYCODE_H
 
+// TODO: add KEY_SHIFT
 typedef enum e_keycode
 {
 	KEY_A = 97,
@@ -29,7 +30,6 @@ typedef enum e_keycode
 	KEY_X,
 	KEY_Y,
 	KEY_Z,
-
 	KEY_0 = 48,
 	KEY_1,
 	KEY_2,
@@ -40,16 +40,13 @@ typedef enum e_keycode
 	KEY_7,
 	KEY_8,
 	KEY_9,
-
 	KEY_UP = 65362,
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,
 	KEY_RIGHT = 65363,
-
 	KEY_ESC = 65307,
 	KEY_SPACE = 32,
 	KEY_ENTER = 65293,
-
 	KEY_MINUS = 45,
 	KEY_EQUAL = 61,
 	KEY_BACKSPACE = 65288,
@@ -64,7 +61,6 @@ typedef enum e_keycode
 	KEY_PERIOD = 46,
 	KEY_SLASH = 47,
 	KEY_CAPS_LOCK = 65307,
-
 	KEY_NUMPAD_DIV = 65455,
 	KEY_NUMPAD_MUL = 65450,
 	KEY_NUMPAD_MIN = 65453,

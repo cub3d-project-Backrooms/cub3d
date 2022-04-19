@@ -1,10 +1,23 @@
 {
   "configurations": [
     {
-      "name": "linux",
+      "name": "Linux",
       "includePath": [
         "${workspaceRoot}/lib/libscarf/include",
         "${workspaceRoot}/lib/mlx_linux",
+        "${workspaceRoot}/include",
+        "${workspaceRoot}/include/linux",
+        "${default}"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "intelliSenseMode": "linux-clang-x64"
+    },
+    {
+      "name": "Mac",
+      "includePath": [
+        "${workspaceRoot}/lib/libscarf/include",
+        "${workspaceRoot}/lib/mlx_mac",
         "${workspaceRoot}/include",
         "${workspaceRoot}/include/linux",
         "${default}"
