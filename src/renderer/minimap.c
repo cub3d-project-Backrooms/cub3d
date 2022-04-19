@@ -28,7 +28,7 @@ void	renderer__draw_minimap_at(t_renderer *this,
 			ny = math__normalize(y, y_range, map_range_y);
 			// printf("%d %d\n", nx, ny);
 			pos_map = (t_ivec){nx, ny};
-			if (vec__ivec_eq(&pos_map, &player_pos))
+			if (ivec__is_equal(&pos_map, &player_pos))
 				color = COLOR__RED;
 			else if (!g_worldmap[nx][ny])
 				color = 0xCCCCCC;
