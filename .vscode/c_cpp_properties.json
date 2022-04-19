@@ -3,13 +3,13 @@
     {
       "name": "linux",
       "includePath": [
-        "${default}",
-        "lib/libscarf/include",
-        "lib/libscarf/include/types",
-        "lib/mlx_linux",
-        "include",
-        "include/linux",
-        "include/types"
+        "${workspaceRoot}/lib/libscarf/include",
+        "${workspaceRoot}/lib/libscarf/include/types",
+        "${workspaceRoot}/lib/mlx_linux",
+        "${workspaceRoot}/include",
+        "${workspaceRoot}/include/linux",
+        "${workspaceRoot}/include/types",
+        "${default}"
       ],
       "defines": [],
       "compilerPath": "/usr/bin/clang",

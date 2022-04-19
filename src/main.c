@@ -1,20 +1,16 @@
+#include "engine.h"
+#include "std__types.h"
 #include <stdio.h>
-#include "mlx.h"
+#include <stdlib.h>
 
-int	key_hook(int keycode)
-{
-	printf("pressed %d\n", keycode);
-	return (0);
-}
+const extern int worldMap[24][24];
 
-int main(void)
-{
-	printf("Hello, World!\n");
-	void * mlx = mlx_init();
-	void * win = mlx_new_window(mlx, 100, 100, "Hello, World!");
+int main(int argc, t_const_string argv[]) {
+  (void)argc;
+  (void)argv;
+  t_engine engine;
 
-	mlx_key_hook(win, key_hook, NULL);
-	mlx_do_key_autorepeaton(mlx);
-	mlx_loop(mlx);
-	return 0;
+  engine__init(&engine);
+  engine__run(&engine);
+  return (0);
 }
