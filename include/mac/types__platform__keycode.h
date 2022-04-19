@@ -1,5 +1,5 @@
 #ifndef TYPES__PLATFORM__KEYCODE_H
-#define TYPES__PLATFORM__KEYCODE_H
+# define TYPES__PLATFORM__KEYCODE_H
 
 # define TILE_SIZE 64
 
@@ -13,8 +13,7 @@ typedef enum e_status
 	SHUTDOWN
 }	t_status;
 
-typedef enum e_keycode
-{
+typedef enum e_keycode {
 	KEY_A = 0,
 	KEY_B = 11,
 	KEY_C = 8,
@@ -41,7 +40,6 @@ typedef enum e_keycode
 	KEY_X = 7,
 	KEY_Y = 16,
 	KEY_Z = 6,
-
 	KEY_0 = 29,
 	KEY_1 = 18,
 	KEY_2 = 19,
@@ -52,16 +50,13 @@ typedef enum e_keycode
 	KEY_7 = 26,
 	KEY_8 = 28,
 	KEY_9 = 25,
-
 	KEY_UP = 126,
 	KEY_DOWN = 125,
 	KEY_LEFT = 123,
 	KEY_RIGHT = 124,
-
 	KEY_ESC = 53,
 	KEY_SPACE = 49,
 	KEY_ENTER = 36,
-
 	KEY_MINUS = 27,
 	KEY_EQUAL = 24,
 	KEY_BACKSPACE = 51,
@@ -76,6 +71,11 @@ typedef enum e_keycode
 	KEY_PERIOD = 55,
 	KEY_SLASH = 56,
 	KEY_CAPS_LOCK = 57,
+	KEY_SHIFT = 257,
+	KEY_NUMPAD_DIV = 75,
+	KEY_NUMPAD_MUL = 67,
+	KEY_NUMPAD_MIN = 78,
+	KEY_NUMPAD_PLU = 69,
 }	t_keycode;
 
 typedef enum e_mousecode

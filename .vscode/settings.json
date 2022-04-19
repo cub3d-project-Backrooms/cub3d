@@ -1,6 +1,6 @@
 {
   "[c]": {
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "editor.tabSize": 4
   },
   "files.associations": {
@@ -22,6 +22,21 @@
     "*.list": "properties",
     "*.sav": "json",
     "*.lalrpop": "rust",
-    "ios": "c"
+    "**/*.mk": "makefile",
+    "ios": "c",
+    "algorithm": "c",
+    "chrono": "c",
+    "limits": "c",
+    "ratio": "c",
+    "__hash_table": "c",
+    "__split_buffer": "c",
+    "atomic": "c",
+    "istream": "c",
+    "locale": "c",
+    "string": "c",
+    "system_error": "c",
+    "unordered_map": "c",
+    "vector": "c",
+    "__locale": "c"
   }
 }
