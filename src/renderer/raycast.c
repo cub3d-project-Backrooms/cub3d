@@ -156,7 +156,6 @@ void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 	this->lineheight = (int)(HEIGHT / this->perpWallDist * 1);
 	this->draw_start = math__max(-this->lineheight / 2 + HEIGHT / 2, 0);
 	this->draw_end = math__min(this->lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
-	this->texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
 	if (this->step.is_hit_y_side == 0)
 		this->wallx = camera->pos.y + this->perpWallDist * this->ray_dir.y;
 	else
@@ -175,16 +174,19 @@ void walldata__draw__set_texture_data(t_walldata *this)
 	this->texPos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
 }
 
-int renderer__draw__wall_texture(t_walldata *this)
+int walldata__draw__wall_texture(t_walldata *this)
 {
 	int texY;
+	int texnum;
 	int color;
 
 	texY = (int)this->texPos & (TEX_HEIGHT - 1);
 	this->texPos += this->step_val;
-	color = texture[this->texnum][TEX_HEIGHT * texY + this->texX];
-	if (this->step.is_hit_y_side)
-	color = (color >> 1) & 8355711;
+	texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
+	color = texture[texnum][TEX_HEIGHT * texY + this->texX];
+	if (this->step.is_hit_y_side && (this->step.y_sign == POSITIVE))
+		color = 0;
+		//color = (color >> 1) & 8355711;
 	return (color);
 }
 
@@ -203,7 +205,7 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 		walldata__draw__set_texture_data(&walldata);
 		y = walldata.draw_start - 1;
 		while (++y < walldata.draw_end)
-			this->buf[y][x] = renderer__draw__wall_texture(&walldata);
+			this->buf[y][x] = walldata__draw__wall_texture(&walldata);
 	}
 }
 

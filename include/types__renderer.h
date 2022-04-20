@@ -89,7 +89,6 @@ typedef struct s_walldata
 	int lineheight;
 	int draw_start;
 	int draw_end;
-	int texnum;
 	double wallx;
 	int texX;
 	double step_val;
