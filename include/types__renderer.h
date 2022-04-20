@@ -12,8 +12,8 @@ typedef void			*t_mlx__image_ref;
 
 typedef struct s_world
 {
-	int map_width;
-	int map_height; // Map width & height might need in minimap ?
+	int tex_width;
+	int tex_height;
 	int **worldmap;
 	int **texture;
 } t_world;

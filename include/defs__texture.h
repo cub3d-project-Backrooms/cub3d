@@ -1,15 +1,13 @@
 #ifndef DEFS__TEXTURE_H
 #define DEFS__TEXTURE_H
 
-#define TEX_WIDTH 64
-#define TEX_HEIGHT 64
-#define EAGLE 0
-#define REDBRICK 1
-#define PURPLESTONE 2
-#define GRAYSTONE 3
-#define BLUESTONE 4
-#define MOSSY 5
-#define WOOD 6
-#define COLORSTONE 7
+#define NORTHWALL 0
+#define SOUTHWALL 1
+#define EASTWALL 2
+#define WESTWALL 3
+#define FLOOR 4
+#define CEILING 5
+#define FLOOR2 6
+#define CEILING2 7
 
 #endif /* DEFS__TEXTURE_H */

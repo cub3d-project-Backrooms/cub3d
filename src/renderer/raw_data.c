@@ -29,8 +29,7 @@ int			g_worldmap[mapWidth][mapHeight] = {
 	{2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0, 5, 0, 5, 0, 0, 0, 5, 5},
 	{2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
 
-// TODO: make it stored where?
-int			texture[8][TEX_HEIGHT * TEX_WIDTH];
+
 #include <assert.h>
 void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 {
@@ -55,7 +54,7 @@ void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 void	renderer__init_texture(t_renderer *r)
 {
 	t_image	img;
-	int			texture[8][TEX_HEIGHT * TEX_WIDTH];
+	int			texture[8][r->world.tex_height * r->world.tex_width];
 	load_image(r, texture[0], "asset/eagle.xpm", &img);
 	load_image(r, texture[1], "asset/redbrick.xpm", &img);
 	load_image(r, texture[2], "asset/purplestone.xpm", &img);
@@ -66,8 +65,8 @@ void	renderer__init_texture(t_renderer *r)
 	load_image(r, texture[7], "asset/colorstone.xpm", &img);
 	r->world.texture = std__allocate(8, sizeof(int *));
 	for (int i = 0; i < 8; ++i)
-		r->world.texture[i] = std__allocate(TEX_HEIGHT * TEX_WIDTH, sizeof(int));
+		r->world.texture[i] = std__allocate(r->world.tex_height * r->world.tex_width, sizeof(int));
 	for (int i = 0; i < 8; ++i)
-		for (int j = 0; j < TEX_HEIGHT * TEX_WIDTH; ++j)
+		for (int j = 0; j < r->world.tex_height * r->world.tex_width; ++j)
 			r->world.texture[i][j] = texture[i][j];
 }

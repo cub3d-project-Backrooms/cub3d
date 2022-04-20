@@ -84,14 +84,14 @@ void	floordata__raycast__set_floor_vectors(t_floordata *this, t_camera *camera)
 	this->floor.y = camera->pos.y + this->rowDistance * this->ray_dir0.y;
 }
 
-void	floordata__raycast__set_delta_texture_vector(t_floordata *this)
+void	floordata__raycast__set_delta_texture_vector(t_floordata *this, t_world *world)
 {
 	this->cell.x = (int)(this->floor.x);
 	this->cell.y = (int)(this->floor.y);
-	this->deltaT.x = (int)(TEX_WIDTH * (this->floor.x
-				- this->cell.x)) & (TEX_WIDTH - 1);
-	this->deltaT.y = (int)(TEX_HEIGHT * (this->floor.y
-				- this->cell.y)) & (TEX_HEIGHT - 1);
+	this->deltaT.x = (int)(world->tex_width * (this->floor.x
+				- this->cell.x)) & (world->tex_width - 1);
+	this->deltaT.y = (int)(world->tex_height * (this->floor.y
+				- this->cell.y)) & (world->tex_height - 1);
 	this->floor.x += this->floorStep.x;
 	this->floor.y += this->floorStep.y;
 }
@@ -103,13 +103,13 @@ void	floordata__draw__checkerboard(t_floordata *this)
 	checkerboard = ((int)this->floor.x + (int)this->floor.y) % 2;
 	if (checkerboard)
 	{
-		this->floorTexture = WOOD;
-		this->ceilingTexture = GRAYSTONE;
+		this->floorTexture = FLOOR;
+		this->ceilingTexture = CEILING;
 	}
 	else
 	{
-		this->floorTexture = REDBRICK;
-		this->ceilingTexture = MOSSY;
+		this->floorTexture = FLOOR2;
+		this->ceilingTexture = CEILING2;
 	}
 }
 
@@ -118,12 +118,12 @@ void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 {
 	int	color;
 
-	color = this->world.texture[vecs->floorTexture][(int)(TEX_WIDTH * vecs->deltaT.y
+	color = this->world.texture[vecs->floorTexture][(int)(this->world.tex_width * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
 	color = distance_shade(color, vecs->rowDistance);
 	this->buf[current_y][current_x] = color;
-	color = this->world.texture[vecs->ceilingTexture][(int)(TEX_WIDTH * vecs->deltaT.y
+	color = this->world.texture[vecs->ceilingTexture][(int)(this->world.tex_width * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
 	color = distance_shade(color, vecs->rowDistance);
@@ -146,7 +146,7 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			floordata__raycast__set_delta_texture_vector(&floordata);
+			floordata__raycast__set_delta_texture_vector(&floordata, &this->world);
 			floordata__draw__checkerboard(&floordata);
 			renderer__draw__floor(this, &floordata, x, y);
 		}
@@ -177,14 +177,14 @@ void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 	this->wallx -= floor(this->wallx);
 }
 
-void walldata__draw__set_texture_data(t_walldata *this)
+void walldata__draw__set_texture_data(t_walldata *this, t_world *world)
 {
-	this->texX = (int)(this->wallx * (double)TEX_WIDTH);
+	this->texX = (int)(this->wallx * (double)world->tex_width);
 	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
-		this->texX = TEX_WIDTH - this->texX - 1;
+		this->texX = world->tex_width - this->texX - 1;
 	if (this->step.is_hit_y_side == 1 && this->ray_dir.y < 0)
-		this->texX = TEX_WIDTH - this->texX - 1;
-	this->step_val = 1.0 * TEX_HEIGHT / this->lineheight;
+		this->texX = world->tex_width - this->texX - 1;
+	this->step_val = 1.0 * world->tex_height / this->lineheight;
 	this->texPos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
 }
 
@@ -194,18 +194,18 @@ int renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 	int texnum;
 	int color;
 
-	texY = (int)data->texPos & (TEX_HEIGHT - 1);
+	texY = (int)data->texPos & (this->world.tex_height - 1);
 	data->texPos += data->step_val;
 	//texnum = this->world.worldmap[data->map_pos.x][data->map_pos.y] - 1;
 	if (data->step.is_hit_y_side && (data->step.y_sign == POSITIVE)) // NORTH WALL
-		texnum = REDBRICK;
+		texnum = NORTHWALL;
 	else if (data->step.is_hit_y_side && (data->step.y_sign == NEGATIVE)) // SOUTH WALL
-		texnum = WOOD;
+		texnum = SOUTHWALL;
 	else if (!data->step.is_hit_y_side && (data->step.x_sign == POSITIVE)) // EAST WALL
-		texnum = BLUESTONE;
+		texnum = EASTWALL;
 	else // WEST WALL
-		texnum = GRAYSTONE;
-	color = this->world.texture[texnum][TEX_HEIGHT * texY + data->texX];
+		texnum = WESTWALL;
+	color = this->world.texture[texnum][this->world.tex_height * texY + data->texX];
 	color = distance_shade(color, data->perpWallDist);
 	return (color);
 }
@@ -222,7 +222,7 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 		walldata__raycast__set_dda_vector(&walldata, camera, x, &this->world);
 		zbuffer[x] = walldata.perpWallDist;
 		walldata__draw__set_wall_data(&walldata, camera);
-		walldata__draw__set_texture_data(&walldata);
+		walldata__draw__set_texture_data(&walldata, &this->world);
 		y = walldata.draw_start - 1;
 		while (++y < walldata.draw_end)
 			this->buf[y][x] = renderer__draw__wall_texture(this, &walldata);
