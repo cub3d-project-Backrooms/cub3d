@@ -3,12 +3,9 @@
 #include "std__math.h"
 #include <math.h>
 
-const extern int	g_worldmap[24][24];
-extern int			texture[8][TEX_HEIGHT * TEX_WIDTH];
-
-t_colors	get_color(t_ivec *map, bool is_hit_y_side)
+t_colors	get_color(t_renderer *renderer, t_ivec *map, bool is_hit_y_side)
 {
-	const int		index = g_worldmap[map->y][map->x];
+	const int		index = renderer->world.worldmap[map->y][map->x];
 	int				result;
 	const t_colors	colors[] = {
 		COLOR__YELLOW,
@@ -106,11 +103,11 @@ void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 {
 	int	color;
 
-	color = texture[vecs->floorTexture][(int)(TEX_WIDTH * vecs->deltaT.y
+	color = this->world.texture[vecs->floorTexture][(int)(TEX_WIDTH * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
 	this->buf[current_y][current_x] = color;
-	color = texture[vecs->ceilingTexture][(int)(TEX_WIDTH * vecs->deltaT.y
+	color = this->world.texture[vecs->ceilingTexture][(int)(TEX_WIDTH * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
 	this->buf[HEIGHT - current_y - 1][current_x] = color;
@@ -174,19 +171,24 @@ void walldata__draw__set_texture_data(t_walldata *this)
 	this->texPos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
 }
 
-int walldata__draw__wall_texture(t_walldata *this)
+int renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 {
 	int texY;
 	int texnum;
 	int color;
 
-	texY = (int)this->texPos & (TEX_HEIGHT - 1);
-	this->texPos += this->step_val;
-	texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
-	color = texture[texnum][TEX_HEIGHT * texY + this->texX];
-	if (this->step.is_hit_y_side && (this->step.y_sign == POSITIVE))
-		color = 0;
-		//color = (color >> 1) & 8355711;
+	texY = (int)data->texPos & (TEX_HEIGHT - 1);
+	data->texPos += data->step_val;
+	//texnum = this->world.worldmap[data->map_pos.x][data->map_pos.y] - 1;
+	if (data->step.is_hit_y_side && (data->step.y_sign == POSITIVE)) // NORTH WALL
+		texnum = REDBRICK;
+	else if (data->step.is_hit_y_side && (data->step.y_sign == NEGATIVE)) // SOUTH WALL
+		texnum = WOOD;
+	else if (!data->step.is_hit_y_side && (data->step.x_sign == POSITIVE)) // EAST WALL
+		texnum = BLUESTONE;
+	else // WEST WALL
+		texnum = GRAYSTONE;
+	color = this->world.texture[texnum][TEX_HEIGHT * texY + data->texX];
 	return (color);
 }
 
@@ -205,7 +207,7 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 		walldata__draw__set_texture_data(&walldata);
 		y = walldata.draw_start - 1;
 		while (++y < walldata.draw_end)
-			this->buf[y][x] = walldata__draw__wall_texture(&walldata);
+			this->buf[y][x] = renderer__draw__wall_texture(this, &walldata);
 	}
 }
 

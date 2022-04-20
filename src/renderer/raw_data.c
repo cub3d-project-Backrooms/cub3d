@@ -1,6 +1,7 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__types.h"
+#include "std__system.h"
 
 int			g_worldmap[mapWidth][mapHeight] = {
 	{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 6, 4, 4, 6, 4, 6, 4, 4, 4, 6, 4},
@@ -54,8 +55,7 @@ void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 void	renderer__init_texture(t_renderer *r)
 {
 	t_image	img;
-
-	(void)r;
+	int			texture[8][TEX_HEIGHT * TEX_WIDTH];
 	load_image(r, texture[0], "asset/eagle.xpm", &img);
 	load_image(r, texture[1], "asset/redbrick.xpm", &img);
 	load_image(r, texture[2], "asset/purplestone.xpm", &img);
@@ -64,4 +64,10 @@ void	renderer__init_texture(t_renderer *r)
 	load_image(r, texture[5], "asset/mossy.xpm", &img);
 	load_image(r, texture[6], "asset/wood.xpm", &img);
 	load_image(r, texture[7], "asset/colorstone.xpm", &img);
+	r->world.texture = std__allocate(8, sizeof(int *));
+	for (int i = 0; i < 8; ++i)
+		r->world.texture[i] = std__allocate(TEX_HEIGHT * TEX_WIDTH, sizeof(int));
+	for (int i = 0; i < 8; ++i)
+		for (int j = 0; j < TEX_HEIGHT * TEX_WIDTH; ++j)
+			r->world.texture[i][j] = texture[i][j];
 }

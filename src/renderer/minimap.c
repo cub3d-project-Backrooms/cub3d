@@ -32,7 +32,7 @@ void	renderer__draw_minimap_at(t_renderer *this,
 			else if (!g_worldmap[pos_map.x][pos_map.y])
 				color = 0xCCCCCC;
 			else
-				color = get_color(&pos_map, false);
+				color = get_color(this, &pos_map, false);
 			this->buf[y][x] = color;
 		}
 	}

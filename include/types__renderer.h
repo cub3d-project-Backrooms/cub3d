@@ -10,6 +10,14 @@ typedef void			*t_mlx__ref;
 typedef void			*t_mlx__window_ref;
 typedef void			*t_mlx__image_ref;
 
+typedef struct s_world
+{
+	int map_width;
+	int map_height; // Map width & height might need in minimap ?
+	int **worldmap;
+	int **texture;
+} t_world;
+
 typedef struct s_image
 {
 	t_mlx__image_ref	img_ref;
@@ -53,6 +61,7 @@ typedef struct s_step
 
 typedef struct s_renderer
 {
+	t_world				world;
 	t_mlx__ref			mlx;
 	t_mlx__window_ref	window;
 	t_image				buffer_window;

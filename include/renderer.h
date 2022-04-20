@@ -8,16 +8,7 @@
 # include "types__x11_events.h"
 # include <stdbool.h>
 
-# define TEX_WIDTH 64
-# define TEX_HEIGHT 64
-#define EAGLE 0
-#define REDBRICK 1
-#define PURPLESTONE 2
-#define GRAYSTONE 3
-#define BLUESTONE 4
-#define MOSSY 5
-#define WOOD 6
-#define COLORSTONE 7
+# include "defs__texture.h"
 
 // clang-format off
 //@func
@@ -73,6 +64,6 @@ void		load_image(t_renderer *r, int *texture, char *path, t_image *img);
 void		renderer__init_texture(t_renderer *r);
 /*
 ** < raycast.c> */
-t_colors	get_color(t_ivec *map, bool is_hit_y_side);
+t_colors	get_color(t_renderer *renderer, t_ivec *map, bool is_hit_y_side);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
 #endif  // __ENGINE_H__
