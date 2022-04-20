@@ -24,6 +24,20 @@ t_colors	get_color(t_renderer *renderer, t_ivec *map, bool is_hit_y_side)
 	return (result);
 }
 
+int	shade_color(int color, double divide)
+{
+	if (divide <= 1.)
+		return (color);
+	return (((int)(((0xFF0000 & color) >> 16) / divide) << 16)
+		+ ((int)(((0x00FF00 & color) >> 8) / divide) << 8)
+		+ ((int)((0x0000FF & color) / divide)));
+}
+
+int	distance_shade(int color, double distance)
+{
+	return (shade_color(color, distance / 1.5));
+}
+
 // calculate lowest and highest pixel to fill in current stripe
 void	renderer__draw__vertical_wall(t_renderer *this,
 									int lineheight,
@@ -106,10 +120,12 @@ void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 	color = this->world.texture[vecs->floorTexture][(int)(TEX_WIDTH * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
+	color = distance_shade(color, vecs->rowDistance);
 	this->buf[current_y][current_x] = color;
 	color = this->world.texture[vecs->ceilingTexture][(int)(TEX_WIDTH * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
+	color = distance_shade(color, vecs->rowDistance);
 	this->buf[HEIGHT - current_y - 1][current_x] = color;
 }
 
@@ -189,6 +205,7 @@ int renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 	else // WEST WALL
 		texnum = GRAYSTONE;
 	color = this->world.texture[texnum][TEX_HEIGHT * texY + data->texX];
+	color = distance_shade(color, data->perpWallDist);
 	return (color);
 }
 
