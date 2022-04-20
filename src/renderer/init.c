@@ -34,6 +34,7 @@ int			worldmap[mapWidth][mapHeight] = {
 void	renderer__init__world_data(t_renderer *this)
 {
 	t_world world; // dummy world
+
 	world.map_width = 24;
 	world.map_height = 24;
 	world.worldmap = std__allocate(24, sizeof(int *));
@@ -42,6 +43,7 @@ void	renderer__init__world_data(t_renderer *this)
 	for (int i = 0; i < 24; ++i)
 		for (int j = 0; j < 24; ++j)
 			world.worldmap[i][j] = worldmap[i][j];
+	this->world = world;
 	renderer__init_texture(this);
 }
 

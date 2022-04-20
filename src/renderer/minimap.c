@@ -2,7 +2,6 @@
 #include "renderer.h"
 #include "std__math.h"
 #include <math.h>
-#include <stdio.h>
 
 const extern int	g_worldmap[24][24];
 
@@ -29,7 +28,7 @@ void	renderer__draw_minimap_at(t_renderer *this,
 				math__normalize(y, y_range, map_range_y)};
 			if (ivec__is_equal(&pos_map, &player_pos))
 				color = COLOR__RED;
-			else if (!g_worldmap[pos_map.x][pos_map.y])
+			else if (this->world.worldmap[pos_map.x][pos_map.y])
 				color = 0xCCCCCC;
 			else
 				color = get_color(this, &pos_map, false);

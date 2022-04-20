@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "std__math.h"
 #include <math.h>
+#include <stdio.h>
 
 t_colors	get_color(t_renderer *renderer, t_ivec *map, bool is_hit_y_side)
 {
@@ -152,14 +153,14 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	}
 }
 
-void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x)
+void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x, t_world *world)
 {
 	this->camera_x = dda__normalized_plane_x(current_x);
 	this->ray_dir = camera__ray_dir_at_position(camera, this->camera_x);
 	this->map_pos = camera__to_pos_at_map(camera);
 	this->delta_dist = dda__dist_to_next_closest_grid(&this->ray_dir);
 	this->step = dda__initial_step(camera, &this->map_pos, &this->ray_dir, &this->delta_dist);
-	dda__advance_step_until_hit(&this->step, &this->map_pos, &this->delta_dist);
+	dda__advance_step_until_hit(&this->step, &this->map_pos, &this->delta_dist, world);
 	this->perpWallDist = dda__perpendicular_dist_to_closest_grid(
 		&this->step, camera, &this->map_pos, &this->ray_dir);
 }
@@ -218,7 +219,7 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 	x = -1;
 	while (++x < WIDTH)
 	{
-		walldata__raycast__set_dda_vector(&walldata, camera, x);
+		walldata__raycast__set_dda_vector(&walldata, camera, x, &this->world);
 		zbuffer[x] = walldata.perpWallDist;
 		walldata__draw__set_wall_data(&walldata, camera);
 		walldata__draw__set_texture_data(&walldata);
