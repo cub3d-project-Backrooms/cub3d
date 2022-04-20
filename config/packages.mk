@@ -1,5 +1,5 @@
 # Packages
-PKGS = engine renderer
+PKGS = engine parser renderer
 
 #FIXME: specify packages
 

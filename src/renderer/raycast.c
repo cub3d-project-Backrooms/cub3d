@@ -6,6 +6,20 @@
 const extern int	g_worldmap[24][24];
 extern int			texture[8][TEX_HEIGHT * TEX_WIDTH];
 
+int	shade_color(int color, double divide)
+{
+	if (divide <= 1.)
+		return (color);
+	return (((int)(((0xFF0000 & color) >> 16) / divide) << 16)
+		+ ((int)(((0x00FF00 & color) >> 8) / divide) << 8)
+		+ ((int)((0x0000FF & color) / divide)));
+}
+
+int	distance_shade(int color, double distance)
+{
+	return (shade_color(color, distance / 1.5));
+}
+
 t_colors	get_color(t_ivec *map, bool is_hit_y_side)
 {
 	const int		index = g_worldmap[map->y][map->x];
@@ -109,10 +123,12 @@ void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 	color = texture[vecs->floorTexture][(int)(TEX_WIDTH * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
+	color = distance_shade(color, vecs->rowDistance);
 	this->buf[current_y][current_x] = color;
 	color = texture[vecs->ceilingTexture][(int)(TEX_WIDTH * vecs->deltaT.y
 			+ vecs->deltaT.x)];
 	color = (color >> 1) & 8355711; // make a bit darker
+	color = distance_shade(color, vecs->rowDistance);
 	this->buf[HEIGHT - current_y - 1][current_x] = color;
 }
 
@@ -123,7 +139,7 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	int			y;
 	int			x;
 
-	y = HEIGHT / 2;
+	y = HEIGHT / 2 - 1;
 	while (++y < HEIGHT)
 	{
 		floordata__raycast__set_raydir_vector(&floordata, camera);
@@ -184,6 +200,7 @@ int walldata__draw__wall_texture(t_walldata *this)
 	this->texPos += this->step_val;
 	texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
 	color = texture[texnum][TEX_HEIGHT * texY + this->texX];
+	color = distance_shade(color, this->perpWallDist);
 	// if (this->step.is_hit_y_side && (this->step.y_sign == POSITIVE))
 	// 	color = 0;
 		//color = (color >> 1) & 8355711;
