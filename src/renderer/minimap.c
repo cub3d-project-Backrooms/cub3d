@@ -3,8 +3,6 @@
 #include "std__math.h"
 #include <math.h>
 
-const extern int	g_worldmap[24][24];
-
 // TODO: use map struct for map range
 void	renderer__draw_minimap_at(t_renderer *this,
 								t_ivec player_pos,

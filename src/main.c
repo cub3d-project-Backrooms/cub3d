@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const extern int	g_worldmap[24][24];
-
 int	main(int argc, t_const_string argv[])
 {
 	t_engine	engine;
