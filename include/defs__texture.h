@@ -1,6 +1,7 @@
 #ifndef DEFS__TEXTURE_H
 #define DEFS__TEXTURE_H
 
+#define TEX_AMOUNT 8
 #define NORTHWALL 0
 #define SOUTHWALL 1
 #define EASTWALL 2

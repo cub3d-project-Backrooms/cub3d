@@ -5,16 +5,19 @@
 # include "std__types.h"
 # include "std__types__math.h"
 # include "types__platform__keycode.h"
+# include "defs__texture.h"
 
 typedef void			*t_mlx__ref;
 typedef void			*t_mlx__window_ref;
 typedef void			*t_mlx__image_ref;
+typedef int				**t_grid;
 
 typedef struct s_world
 {
+	int **worldmap;
+	t_string tex_name[TEX_AMOUNT];
 	int tex_width;
 	int tex_height;
-	int **worldmap;
 	int **texture;
 } t_world;
 
