@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "std__string.h"
+#include "parser.h"
 
 const extern int	g_worldmap[24][24];
 
@@ -14,7 +15,14 @@ int	main(int argc, t_const_string argv[])
 {
 	(void)argc;
 	(void)argv;
+	t_parser	parser;
 
+	if (argc != 2)
+		std__panic__value("main", "usage: ./cub3d.out <cub_file>.cub");
+	// t_rgb rgb = rgb__from_string(str, ",");
+	// rgb__print(rgb);
+	parser__init(&parser, argv[1]);
+	parser__parse(&parser);
 	// t_const_string tex = "WE ./path_to_the_west_texture\n";
 	// str__split()
 	// t_fd fd;
@@ -30,11 +38,11 @@ int	main(int argc, t_const_string argv[])
 	// 	free(str);
 	// }
 	// close(fd);
-	t_engine	engine;
+	// t_engine	engine;
 
-	(void)argc;
-	(void)argv;
-	engine__init(&engine);
-	engine__run(&engine);
+	// (void)argc;
+	// (void)argv;
+	// engine__init(&engine);
+	// engine__run(&engine);
 	return (0);
 }

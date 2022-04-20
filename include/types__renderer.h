@@ -51,13 +51,24 @@ typedef struct s_step
 	bool				is_hit_y_side;
 }	t_dda__step;
 
+typedef struct s_world
+{
+	int	map_width;
+	int	map_height;
+	int	**worldmap;
+	int	**texture;
+}	t_world;
+
 typedef struct s_renderer
 {
+	t_world				world;
 	t_mlx__ref			mlx;
 	t_mlx__window_ref	window;
 	t_image				buffer_window;
 	int					buf[HEIGHT][WIDTH];
 }	t_renderer;
+
+
 
 typedef struct s_pair
 {
@@ -67,15 +78,15 @@ typedef struct s_pair
 
 typedef struct s_floordata
 {
-	t_vec ray_dir0;
-	t_vec ray_dir1;
-	float rowDistance;
-	t_vec floorStep;
-	t_vec floor;
-	t_vec cell;
-	t_vec deltaT;
-	int floorTexture;
-	int ceilingTexture;
+	t_vec	ray_dir0;
+	t_vec	ray_dir1;
+	float	rowDistance;
+	t_vec	floorStep;
+	t_vec	floor;
+	t_vec	cell;
+	t_vec	deltaT;
+	int		floorTexture;
+	int		ceilingTexture;
 } t_floordata;
 
 typedef struct s_walldata

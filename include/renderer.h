@@ -51,8 +51,6 @@ void		renderer__deinit(t_renderer *this);
 ** < draw.c > */
 
 void		renderer__draw_to_window(t_renderer *info);
-void		renderer__clear_grid(int grid[HEIGHT][WIDTH]);
-void		renderer__clear(t_renderer *this);
 void		renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos,
 				int color);
 /*
@@ -72,7 +70,30 @@ void		renderer__draw_minimap(t_renderer *this, t_camera *camera);
 void		load_image(t_renderer *r, int *texture, char *path, t_image *img);
 void		renderer__init_texture(t_renderer *r);
 /*
-** < raycast.c> */
+** < raycast.c > */
+
+int			shade_color(int color, double divide);
+int			distance_shade(int color, double distance);
 t_colors	get_color(t_ivec *map, bool is_hit_y_side);
+void		renderer__draw__vertical_wall(t_renderer *this, int lineheight,
+				int color, int x);
+void		floordata__raycast__set_raydir_vector(t_floordata *this,
+				t_camera *camera);
+void		floordata__raycast__set_row_distance(t_floordata *this,
+				int current_y);
+void		floordata__raycast__set_floor_vectors(t_floordata *this,
+				t_camera *camera);
+void		floordata__raycast__set_delta_texture_vector(t_floordata *this);
+void		floordata__draw__checkerboard(t_floordata *this);
+void		renderer__draw__floor(t_renderer *this, t_floordata *vecs,
+				int current_x, int current_y);
+void		renderer__raycast__floor(t_renderer *this, t_camera *camera);
+void		walldata__raycast__set_dda_vector(t_walldata *this,
+				t_camera *camera, int current_x);
+void		walldata__draw__set_wall_data(t_walldata *this, t_camera *camera);
+void		walldata__draw__set_texture_data(t_walldata *this);
+int			walldata__draw__wall_texture(t_walldata *this);
+void		renderer__raycast__wall(t_renderer* this, t_camera* camera,
+				double zbuffer[WIDTH]);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
 #endif  // __ENGINE_H__

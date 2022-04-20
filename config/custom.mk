@@ -1,5 +1,5 @@
 run: all
-	./$(NAME)
+	./$(NAME) asset/map/mandatory.cub
 
 docs:
 	@set -e;\

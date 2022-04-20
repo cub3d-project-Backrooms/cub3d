@@ -3,24 +3,34 @@
 
 # include "std__string.h"
 
-typedef enum e_cubformat
+typedef enum e_cubid
 {
-	CUBFMT__TEXTURE__NORTH,
-	CUBFMT__TEXTURE__SOUTH,
-	CUBFMT__TEXTURE__EAST,
-	CUBFMT__TEXTURE__WEST,
-	CUBFMT__TEXTURE__FLOOR,
-	CUBFMT__TEXTURE__CEILING,
-	CUBFMT__COLOR__FLOOR,
-	CUBFMT__COLOR__CEILING,
-	CUBFMT__GRID,
-}	t_cubformat;
+	CUBID__TEXTURE__NORTH,
+	CUBID__TEXTURE__SOUTH,
+	CUBID__TEXTURE__WEST,
+	CUBID__TEXTURE__EAST,
+	CUBID__COLOR__FLOOR,
+	CUBID__COLOR__CEILING,
+	CUBID__ERR = -1,
+}	t_cubid;
+
+typedef enum e_mapformat
+{
+	MAPFMT__EMPTY = '0',
+	MAPFMT__WALL = '1',
+	MAPFMT__NORTH = 'N',
+	MAPFMT__SOUTH = 'S',
+	MAPFMT__WEST = 'W',
+	MAPFMT__EAST = 'E',
+}	t_mapformat;
 
 typedef struct s_parser
 {
 	t_fd		fd;
-	t_string	path;
-	t_string	textures[6];
+	t_string	raw_mapdata;
+	t_string	textures[4];
+	t_rgb		colors[2];
+	bool		found_cubid[6];
 }	t_parser;
 
 #endif

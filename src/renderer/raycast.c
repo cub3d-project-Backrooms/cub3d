@@ -155,7 +155,7 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	}
 }
 
-void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x)
+void	walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x)
 {
 	this->camera_x = dda__normalized_plane_x(current_x);
 	this->ray_dir = camera__ray_dir_at_position(camera, this->camera_x);
@@ -167,7 +167,7 @@ void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int c
 		&this->step, camera, &this->map_pos, &this->ray_dir);
 }
 
-void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
+void	walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 {
 	this->lineheight = (int)(HEIGHT / this->perpWallDist * 1);
 	this->draw_start = math__max(-this->lineheight / 2 + HEIGHT / 2, 0);
@@ -179,7 +179,7 @@ void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 	this->wallx -= floor(this->wallx);
 }
 
-void walldata__draw__set_texture_data(t_walldata *this)
+void	walldata__draw__set_texture_data(t_walldata *this)
 {
 	this->texX = (int)(this->wallx * (double)TEX_WIDTH);
 	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
@@ -190,11 +190,11 @@ void walldata__draw__set_texture_data(t_walldata *this)
 	this->texPos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
 }
 
-int walldata__draw__wall_texture(t_walldata *this)
+int	walldata__draw__wall_texture(t_walldata *this)
 {
-	int texY;
-	int texnum;
-	int color;
+	int	texY;
+	int	texnum;
+	int	color;
 
 	texY = (int)this->texPos & (TEX_HEIGHT - 1);
 	this->texPos += this->step_val;
@@ -207,11 +207,12 @@ int walldata__draw__wall_texture(t_walldata *this)
 	return (color);
 }
 
-void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
+void	renderer__raycast__wall(
+	t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
 {
-	t_walldata walldata;
-	int x;
-	int y;
+	t_walldata	walldata;
+	int			x;
+	int			y;
 
 	x = -1;
 	while (++x < WIDTH)
