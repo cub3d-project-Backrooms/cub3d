@@ -56,12 +56,12 @@ void	renderer__init_texture(t_renderer *r)
 	t_image	img;
 
 	(void)r;
-	load_image(r, texture[0], "asset/eagle.xpm", &img);
-	load_image(r, texture[1], "asset/redbrick.xpm", &img);
-	load_image(r, texture[2], "asset/purplestone.xpm", &img);
-	load_image(r, texture[3], "asset/greystone.xpm", &img);
-	load_image(r, texture[4], "asset/bluestone.xpm", &img);
-	load_image(r, texture[5], "asset/mossy.xpm", &img);
-	load_image(r, texture[6], "asset/wood.xpm", &img);
-	load_image(r, texture[7], "asset/colorstone.xpm", &img);
+	load_image(r, texture[0], "asset/texture/eagle.xpm", &img);
+	load_image(r, texture[1], "asset/texture/redbrick.xpm", &img);
+	load_image(r, texture[2], "asset/texture/purplestone.xpm", &img);
+	load_image(r, texture[3], "asset/texture/greystone.xpm", &img);
+	load_image(r, texture[4], "asset/texture/bluestone.xpm", &img);
+	load_image(r, texture[5], "asset/texture/mossy.xpm", &img);
+	load_image(r, texture[6], "asset/texture/wood.xpm", &img);
+	load_image(r, texture[7], "asset/texture/colorstone.xpm", &img);
 }
