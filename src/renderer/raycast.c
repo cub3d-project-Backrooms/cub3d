@@ -44,69 +44,60 @@ void	renderer__draw__vertical_wall(t_renderer *this,
 		this->buf[y][x] = color;
 }
 
-void	renderer__raycast__set_raydir_vector(t_renderer *this,
-		t_floordata *vecs, t_camera *camera)
+void	floordata__raycast__set_raydir_vector(t_floordata *this, t_camera *camera)
 {
-	(void)this;
-	vecs->ray_dir0 = (t_vec){camera->dir.x - camera->plane.x, camera->dir.y
+	this->ray_dir0 = (t_vec){camera->dir.x - camera->plane.x, camera->dir.y
 		- camera->plane.y};
-	vecs->ray_dir1 = (t_vec){camera->dir.x + camera->plane.x, camera->dir.y
+	this->ray_dir1 = (t_vec){camera->dir.x + camera->plane.x, camera->dir.y
 		+ camera->plane.y};
 }
 
-void	renderer__raycast__set_row_distance(t_renderer *this, t_floordata *vecs,
-		int current_y)
+void	floordata__raycast__set_row_distance(t_floordata *this, int current_y)
 {
 	int		position_from_center;
 	float	vertical_camera_position;
 
-	(void)this;
 	position_from_center = current_y - HEIGHT / 2;
 	vertical_camera_position = 0.5 * HEIGHT;
-	vecs->rowDistance = vertical_camera_position / position_from_center;
+	this->rowDistance = vertical_camera_position / position_from_center;
 }
 
-void	renderer__raycast__set_floor_vectors(t_renderer *this,
-		t_floordata *vecs, t_camera *camera)
+void	floordata__raycast__set_floor_vectors(t_floordata *this, t_camera *camera)
 {
-	(void)this;
-	vecs->floorStep.x = vecs->rowDistance * (vecs->ray_dir1.x
-			- vecs->ray_dir0.x) / WIDTH;
-	vecs->floorStep.y = vecs->rowDistance * (vecs->ray_dir1.y
-			- vecs->ray_dir0.y) / WIDTH;
-	vecs->floor.x = camera->pos.x + vecs->rowDistance * vecs->ray_dir0.x;
-	vecs->floor.y = camera->pos.y + vecs->rowDistance * vecs->ray_dir0.y;
+	this->floorStep.x = this->rowDistance * (this->ray_dir1.x
+			- this->ray_dir0.x) / WIDTH;
+	this->floorStep.y = this->rowDistance * (this->ray_dir1.y
+			- this->ray_dir0.y) / WIDTH;
+	this->floor.x = camera->pos.x + this->rowDistance * this->ray_dir0.x;
+	this->floor.y = camera->pos.y + this->rowDistance * this->ray_dir0.y;
 }
 
-void	renderer__raycast__set_delta_texture_vector(t_renderer *this,
-		t_floordata *vecs)
+void	floordata__raycast__set_delta_texture_vector(t_floordata *this)
 {
-	(void)this;
-	vecs->cell.x = (int)(vecs->floor.x);
-	vecs->cell.y = (int)(vecs->floor.y);
-	vecs->deltaT.x = (int)(TEX_WIDTH * (vecs->floor.x
-				- vecs->cell.x)) & (TEX_WIDTH - 1);
-	vecs->deltaT.y = (int)(TEX_HEIGHT * (vecs->floor.y
-				- vecs->cell.y)) & (TEX_HEIGHT - 1);
-	vecs->floor.x += vecs->floorStep.x;
-	vecs->floor.y += vecs->floorStep.y;
+	this->cell.x = (int)(this->floor.x);
+	this->cell.y = (int)(this->floor.y);
+	this->deltaT.x = (int)(TEX_WIDTH * (this->floor.x
+				- this->cell.x)) & (TEX_WIDTH - 1);
+	this->deltaT.y = (int)(TEX_HEIGHT * (this->floor.y
+				- this->cell.y)) & (TEX_HEIGHT - 1);
+	this->floor.x += this->floorStep.x;
+	this->floor.y += this->floorStep.y;
 }
 
-void	renderer__draw__checkerboard(t_renderer *this, t_floordata *vecs)
+void	floordata__draw__checkerboard(t_floordata *this)
 {
 	bool	checkerboard;
 
-	(void)this;
-	checkerboard = ((int)vecs->floor.x + (int)vecs->floor.y) % 2;
+	checkerboard = ((int)this->floor.x + (int)this->floor.y) % 2;
 	if (checkerboard)
 	{
-		vecs->floorTexture = WOOD;
-		vecs->ceilingTexture = GRAYSTONE;
+		this->floorTexture = WOOD;
+		this->ceilingTexture = GRAYSTONE;
 	}
 	else
 	{
-		vecs->floorTexture = REDBRICK;
-		vecs->ceilingTexture = MOSSY;
+		this->floorTexture = REDBRICK;
+		this->ceilingTexture = MOSSY;
 	}
 }
 
@@ -135,87 +126,84 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	y = HEIGHT / 2;
 	while (++y < HEIGHT)
 	{
-		renderer__raycast__set_raydir_vector(this, &floordata, camera);
-		renderer__raycast__set_row_distance(this, &floordata, y);
-		renderer__raycast__set_floor_vectors(this, &floordata, camera);
+		floordata__raycast__set_raydir_vector(&floordata, camera);
+		floordata__raycast__set_row_distance(&floordata, y);
+		floordata__raycast__set_floor_vectors(&floordata, camera);
 		x = -1;
 		while (++x < WIDTH)
 		{
-			renderer__raycast__set_delta_texture_vector(this, &floordata);
-			renderer__draw__checkerboard(this, &floordata);
+			floordata__raycast__set_delta_texture_vector(&floordata);
+			floordata__draw__checkerboard(&floordata);
 			renderer__draw__floor(this, &floordata, x, y);
 		}
 	}
 }
 
-void	renderer__raycast__wall(t_renderer *this,
-								t_camera *camera,
-								double zbuffer[WIDTH])
+void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x)
 {
-	double	camera_x;
-	t_vec	ray_dir;
-	t_ivec	map_pos;
-	t_vec	delta_dist;
-	int		lineheight;
-	int		draw_start;
-	int		draw_end;
-	int		texnum;
-	int		texx;
-	double	step_val;
-	double	texPos;
-	int		texy;
-	int		color;
+	this->camera_x = dda__normalized_plane_x(current_x);
+	this->ray_dir = camera__ray_dir_at_position(camera, this->camera_x);
+	this->map_pos = camera__to_pos_at_map(camera);
+	this->delta_dist = dda__dist_to_next_closest_grid(&this->ray_dir);
+	this->step = dda__initial_step(camera, &this->map_pos, &this->ray_dir, &this->delta_dist);
+	dda__advance_step_until_hit(&this->step, &this->map_pos, &this->delta_dist);
+	this->perpWallDist = dda__perpendicular_dist_to_closest_grid(
+		&this->step, camera, &this->map_pos, &this->ray_dir);
+}
 
-	for (int x = 0; x < WIDTH; x++)
+void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
+{
+	this->lineheight = (int)(HEIGHT / this->perpWallDist * 1);
+	this->draw_start = math__max(-this->lineheight / 2 + HEIGHT / 2, 0);
+	this->draw_end = math__min(this->lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
+	this->texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
+	if (this->step.is_hit_y_side == 0)
+		this->wallx = camera->pos.y + this->perpWallDist * this->ray_dir.y;
+	else
+		this->wallx = camera->pos.x + this->perpWallDist * this->ray_dir.x;
+	this->wallx -= floor(this->wallx);
+}
+
+void walldata__draw__set_texture_data(t_walldata *this)
+{
+	this->texX = (int)(this->wallx * (double)TEX_WIDTH);
+	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
+		this->texX = TEX_WIDTH - this->texX - 1;
+	if (this->step.is_hit_y_side == 1 && this->ray_dir.y < 0)
+		this->texX = TEX_WIDTH - this->texX - 1;
+	this->step_val = 1.0 * TEX_HEIGHT / this->lineheight;
+	this->texPos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
+}
+
+int renderer__draw__wall_texture(t_walldata *this)
+{
+	int texY;
+	int color;
+
+	texY = (int)this->texPos & (TEX_HEIGHT - 1);
+	this->texPos += this->step_val;
+	color = texture[this->texnum][TEX_HEIGHT * texY + this->texX];
+	if (this->step.is_hit_y_side)
+	color = (color >> 1) & 8355711;
+	return (color);
+}
+
+void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
+{
+	t_walldata walldata;
+	int x;
+	int y;
+
+	x = -1;
+	while (++x < WIDTH)
 	{
-		camera_x = dda__normalized_plane_x(x);
-		ray_dir = camera__ray_dir_at_position(camera, camera_x);
-		map_pos = camera__to_pos_at_map(camera);
-		delta_dist = dda__dist_to_next_closest_grid(&ray_dir);
-		t_dda__step step =
-			dda__initial_step(camera, &map_pos, &ray_dir, &delta_dist);
-		dda__advance_step_until_hit(&step, &map_pos, &delta_dist);
-		double perpWallDist = dda__perpendicular_dist_to_closest_grid(
-			&step, camera, &map_pos, &ray_dir);
-		zbuffer[x] = perpWallDist;
-		lineheight = (int)(HEIGHT / perpWallDist * 1);
-		// int color = get_color(&map_pos, step.is_hit_y_side);
-		// renderer__draw__vertical_wall(this, lineheight, color, x);
-		draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
-		draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
-		texnum = g_worldmap[map_pos.x][map_pos.y] - 1;
-		// calculate value of wallx
-		double wallx; // where exactly the wall was hit
-		if (step.is_hit_y_side == 0)
-			wallx = camera->pos.y + perpWallDist * ray_dir.y;
-		else
-			wallx = camera->pos.x + perpWallDist * ray_dir.x;
-		wallx -= floor(wallx);
-		// x coordinate on the texture
-		texx = (int)(wallx * (double)TEX_WIDTH);
-		if (step.is_hit_y_side == 0 && ray_dir.x > 0)
-			texx = TEX_WIDTH - texx - 1;
-		if (step.is_hit_y_side == 1 && ray_dir.y < 0)
-			texx = TEX_WIDTH - texx - 1;
-		// How much to increase the texture coordinate per screen pixel
-		step_val = 1.0 * TEX_HEIGHT / lineheight;
-		// Starting texture coordinate
-		texPos = (draw_start - HEIGHT / 2 + lineheight / 2) * step_val;
-		for (int y = draw_start; y < draw_end; y++)
-		{
-			// Cast the texture coordinate to integer, and mask with (TEX_HEIGHT
-			//		- 1)
-			// in case of overflow
-			texy = (int)texPos & (TEX_HEIGHT - 1);
-			texPos += step_val;
-			color = texture[texnum][TEX_HEIGHT * texy + texx];
-			// make color darker for y-sides: R,
-			//	G and B byte each divided through
-			// with a "shift" and an "and"
-			if (step.is_hit_y_side)
-				color = (color >> 1) & 8355711;
-			this->buf[y][x] = color;
-		}
+		walldata__raycast__set_dda_vector(&walldata, camera, x);
+		zbuffer[x] = walldata.perpWallDist;
+		walldata__draw__set_wall_data(&walldata, camera);
+		walldata__draw__set_texture_data(&walldata);
+		y = walldata.draw_start - 1;
+		while (++y < walldata.draw_end)
+			this->buf[y][x] = renderer__draw__wall_texture(&walldata);
 	}
 }
 

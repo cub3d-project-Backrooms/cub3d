@@ -78,4 +78,22 @@ typedef struct s_floordata
 	int ceilingTexture;
 } t_floordata;
 
+typedef struct s_walldata
+{
+	double camera_x;
+	t_vec ray_dir;
+	t_ivec map_pos;
+	t_vec delta_dist;
+	t_dda__step step;
+	double perpWallDist;
+	int lineheight;
+	int draw_start;
+	int draw_end;
+	int texnum;
+	double wallx;
+	int texX;
+	double step_val;
+	double texPos;
+} t_walldata;
+
 #endif
