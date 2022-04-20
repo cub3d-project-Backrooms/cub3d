@@ -184,8 +184,8 @@ int walldata__draw__wall_texture(t_walldata *this)
 	this->texPos += this->step_val;
 	texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
 	color = texture[texnum][TEX_HEIGHT * texY + this->texX];
-	if (this->step.is_hit_y_side && (this->step.y_sign == POSITIVE))
-		color = 0;
+	// if (this->step.is_hit_y_side && (this->step.y_sign == POSITIVE))
+	// 	color = 0;
 		//color = (color >> 1) & 8355711;
 	return (color);
 }

@@ -32,7 +32,8 @@ void	renderer__draw_minimap_at(t_renderer *this,
 			else if (!g_worldmap[pos_map.x][pos_map.y])
 				color = 0xCCCCCC;
 			else
-				color = get_color(&pos_map, false);
+				color = 0x000000;
+				// color = get_color(&pos_map, false);
 			this->buf[y][x] = color;
 		}
 	}
@@ -44,5 +45,5 @@ void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 	t_ivec	pos;
 
 	pos = camera__to_pos_at_map(camera);
-	renderer__draw_minimap_at(this, pos, (t_irange){5, 96}, (t_irange){5, 96});
+	renderer__draw_minimap_at(this, pos, (t_irange){5, 96 +5}, (t_irange){5, 96 + 5});
 }
