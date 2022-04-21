@@ -17,12 +17,6 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: one-liner
-    attributes:
-    validations:
-      required: true
-
   - type: textarea
     id: to-recreate
     attributes:
