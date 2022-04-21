@@ -34,15 +34,24 @@ int			worldmap[mapWidth][mapHeight] = {
 void	renderer__init__world_data(t_renderer *this)
 {
 	t_world world; // dummy world
+	int i;
+	int j;
 
 	world.tex_width = 64;
 	world.tex_height = 64;
-	world.worldmap = std__allocate(24, sizeof(int *));
-	for (int i = 0; i < 24; ++i)
-		world.worldmap[i] = std__allocate(24, sizeof(int));
-	for (int i = 0; i < 24; ++i)
-		for (int j = 0; j < 24; ++j)
+	world.world_width = 24;
+	world.world_height = 24;
+	world.worldmap = std__allocate(world.world_width, sizeof(int *));
+	i = -1;
+	while (++i < world.world_width)
+		world.worldmap[i] = std__allocate(world.world_height, sizeof(int));
+	i = -1;
+	while (++i < world.world_width)
+	{
+		j = -1;
+		while (++j < world.world_height)
 			world.worldmap[i][j] = worldmap[i][j];
+	}
 	this->world = world;
 	renderer__init_texture(this);
 }

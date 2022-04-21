@@ -3,39 +3,42 @@
 #include "std__math.h"
 #include <math.h>
 
-// TODO: use map struct for map range
-void	renderer__draw_minimap_at(t_renderer *this,
-								t_ivec player_pos,
-								t_irange x_range,
-								t_irange y_range)
+int renderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map, t_ivec *player_pos)
 {
-	int			color;
+	int color;
+
+	if (ivec__is_equal(pos_map, player_pos))
+		color = COLOR__RED;
+	else if (this->world.worldmap[pos_map->x][pos_map->y])
+		color = 0xCCCCCC;
+	else
+		color = get_color(this, pos_map, false);
+	return (color);
+}
+
+void	renderer__draw_minimap_at(t_renderer *this, t_ivec player_pos, t_irange x_range, t_irange y_range)
+{
 	t_ivec		pos_map;
 	t_irange	map_range_x;
 	t_irange	map_range_y;
+	t_ivec idx;
 
-	map_range_x = (t_irange){0, 24};
-	map_range_y = (t_irange){0, 24};
-	for (int x = x_range.start; x < x_range.end; x++)
+	map_range_x = (t_irange){0, this->world.world_width};
+	map_range_y = (t_irange){0, this->world.world_height};
+	idx = (t_ivec){x_range.start - 1, y_range.start - 1};
+	while (++idx.x < x_range.end)
 	{
-		for (int y = y_range.start; y < x_range.end; y++)
+		idx.y = y_range.start - 1;
+		while (++idx.y < x_range.end)
 		{
-			// printf("%d %d\n", nx, ny);
 			pos_map = (t_ivec){
-				math__normalize(x, x_range, map_range_x),
-				math__normalize(y, y_range, map_range_y)};
-			if (ivec__is_equal(&pos_map, &player_pos))
-				color = COLOR__RED;
-			else if (this->world.worldmap[pos_map.x][pos_map.y])
-				color = 0xCCCCCC;
-			else
-				color = get_color(this, &pos_map, false);
-			this->buf[y][x] = color;
+				math__normalize(idx.x, x_range, map_range_x),
+				math__normalize(idx.y, y_range, map_range_y)};
+			this->buf[idx.x][idx.y] = renderer__draw_minimap_color(this, &pos_map, &player_pos);
 		}
 	}
 }
 
-// TODO: move camera to renderer
 void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 {
 	t_ivec	pos;

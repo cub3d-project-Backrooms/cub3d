@@ -14,11 +14,13 @@ typedef int				**t_grid;
 
 typedef struct s_world
 {
-	int **worldmap;
+	int world_width;
+	int world_height;
+	t_grid worldmap;
 	t_string tex_name[TEX_AMOUNT];
 	int tex_width;
 	int tex_height;
-	int **texture;
+	int texture[TEX_AMOUNT + 3][TEX_WIDTH * TEX_HEIGHT];
 } t_world;
 
 typedef struct s_image
@@ -43,8 +45,6 @@ typedef enum e_config
 {
 	mapWidth = 24,
 	mapHeight = 24,
-	// WIDTH = 1920,
-	// HEIGHT = 1080,
 	WIDTH = 640,
 	HEIGHT = 480,
 }	t_config;

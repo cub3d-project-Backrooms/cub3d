@@ -36,7 +36,7 @@ void		dda__advance_step_until_hit(t_dda__step *step, t_ivec *map_pos,
 				t_vec *delta_dist, t_world *world);
 /*
 ** < deinit.c > */
-
+void world__deinit(t_world *this);
 void		renderer__deinit(t_renderer *this);
 /*
 ** < draw.c > */
@@ -64,6 +64,29 @@ void		load_image(t_renderer *r, int *texture, char *path, t_image *img);
 void		renderer__init_texture(t_renderer *r);
 /*
 ** < raycast.c> */
-t_colors	get_color(t_renderer *renderer, t_ivec *map, bool is_hit_y_side);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
-#endif  // __ENGINE_H__
+/*
+** < raycast_tool.c> */
+t_colors	get_color(t_renderer *renderer, t_ivec *map, bool is_hit_y_side);
+int	shade_color(int color, double divide);
+int	distance_shade(int color, double distance);
+void	floordata__draw__checkerboard(t_floordata *this);
+/*
+** < raycast_floor.c> */
+void	floordata__raycast__set_raydir_vector(t_floordata *this, t_camera *camera);
+void	floordata__raycast__set_row_distance(t_floordata *this, int current_y);
+void	floordata__raycast__set_floor_vectors(t_floordata *this, t_camera *camera);
+void	floordata__raycast__set_delta_texture_vector(t_floordata *this, t_world *world);
+void	renderer__draw__floor(t_renderer *this, t_floordata *vecs, int current_x, int current_y);
+/*
+** < raycast_wall.c> */
+void	renderer__draw__vertical_wall(t_renderer *this,
+									int lineheight,
+									int color,
+									int x);
+void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x, t_world *world);
+void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera);
+void walldata__draw__set_texture_data(t_walldata *this, t_world *world);
+int renderer__draw__wall_texture(t_renderer *this, t_walldata *data);
+
+#endif  // __RENDERER_H__
