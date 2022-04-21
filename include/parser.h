@@ -15,6 +15,12 @@ bool	cubid__is_valid(t_string arr[]);
 bool	cubid__is_color(t_cubid id);
 bool	cubid__is_texture(t_cubid id);
 /*
+** < check__map.c > */
+
+bool	mapformat__is_valid(t_mapformat this);
+void	mapformat__assert_valid(t_mapformat this);
+void	raw_map_arr__check_valid(t_string_arr this);
+/*
 ** < check__parser.c > */
 
 bool	parser__all_cubid_found(t_parser *this);
