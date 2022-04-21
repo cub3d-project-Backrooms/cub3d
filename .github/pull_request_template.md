@@ -1,17 +1,17 @@
-# 개요
+# Abstract
 
-- Fixes # (이슈 번호)
+- Fixes # (Issue number)
 
-## 변경 종류
+## Types of edition
 
-(관련 없는 줄은 지워 주세요)
+(Please remove irrelevant tags)
 
-- [ ] 버그픽스 (기존 기능에 변경이 없는 버그 수정)
-- [ ] 새 기능 (기존 기능에 변경이 없는 기능 추가)
-- [ ] 기능 변경 (기존 기능에 변경을 일으킬 기능 추가나 버그픽스)
-- [ ] 문서 업데이트 필요
+- [ ] Bug fix (not modifying existing features)
+- [ ] New feature (not modifying existing features)
+- [ ] Changing feature (modifying existing feature or fixing bug)
+- [ ] Docs updated required
 
 # 테스트 결과
 
-- [ ] 컴파일 됨
-- [ ] 클러스터 맥 이외 환경
+- [ ] Compile succeed
+- [ ] Envr diff with 42-cluster
