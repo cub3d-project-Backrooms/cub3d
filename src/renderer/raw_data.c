@@ -16,10 +16,10 @@ void	load_image(t_renderer *r, int texline[], t_string path)
 
 void	renderer__init_texture(t_renderer *r)
 {
-	r->world.tex_name[TEX__WALL__NORTH] = "backroom/wall0.xpm";
-	r->world.tex_name[TEX__WALL__SOUTH] = "backroom/wall1.xpm";
-	r->world.tex_name[TEX__WALL__EAST] = "backroom/wall2.xpm";
-	r->world.tex_name[TEX__WALL__WEST] = "backroom/wall3.xpm";
+	r->world.tex_name[TEX__WALL__NORTH] = "asset/texture/backroom/wall0.xpm";
+	r->world.tex_name[TEX__WALL__SOUTH] = "asset/texture/backroom/wall1.xpm";
+	r->world.tex_name[TEX__WALL__EAST] = "asset/texture/backroom/wall2.xpm";
+	r->world.tex_name[TEX__WALL__WEST] = "asset/texture/backroom/wall3.xpm";
 
 	load_image(r, r->world.texture[TEX__WALL__NORTH], r->world.tex_name[TEX__WALL__NORTH]);
 	load_image(r, r->world.texture[TEX__WALL__SOUTH], r->world.tex_name[TEX__WALL__SOUTH]);
