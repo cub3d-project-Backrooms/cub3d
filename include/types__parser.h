@@ -16,21 +16,23 @@ typedef enum e_cubid
 
 typedef enum e_mapformat
 {
-	MAPFMT__EMPTY = '0',
+	MAPFMT__FLOOR = '0',
 	MAPFMT__WALL = '1',
 	MAPFMT__NORTH = 'N',
 	MAPFMT__SOUTH = 'S',
 	MAPFMT__WEST = 'W',
 	MAPFMT__EAST = 'E',
+	MAPFMT__EMPTY = ' ',
+	MAPFMT__ERR = -1,
 }	t_mapformat;
 
 typedef struct s_parser
 {
 	t_fd		fd;
 	t_string	raw_mapdata;
-	t_string	textures[4];
 	t_rgb		colors[2];
 	bool		found_cubid[6];
+	
 }	t_parser;
 
 #endif

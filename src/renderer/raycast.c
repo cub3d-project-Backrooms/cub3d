@@ -17,7 +17,7 @@ int	shade_color(int color, double divide)
 
 int	distance_shade(int color, double distance)
 {
-	return (shade_color(color, distance / 1.5));
+	return (shade_color(color, (distance + 4) / 1.8));
 }
 
 t_colors	get_color(t_ivec *map, bool is_hit_y_side)
@@ -98,21 +98,18 @@ void	floordata__raycast__set_delta_texture_vector(t_floordata *this)
 	this->floor.y += this->floorStep.y;
 }
 
+bool	floordata__draw__is_light(t_floordata *this)
+{
+	return ((int)this->floor.x % 2 and (int)this->floor.y % 2);
+}
+
 void	floordata__draw__checkerboard(t_floordata *this)
 {
-	bool	checkerboard;
-
-	checkerboard = ((int)this->floor.x + (int)this->floor.y) % 2;
-	if (checkerboard)
-	{
-		this->floorTexture = WOOD;
-		this->ceilingTexture = GRAYSTONE;
-	}
+	this->floorTexture = FLOOR0;
+	if (floordata__draw__is_light(this))
+		this->ceilingTexture = LIGHT0;
 	else
-	{
-		this->floorTexture = REDBRICK;
-		this->ceilingTexture = MOSSY;
-	}
+		this->ceilingTexture = FLOOR1;
 }
 
 void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
@@ -198,7 +195,7 @@ int	walldata__draw__wall_texture(t_walldata *this)
 
 	texY = (int)this->texPos & (TEX_HEIGHT - 1);
 	this->texPos += this->step_val;
-	texnum = g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
+	texnum = WALL1; //g_worldmap[this->map_pos.x][this->map_pos.y] - 1;
 	color = texture[texnum][TEX_HEIGHT * texY + this->texX];
 	color = distance_shade(color, this->perpWallDist);
 	// if (this->step.is_hit_y_side && (this->step.y_sign == POSITIVE))

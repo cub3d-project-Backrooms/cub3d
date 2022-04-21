@@ -5,6 +5,7 @@
 # include "std__types.h"
 # include "std__types__math.h"
 # include "types__platform__keycode.h"
+# include "types__parser.h"
 
 typedef void			*t_mlx__ref;
 typedef void			*t_mlx__window_ref;
@@ -51,12 +52,14 @@ typedef struct s_step
 	bool				is_hit_y_side;
 }	t_dda__step;
 
+typedef bool**			t_map_grid;
+
 typedef struct s_world
 {
-	int	map_width;
-	int	map_height;
-	int	**worldmap;
-	int	**texture;
+	t_map_grid	worldmap;
+	t_ivec		player_pos;
+	t_mapformat	player_direction;
+	t_string	texture_path[4];
 }	t_world;
 
 typedef struct s_renderer
@@ -67,8 +70,6 @@ typedef struct s_renderer
 	t_image				buffer_window;
 	int					buf[HEIGHT][WIDTH];
 }	t_renderer;
-
-
 
 typedef struct s_pair
 {

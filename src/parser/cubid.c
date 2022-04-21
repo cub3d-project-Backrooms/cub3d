@@ -52,7 +52,7 @@ void	parser__parse_line__id(t_parser *this, t_string line)
 	if (id == CUBID__COLOR__FLOOR or id == CUBID__COLOR__CEILING)
 		this->colors[id - (CUBID__TEXTURE__EAST + 1)]
 			= rgb__from_string(arr[1], ",");
-	else
-		this->textures[id] = str__new(arr[1]);
+	// else
+	// 	this->textures[id] = str__new(arr[1]);
 	this->found_cubid[id] = true;
 }

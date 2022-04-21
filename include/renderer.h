@@ -10,14 +10,14 @@
 
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
-#define EAGLE 0
-#define REDBRICK 1
-#define PURPLESTONE 2
-#define GRAYSTONE 3
-#define BLUESTONE 4
-#define MOSSY 5
-#define WOOD 6
-#define COLORSTONE 7
+#define WALL1 0
+#define WALL2 1
+#define WALL3 2
+#define LIGHT0 3
+#define GLASS 4
+#define FLOOR1 5
+#define FLOOR0 6
+#define WALL 7
 
 // clang-format off
 //@func

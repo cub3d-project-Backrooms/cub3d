@@ -15,14 +15,15 @@ int	main(int argc, t_const_string argv[])
 {
 	(void)argc;
 	(void)argv;
-	t_parser	parser;
+	// t_parser	parser;
+	t_engine engine;
 
 	if (argc != 2)
 		std__panic__value("main", "usage: ./cub3d.out <cub_file>.cub");
 	// t_rgb rgb = rgb__from_string(str, ",");
 	// rgb__print(rgb);
-	parser__init(&parser, argv[1]);
-	parser__parse(&parser);
+	// parser__init(&parser, argv[1]);
+	// parser__parse(&parser);
 	// t_const_string tex = "WE ./path_to_the_west_texture\n";
 	// str__split()
 	// t_fd fd;
@@ -40,9 +41,7 @@ int	main(int argc, t_const_string argv[])
 	// close(fd);
 	// t_engine	engine;
 
-	// (void)argc;
-	// (void)argv;
-	// engine__init(&engine);
-	// engine__run(&engine);
+	engine__init(&engine);
+	engine__run(&engine);
 	return (0);
 }
