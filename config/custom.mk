@@ -2,6 +2,16 @@ run: all
 	./$(NAME) asset/map/square.cub
 # ./$(NAME) asset/map/mandatory.cub
 
+lclean:
+	@rm -f $(OBJ)
+	@echo "🗑 cleaned $(NAME)'s object files"
+
+lfclean: lclean
+	@rm -f $(NAME)
+	@echo 🗑 cleaned $(NAME)
+
+le: lclean all
+
 docs:
 	@set -e;\
 		for p in $(PKGS); do\

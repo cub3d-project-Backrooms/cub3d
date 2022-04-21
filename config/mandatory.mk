@@ -13,10 +13,10 @@ $(NAME): $(OBJ) $(DEPENDENCIES)
 all: $(NAME)
 
 clean:
-#@make -C $(MLX_DIR) clean
-#@make -C $(LIBFT_DIR) clean
+	@make -C $(MLX_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 	@rm -f $(OBJ)
-	@echo "🗑 cleaned $(NAME)'s object files"
+	@echo "🗑 cleaned $(NAME)'s object files and libraries"
 
 fclean: clean
 	@rm -f $(NAME)
