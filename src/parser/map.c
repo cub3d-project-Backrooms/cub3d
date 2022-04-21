@@ -9,7 +9,13 @@
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
+	// t_camera	camera;
 
+	this->camera = (t_camera){
+		.pos = {UNSET, UNSET},
+		.dir = {0, 1},
+		.plane = {0.66, 0},
+	};
 	this->world_height = map_size.height;
 	this->world_width = map_size.width;
 	this->worldmap = std__allocate(map_size.height, sizeof(int *));
@@ -26,7 +32,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 				= (raw_map[it.y][it.x] == MAPFMT__WALL);
 			// printf("%d", this->worldmap[it.y][it.x]);
 			if (mapformat__is_player(raw_map[it.y][it.x]))
-				this->camera.pos = (t_vec){it.x, it.y};
+				this->camera.pos = (t_vec){it.y, it.x}; // FIXME: BUT WHY???
 		}
 		printf("\n");
 	}

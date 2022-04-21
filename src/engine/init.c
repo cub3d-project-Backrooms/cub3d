@@ -30,15 +30,18 @@ void	engine__init(t_engine *this, t_world *world)
 	t_camera	camera;
 
 	camera = (t_camera){
-		.pos = {10, 14},
+		.pos = {7, 16},
 		.dir = {0, 1},
 		.plane = {0.66, 0},
 	};
+	this->camera = world->camera;
+	printf("cam pos %f, %f\n", this->camera.pos.x, this->camera.pos.y);
 	this->camera = camera;
-	this->camera.pos = world->camera.pos;
-	this->camera.pos = (t_vec){5, 5};
+		printf("cam pos %f, %f\n", this->camera.pos.x, this->camera.pos.y);
+	// this->camera = world->camera;
+	// this->camera.pos = world->camera.pos;
+	// this->camera.pos = (t_vec){5, 5};
 	renderer__init(&this->renderer, world);
 	this->inputhandler = inputhandler__init();
-	printf("cam pos %f, %f\n", this->camera.pos.x, this->camera.pos.y);
 	engine__init__input(this);
 }

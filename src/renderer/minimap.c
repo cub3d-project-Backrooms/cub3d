@@ -20,10 +20,10 @@ int	renderer__draw_minimap_color(
 void	renderer__draw_minimap_at(
 	t_renderer *this, t_ivec player_pos, t_irange x_range, t_irange y_range)
 {
+	t_ivec		idx;
 	t_ivec		pos_map;
 	t_irange	map_range_x;
 	t_irange	map_range_y;
-	t_ivec idx;
 
 	map_range_x = (t_irange){0, this->world.world_width};
 	map_range_y = (t_irange){0, this->world.world_height};
@@ -48,5 +48,5 @@ void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 
 	pos = camera__to_pos_at_map(camera);
 	renderer__draw_minimap_at(
-		this, pos, (t_irange){5, 96 +5}, (t_irange){5, 96 + 5});
+		this, pos, (t_irange){5, 96 + 5}, (t_irange){5, 96 + 5});
 }
