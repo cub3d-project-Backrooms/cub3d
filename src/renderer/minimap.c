@@ -25,8 +25,8 @@ void	renderer__draw_minimap_at(
 	t_irange	map_range_x;
 	t_irange	map_range_y;
 
-	map_range_x = (t_irange){0, this->world.world_width};
-	map_range_y = (t_irange){0, this->world.world_height};
+	map_range_y = (t_irange){0, this->world.world_width};
+	map_range_x = (t_irange){0, this->world.world_height};
 	idx = (t_ivec){x_range.start - 1, y_range.start - 1};
 	while (++idx.x < x_range.end)
 	{
@@ -42,11 +42,14 @@ void	renderer__draw_minimap_at(
 	}
 }
 
+//	FIXME: changing here causes segfault
 void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 {
 	t_ivec	pos;
 
 	pos = camera__to_pos_at_map(camera);
 	renderer__draw_minimap_at(
-		this, pos, (t_irange){5, 96 + 5}, (t_irange){5, 96 + 5});
+		this, pos,
+		(t_irange){5, 96 + 5},
+		(t_irange){5, 96 + 5});
 }

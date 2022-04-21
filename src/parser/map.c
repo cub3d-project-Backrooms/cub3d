@@ -9,7 +9,6 @@
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
-	// t_camera	camera;
 
 	this->camera = (t_camera){
 		.pos = {UNSET, UNSET},
@@ -24,17 +23,14 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 	{
 		it.x = -1;
 		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(int));
-		// printf("allocate %lld\n", it.y);
-		// printf("\n%s!!!\n", raw_map[it.y]);
 		while (++it.x < map_size.width)
 		{
 			this->worldmap[it.y][it.x]
 				= (raw_map[it.y][it.x] == MAPFMT__WALL);
-			// printf("%d", this->worldmap[it.y][it.x]);
 			if (mapformat__is_player(raw_map[it.y][it.x]))
-				this->camera.pos = (t_vec){it.y, it.x}; // FIXME: BUT WHY???
+				this->camera.pos = (t_vec){it.y, it.x}; // FIXME: ADD doc and func for why y and x is inverted here
+			// TODO: setup func for player position
 		}
-		printf("\n");
 	}
 }
 
