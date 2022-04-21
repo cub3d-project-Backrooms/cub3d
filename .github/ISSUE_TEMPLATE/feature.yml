@@ -1,51 +1,51 @@
-name: 기능 추가
-description: 새 기능 추가하기
-title: "[기능 추가 ⭐] "
+name: New feature
+description: Creating new feature
+title: "[Feature ⭐] "
 labels: ["Feature ⭐"]
 body:
   - type: dropdown
     id: feature-type
     attributes:
-      label: "기능 종류"
-      description: 추가할 기능 종류
+      label: "Feature type"
+      description: Which type of feature you are going to create ?
       options:
-        - 라이브러리 함수
-        - 수학 기능/그래픽 기능
-        - 엔진/이벤트/게임 동작
-        - 메이크파일
-        - 기타
+        - Library functions
+        - Math/graphical feature
+        - Engine/event/game mechanics
+        - Makefile
+        - Misc
     validations:
       required: true
 
   - type: input
     id: one-liner
     attributes:
-      label: "한 줄 요약"
-      description: 추가할 기능 한 줄 요약
-      placeholder: 카메라 회전 기능 추가
+      label: "Subtitle"
+      description: Abstract the details of new feature
+      placeholder: Modifying camera be able to rotate
     validations:
       required: true
 
   - type: textarea
     id: implementation
     attributes:
-      label: "구현 방법/목표"
-      description: (자동 마크다운 하이라이팅)
+      label: "Implementing process / Goal"
+      description: (Auto highlighting in markdown)
       render: Markdown
 
   - type: textarea
     id: related-code
     attributes:
-      label: "관련 코드"
-      description: API 또는 예시 코드 (자동 C 구문 하이라이팅)
+      label: "Related code"
+      description: API or example codes (Auto highlighting in C)
       render: C
 
   - type: dropdown
     id: others
     attributes:
-      label: "비고"
-      description: 추가 변경 사항
+      label: "Note"
+      description: Additional message
       options:
-        - 기존 코드를 수정해야 함
-        - 대규모 수정 필요
+        - Need to modify existing codes
+        - Huge-scale construction is required
       multiple: true

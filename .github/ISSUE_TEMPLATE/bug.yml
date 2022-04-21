@@ -42,7 +42,7 @@ body:
     id: related-code
     attributes:
       label: 'Related codes'
-      description: (Auto highliting in C)
+      description: (Auto highlighting in C)
       render: C
 
   - type: dropdown
