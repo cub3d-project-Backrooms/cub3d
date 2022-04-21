@@ -20,9 +20,6 @@ body:
   - type: input
     id: one-liner
     attributes:
-      label: "Subtitle"
-      description: Abstract the details of new feature
-      placeholder: Modifying camera be able to rotate
     validations:
       required: true
 
