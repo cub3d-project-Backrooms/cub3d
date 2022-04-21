@@ -10,7 +10,7 @@ int renderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map, t_ivec *play
 	if (ivec__is_equal(pos_map, player_pos))
 		color = COLOR__RED;
 	else if (this->world.worldmap[pos_map->x][pos_map->y])
-		color = 0xCCCCCC;
+		color = COLOR__GRAY;
 	else
 		color = COLOR__WHITE;
 	return (color);
