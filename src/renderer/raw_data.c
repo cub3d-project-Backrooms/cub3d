@@ -31,10 +31,12 @@ int			g_worldmap[mapWidth][mapHeight] = {
 // TODO: make it stored where?
 int			texture[8][TEX_HEIGHT * TEX_WIDTH];
 #include <assert.h>
+#include <stdio.h>
 void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 {
 	(void)texture;
 	// TODO: make image self-contained object with methods
+	// printf("loading %s\n", path);
 	img->img_ref = mlx_xpm_file_to_image(r->mlx, path, (int *)&img->size.width,
 			(int *)&img->size.height);
 	assert(img->img_ref != NULL);
@@ -56,12 +58,21 @@ void	renderer__init_texture(t_renderer *r)
 	t_image	img;
 
 	(void)r;
-	load_image(r, texture[0], "asset/texture/eagle.xpm", &img);
-	load_image(r, texture[1], "asset/texture/redbrick.xpm", &img);
-	load_image(r, texture[2], "asset/texture/purplestone.xpm", &img);
-	load_image(r, texture[3], "asset/texture/greystone.xpm", &img);
-	load_image(r, texture[4], "asset/texture/bluestone.xpm", &img);
-	load_image(r, texture[5], "asset/texture/mossy.xpm", &img);
-	load_image(r, texture[6], "asset/texture/wood.xpm", &img);
-	load_image(r, texture[7], "asset/texture/colorstone.xpm", &img);
+	// load_image(r, texture[0], "asset/texture/wolf/eagle.xpm", &img);
+	// load_image(r, texture[1], "asset/texture/wolf/redbrick.xpm", &img);
+	// load_image(r, texture[2], "asset/texture/wolf/purplestone.xpm", &img);
+	// load_image(r, texture[3], "asset/texture/wolf/greystone.xpm", &img);
+	// load_image(r, texture[4], "asset/texture/wolf/bluestone.xpm", &img);
+	// load_image(r, texture[5], "asset/texture/wolf/mossy.xpm", &img);
+	// load_image(r, texture[6], "asset/texture/wolf/wood.xpm", &img);
+	// load_image(r, texture[7], "asset/texture/wolf/colorstone.xpm", &img);
+
+	load_image(r, texture[0], "asset/texture/backroom/wall1.xpm", &img);
+	load_image(r, texture[1], "asset/texture/backroom/wall2.xpm", &img);
+	load_image(r, texture[2], "asset/texture/backroom/wall3.xpm", &img);
+	load_image(r, texture[3], "asset/texture/backroom/light0.xpm", &img);
+	load_image(r, texture[4], "asset/texture/backroom/glass.xpm", &img);
+	load_image(r, texture[5], "asset/texture/backroom/floor1.xpm", &img);
+	load_image(r, texture[6], "asset/texture/backroom/floor0.xpm", &img);
+	load_image(r, texture[7], "asset/texture/backroom/wall0.xpm", &img);
 }
