@@ -2,12 +2,18 @@
 #include "parser.h"
 #include <stdio.h>
 
+bool	mapformat__is_player(t_mapformat this)
+{
+	return (this == MAPFMT__NORTH || this == MAPFMT__SOUTH
+		|| this == MAPFMT__WEST || this == MAPFMT__EAST);
+}
+
 bool	mapformat__is_valid(t_mapformat this)
 {
-	return (this == MAPFMT__FLOOR || this == MAPFMT__WALL
-		|| this == MAPFMT__NORTH || this == MAPFMT__SOUTH
-		|| this == MAPFMT__WEST || this == MAPFMT__EAST
-		|| this == MAPFMT__EMPTY);
+	return (this == MAPFMT__FLOOR
+		|| this == MAPFMT__WALL
+		|| this == MAPFMT__EMPTY
+		|| mapformat__is_player(this));
 }
 
 void	mapformat__assert_valid(t_mapformat this)

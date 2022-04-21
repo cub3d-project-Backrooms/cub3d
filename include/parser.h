@@ -19,6 +19,7 @@ bool			cubid__is_texture(t_cubid id);
 /*
 ** < check__map.c > */
 
+bool			mapformat__is_player(t_mapformat this);
 bool			mapformat__is_valid(t_mapformat this);
 void			mapformat__assert_valid(t_mapformat this);
 void			raw_map_arr__check_valid(t_string_arr this);

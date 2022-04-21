@@ -23,7 +23,7 @@ void	image__init(t_image *this, t_mlx__ref mlx, t_string path)
 	this->img_ref = mlx_xpm_file_to_image(this->mlx_ref, path,
 			(int *)&this->size.width, (int *)&this->size.height);
 	if (not this->img_ref)
-		std__panic__null("image__init: failed to load image");
+		std__panic__value("image__init: failed to load image from", path);
 	this->data = (int *)mlx_get_data_addr(this->img_ref,
 			&this->bits_per_pixel, &this->line_size, &this->endian);
 	printf(CYN "🖼️ loaded %s\n" END, path);

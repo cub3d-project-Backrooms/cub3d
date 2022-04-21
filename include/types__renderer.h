@@ -13,14 +13,22 @@ typedef void			*t_mlx__window_ref;
 typedef void			*t_mlx__image_ref;
 typedef int				**t_grid;
 
+typedef struct s_camera
+{
+	t_vec				pos;
+	t_vec				dir;
+	t_vec				plane;
+}	t_camera;
+
 typedef struct s_world
 {
-	int world_width;
-	int world_height;
-	t_grid worldmap;
-	t_string tex_name[TEX__AMOUNT];
-	int texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
-} t_world;
+	int			world_width;
+	int			world_height;
+	t_grid		worldmap;
+	t_string	tex_name[TEX__AMOUNT];
+	int			texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
+	t_camera	camera;
+}	t_world;
 
 typedef struct s_image
 {
@@ -32,13 +40,6 @@ typedef struct s_image
 	int					endian;
 	t_sizevec			size;
 }	t_image;
-
-typedef struct s_camera
-{
-	t_vec				pos;
-	t_vec				dir;
-	t_vec				plane;
-}	t_camera;
 
 typedef enum e_config
 {
@@ -61,14 +62,6 @@ typedef struct s_step
 	bool				is_hit_y_side;
 }	t_dda__step;
 
-// typedef struct s_world
-// {
-// 	t_map_grid	worldmap;
-// 	t_ivec		player_pos;
-// 	t_mapformat	player_direction;
-// 	t_string	texture_path[4];
-// }	t_world;
-
 typedef struct s_renderer
 {
 	t_world				world;
@@ -86,32 +79,32 @@ typedef struct s_pair
 
 typedef struct s_floordata
 {
-	t_vec ray_dir0;
-	t_vec ray_dir1;
-	float row_distance;
-	t_vec floor_step;
-	t_vec floor;
-	t_vec cell;
-	t_vec dt;
-	int floor_texture;
-	int ceiling_texture;
-} t_floordata;
+	t_vec	ray_dir0;
+	t_vec	ray_dir1;
+	float	row_distance;
+	t_vec	floor_step;
+	t_vec	floor;
+	t_vec	cell;
+	t_vec	dt;
+	int		floor_texture;
+	int		ceiling_texture;
+}	t_floordata;
 
 typedef struct s_walldata
 {
-	double camera_x;
-	t_vec ray_dir;
-	t_ivec map_pos;
-	t_vec delta_dist;
-	t_dda__step step;
-	double perp_wall_dist;
-	int lineheight;
-	int draw_start;
-	int draw_end;
-	double wallx;
-	int texX;
-	double step_val;
-	double tex_pos;
-} t_walldata;
+	double		camera_x;
+	t_vec		ray_dir;
+	t_ivec		map_pos;
+	t_vec		delta_dist;
+	t_dda__step	step;
+	double		perp_wall_dist;
+	int			lineheight;
+	int			draw_start;
+	int			draw_end;
+	double		wallx;
+	int			texX;
+	double		step_val;
+	double		tex_pos;
+}	t_walldata;
 
 #endif

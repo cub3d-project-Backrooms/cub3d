@@ -9,7 +9,7 @@
 ** < init.c > */
 
 int				engine__deinit(t_engine *this);
-void			engine__init(t_engine *this);
+void			engine__init(t_engine *this, t_world *world);
 /*
 ** < keyinput.c > */
 

@@ -25,7 +25,7 @@ int	engine__deinit(t_engine *this)
 // camera position will be determined by parsed map result someday
 // .dir = {-1, 0},
 // .plane = {0, 0.66},
-void	engine__init(t_engine *this)
+void	engine__init(t_engine *this, t_world *world)
 {
 	t_camera	camera;
 
@@ -34,7 +34,7 @@ void	engine__init(t_engine *this)
 		.dir = {0, 1},
 		.plane = {0.66, 0},
 	};
-	renderer__init(&this->renderer);
+	renderer__init(&this->renderer, world);
 	this->camera = camera;
 	this->inputhandler = inputhandler__init();
 	engine__init__input(this);

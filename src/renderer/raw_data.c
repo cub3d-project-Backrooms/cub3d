@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <stdio.h>
 
+// TODO: refactor
 void	load_image(t_renderer *r, int texline[], t_string path)
 {
 	t_image	image;

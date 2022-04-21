@@ -60,7 +60,7 @@ void		renderer__init(t_renderer *this);
 /*
 ** < minimap.c > */
 
-int			srenderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map,
+int			renderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map,
 				t_ivec *player_pos);
 void		renderer__draw_minimap_at(t_renderer *this, t_ivec player_pos,
 				t_irange x_range, t_irange y_range);

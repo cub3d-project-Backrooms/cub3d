@@ -12,6 +12,7 @@
 int	main(int argc, t_const_string argv[])
 {
 	t_parser	parser;
+	t_world		world;
 	t_engine	engine;
 
 	(void)argc;
@@ -19,24 +20,8 @@ int	main(int argc, t_const_string argv[])
 	if (argc != 2)
 		std__panic__value("main", "usage: ./cub3d.out <cub_file>.cub");
 	parser__init(&parser, argv[1]);
-	parser__parse(&parser);
-	// str__split()
-	// t_fd fd;
-	// t_string str;
-
-	// fd = open("asset/map/mandatory.cub", O_RDONLY);
-	// while (true)
-	// {
-	// 	str = std__new_readfile__line(fd);
-	// 	if (str == NULL)
-	// 		break ;
-	// 	printf("%s\n", str);
-	// 	free(str);
-	// }
-	// close(fd);
-	// t_engine	engine;
-
-	engine__init(&engine);
+	world = parser__parse(&parser);
+	engine__init(&engine, &world);
 	engine__run(&engine);
 	return (0);
 }
