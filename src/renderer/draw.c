@@ -1,8 +1,6 @@
 #include "mlx.h"
 #include "renderer.h"
 
-const extern int g_worldmap[24][24];
-
 /**
  * @brief
  *

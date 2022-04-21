@@ -9,8 +9,6 @@
 #include "std__string.h"
 #include "parser.h"
 
-const extern int	g_worldmap[24][24];
-
 int	main(int argc, t_const_string argv[])
 {
 	(void)argc;

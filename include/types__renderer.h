@@ -6,10 +6,21 @@
 # include "std__types__math.h"
 # include "types__platform__keycode.h"
 # include "types__parser.h"
+# include "defs__texture.h"
 
 typedef void			*t_mlx__ref;
 typedef void			*t_mlx__window_ref;
 typedef void			*t_mlx__image_ref;
+typedef int				**t_grid;
+
+typedef struct s_world
+{
+	int **worldmap;
+	t_string tex_name[TEX_AMOUNT];
+	int tex_width;
+	int tex_height;
+	int **texture;
+} t_world;
 
 typedef struct s_image
 {
@@ -54,13 +65,13 @@ typedef struct s_step
 
 typedef bool**			t_map_grid;
 
-typedef struct s_world
-{
-	t_map_grid	worldmap;
-	t_ivec		player_pos;
-	t_mapformat	player_direction;
-	t_string	texture_path[4];
-}	t_world;
+// typedef struct s_world
+// {
+// 	t_map_grid	worldmap;
+// 	t_ivec		player_pos;
+// 	t_mapformat	player_direction;
+// 	t_string	texture_path[4];
+// }	t_world;
 
 typedef struct s_renderer
 {

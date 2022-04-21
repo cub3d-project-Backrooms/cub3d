@@ -4,11 +4,9 @@
 #include <math.h>
 #include <stdio.h>
 
-const extern int	g_worldmap[24][24];
-
-static bool	is_collision_with_wall(const t_vec *pos)
+static bool	is_collision_with_wall(t_world *world, const t_vec *pos)
 {
-	return (g_worldmap[(int)pos->x][(int)pos->y] > 0);
+	return (world->worldmap[(int)pos->x][(int)pos->y] > 0);
 }
 
 void	engine__try_move_player(t_engine *e, double x, double y)
@@ -16,10 +14,10 @@ void	engine__try_move_player(t_engine *e, double x, double y)
 	const double	dx = x * e->camera.dir.x * e->movespeed;
 	const double	dy = y * e->camera.dir.y * e->movespeed;
 
-	if (!is_collision_with_wall(
+	if (!is_collision_with_wall(&e->renderer.world,
 			&(t_vec){e->camera.pos.x + dx, e->camera.pos.y}))
 		e->camera.pos.x += dx;
-	if (!is_collision_with_wall(&(t_vec){e->camera.pos.x, e->camera.pos.y
+	if (!is_collision_with_wall(&e->renderer.world, &(t_vec){e->camera.pos.x, e->camera.pos.y
 			+ dy}))
 		e->camera.pos.y += dy;
 }

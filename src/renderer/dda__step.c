@@ -3,8 +3,6 @@
 #include "types__renderer.h"
 #include <math.h>
 
-const extern int	g_worldmap[24][24];
-
 t_dda__step	dda__initial_step(t_camera *camera,
 								t_ivec *map_pos,
 								t_vec *ray_dir,
@@ -51,16 +49,16 @@ void	dda__advance_step(t_dda__step *step, t_ivec *map_pos, t_vec *delta_dist)
 	}
 }
 
-bool	dda__is_ray_hit_wall(const t_ivec *pos)
+bool	dda__is_ray_hit_wall(const t_ivec *pos, t_world *world)
 {
-	return (g_worldmap[pos->x][pos->y] > 0);
+	return (world->worldmap[pos->x][pos->y] > 0);
 }
 
 void	dda__advance_step_until_hit(t_dda__step *step,
 									t_ivec *map_pos,
-									t_vec *delta_dist)
+									t_vec *delta_dist, t_world *world)
 {
-	while (!dda__is_ray_hit_wall(map_pos))
+	while (!dda__is_ray_hit_wall(map_pos, world))
 	{
 		dda__advance_step(step, map_pos, delta_dist);
 	}
