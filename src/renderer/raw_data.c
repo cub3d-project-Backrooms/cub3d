@@ -24,17 +24,17 @@ void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 
 void	renderer__init_texture(t_renderer *r)
 {
-	r->world.tex_name[WNORTH] = "backroom/wall0.xpm";
-	r->world.tex_name[WSOUTH] = "backroom/wall1.xpm";
-	r->world.tex_name[WEAST] = "backroom/wall2.xpm";
-	r->world.tex_name[WWEST] = "backroom/wall3.xpm";
+	r->world.tex_name[TEX__WALL__NORTH] = "backroom/wall0.xpm";
+	r->world.tex_name[TEX__WALL__SOUTH] = "backroom/wall1.xpm";
+	r->world.tex_name[TEX__WALL__EAST] = "backroom/wall2.xpm";
+	r->world.tex_name[TEX__WALL__WEST] = "backroom/wall3.xpm";
 
 	t_image	img;
-	load_image(r, r->world.texture[WNORTH], r->world.tex_name[WNORTH], &img);
-	load_image(r, r->world.texture[WSOUTH], r->world.tex_name[WSOUTH], &img);
-	load_image(r, r->world.texture[WEAST], r->world.tex_name[WEAST], &img);
-	load_image(r, r->world.texture[WWEST], r->world.tex_name[WWEST], &img);
-	load_image(r, r->world.texture[FLOOR], FLOOR_PATH, &img);
-	load_image(r, r->world.texture[CEILING], CEILING_PATH, &img);
-	load_image(r, r->world.texture[CEILING2], CEILING2_PATH, &img);
+	load_image(r, r->world.texture[TEX__WALL__NORTH], r->world.tex_name[TEX__WALL__NORTH], &img);
+	load_image(r, r->world.texture[TEX__WALL__SOUTH], r->world.tex_name[TEX__WALL__SOUTH], &img);
+	load_image(r, r->world.texture[TEX__WALL__EAST], r->world.tex_name[TEX__WALL__EAST], &img);
+	load_image(r, r->world.texture[TEX__WALL__WEST], r->world.tex_name[TEX__WALL__WEST], &img);
+	load_image(r, r->world.texture[TEX__FLOOR], FLOOR_PATH, &img);
+	load_image(r, r->world.texture[TEX__CEILING0], CEILING_PATH, &img);
+	load_image(r, r->world.texture[TEX__CEILING1], CEILING2_PATH, &img);
 }

@@ -17,8 +17,8 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			floordata__raycast__set_delta_texture_vector(&floordata, &this->world);
-			floordata__draw__checkerboard(&floordata);
+			floordata__raycast__set_dtexture_vector(&floordata);
+			floordata__draw__lights(&floordata);
 			renderer__draw__floor(this, &floordata, x, y);
 		}
 	}
@@ -34,9 +34,9 @@ void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 	while (++x < WIDTH)
 	{
 		walldata__raycast__set_dda_vector(&walldata, camera, x, &this->world);
-		zbuffer[x] = walldata.perpWallDist;
+		zbuffer[x] = walldata.perp_wall_dist;
 		walldata__draw__set_wall_data(&walldata, camera);
-		walldata__draw__set_texture_data(&walldata, &this->world);
+		walldata__draw__set_texture_data(&walldata);
 		y = walldata.draw_start - 1;
 		while (++y < walldata.draw_end)
 			this->buf[y][x] = renderer__draw__wall_texture(this, &walldata);

@@ -12,7 +12,7 @@ int renderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map, t_ivec *play
 	else if (this->world.worldmap[pos_map->x][pos_map->y])
 		color = 0xCCCCCC;
 	else
-		color = get_color(this, pos_map, false);
+		color = COLOR__WHITE;
 	return (color);
 }
 

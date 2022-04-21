@@ -26,31 +26,31 @@ void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int c
 	this->delta_dist = dda__dist_to_next_closest_grid(&this->ray_dir);
 	this->step = dda__initial_step(camera, &this->map_pos, &this->ray_dir, &this->delta_dist);
 	dda__advance_step_until_hit(&this->step, &this->map_pos, &this->delta_dist, world);
-	this->perpWallDist = dda__perpendicular_dist_to_closest_grid(
+	this->perp_wall_dist = dda__perpendicular_dist_to_closest_grid(
 		&this->step, camera, &this->map_pos, &this->ray_dir);
 }
 
 void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 {
-	this->lineheight = (int)(HEIGHT / this->perpWallDist * 1);
+	this->lineheight = (int)(HEIGHT / this->perp_wall_dist * 1);
 	this->draw_start = math__max(-this->lineheight / 2 + HEIGHT / 2, 0);
 	this->draw_end = math__min(this->lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
 	if (this->step.is_hit_y_side == 0)
-		this->wallx = camera->pos.y + this->perpWallDist * this->ray_dir.y;
+		this->wallx = camera->pos.y + this->perp_wall_dist * this->ray_dir.y;
 	else
-		this->wallx = camera->pos.x + this->perpWallDist * this->ray_dir.x;
+		this->wallx = camera->pos.x + this->perp_wall_dist * this->ray_dir.x;
 	this->wallx -= floor(this->wallx);
 }
 
-void walldata__draw__set_texture_data(t_walldata *this, t_world *world)
+void walldata__draw__set_texture_data(t_walldata *this)
 {
-	this->texX = (int)(this->wallx * (double)world->tex_width);
+	this->texX = (int)(this->wallx * (double)TEX__WIDTH);
 	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
-		this->texX = world->tex_width - this->texX - 1;
+		this->texX = TEX__WIDTH - this->texX - 1;
 	if (this->step.is_hit_y_side == 1 && this->ray_dir.y < 0)
-		this->texX = world->tex_width - this->texX - 1;
-	this->step_val = 1.0 * world->tex_height / this->lineheight;
-	this->texPos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
+		this->texX = TEX__WIDTH - this->texX - 1;
+	this->step_val = 1.0 * TEX__HEIGHT / this->lineheight;
+	this->tex_pos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
 }
 
 int renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
@@ -59,17 +59,17 @@ int renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 	int texnum;
 	int color;
 
-	texY = (int)data->texPos & (this->world.tex_height - 1);
-	data->texPos += data->step_val;
+	texY = (int)data->tex_pos & (TEX__HEIGHT - 1);
+	data->tex_pos += data->step_val;
 	if (data->step.is_hit_y_side && (data->step.y_sign == POSITIVE))
-		texnum = WNORTH;
+		texnum = TEX__WALL__NORTH;
 	else if (data->step.is_hit_y_side && (data->step.y_sign == NEGATIVE))
-		texnum = WSOUTH;
+		texnum = TEX__WALL__SOUTH;
 	else if (!data->step.is_hit_y_side && (data->step.x_sign == POSITIVE))
-		texnum = WEAST;
+		texnum = TEX__WALL__EAST;
 	else
-		texnum = WWEST;
-	color = this->world.texture[texnum][this->world.tex_height * texY + data->texX];
-	color = distance_shade(color, data->perpWallDist);
+		texnum = TEX__WALL__WEST;
+	color = this->world.texture[texnum][TEX__HEIGHT * texY + data->texX];
+	color = distance_shade(color, data->perp_wall_dist);
 	return (color);
 }

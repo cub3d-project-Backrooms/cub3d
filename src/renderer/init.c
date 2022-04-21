@@ -37,8 +37,6 @@ void	renderer__init__world_data(t_renderer *this)
 	int i;
 	int j;
 
-	world.tex_width = 64;
-	world.tex_height = 64;
 	world.world_width = 24;
 	world.world_height = 24;
 	world.worldmap = std__allocate(world.world_width, sizeof(int *));

@@ -15,29 +15,29 @@ void	floordata__raycast__set_row_distance(t_floordata *this, int current_y)
 
 	position_from_center = current_y - HEIGHT / 2;
 	vertical_camera_position = 0.5 * HEIGHT;
-	this->rowDistance = vertical_camera_position / position_from_center;
+	this->row_distance = vertical_camera_position / position_from_center;
 }
 
 void	floordata__raycast__set_floor_vectors(t_floordata *this, t_camera *camera)
 {
-	this->floorStep.x = this->rowDistance * (this->ray_dir1.x
+	this->floor_step.x = this->row_distance * (this->ray_dir1.x
 			- this->ray_dir0.x) / WIDTH;
-	this->floorStep.y = this->rowDistance * (this->ray_dir1.y
+	this->floor_step.y = this->row_distance * (this->ray_dir1.y
 			- this->ray_dir0.y) / WIDTH;
-	this->floor.x = camera->pos.x + this->rowDistance * this->ray_dir0.x;
-	this->floor.y = camera->pos.y + this->rowDistance * this->ray_dir0.y;
+	this->floor.x = camera->pos.x + this->row_distance * this->ray_dir0.x;
+	this->floor.y = camera->pos.y + this->row_distance * this->ray_dir0.y;
 }
 
-void	floordata__raycast__set_delta_texture_vector(t_floordata *this, t_world *world)
+void	floordata__raycast__set_dtexture_vector(t_floordata *this)
 {
 	this->cell.x = (int)(this->floor.x);
 	this->cell.y = (int)(this->floor.y);
-	this->deltaT.x = (int)(world->tex_width * (this->floor.x
-				- this->cell.x)) & (world->tex_width - 1);
-	this->deltaT.y = (int)(world->tex_height * (this->floor.y
-				- this->cell.y)) & (world->tex_height - 1);
-	this->floor.x += this->floorStep.x;
-	this->floor.y += this->floorStep.y;
+	this->dt.x = (int)(TEX__WIDTH * (this->floor.x
+				- this->cell.x)) & (TEX__WIDTH - 1);
+	this->dt.y = (int)(TEX__HEIGHT * (this->floor.y
+				- this->cell.y)) & (TEX__HEIGHT - 1);
+	this->floor.x += this->floor_step.x;
+	this->floor.y += this->floor_step.y;
 }
 
 void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
@@ -45,14 +45,14 @@ void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 {
 	int	color;
 
-	color = this->world.texture[vecs->floorTexture][(int)(this->world.tex_width * vecs->deltaT.y
-			+ vecs->deltaT.x)];
+	color = this->world.texture[vecs->floor_texture][(int)(TEX__WIDTH * vecs->dt.y
+			+ vecs->dt.x)];
 	color = (color >> 1) & 8355711;
-	color = distance_shade(color, vecs->rowDistance);
+	color = distance_shade(color, vecs->row_distance);
 	this->buf[current_y][current_x] = color;
-	color = this->world.texture[vecs->ceilingTexture][(int)(this->world.tex_width * vecs->deltaT.y
-			+ vecs->deltaT.x)];
+	color = this->world.texture[vecs->ceiling_texture][(int)(TEX__WIDTH * vecs->dt.y
+			+ vecs->dt.x)];
 	color = (color >> 1) & 8355711;
-	color = distance_shade(color, vecs->rowDistance);
+	color = distance_shade(color, vecs->row_distance);
 	this->buf[HEIGHT - current_y - 1][current_x] = color;
 }
