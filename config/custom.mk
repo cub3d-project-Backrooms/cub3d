@@ -1,5 +1,6 @@
 run: all
-	./$(NAME) asset/map/mandatory.cub
+	./$(NAME) asset/map/square.cub
+# ./$(NAME) asset/map/mandatory.cub
 
 docs:
 	@set -e;\

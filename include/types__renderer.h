@@ -43,8 +43,8 @@ typedef struct s_image
 
 typedef enum e_config
 {
-	mapWidth = 24,
-	mapHeight = 24,
+	// mapWidth = 24,
+	// mapHeight = 24,
 	WIDTH = 640,
 	HEIGHT = 480,
 }	t_config;

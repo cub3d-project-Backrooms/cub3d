@@ -56,7 +56,7 @@ void		image__deinit(t_image *this);
 
 void		renderer__init__world_data(t_renderer *this);
 void		renderer__init__mlx(t_renderer *this);
-void		renderer__init(t_renderer *this);
+void		renderer__init(t_renderer *this, t_world *world);
 /*
 ** < minimap.c > */
 
