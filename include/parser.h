@@ -22,14 +22,15 @@ bool	parser__has_duplicate_cubid(t_parser *this, t_cubid id);
 /*
 ** < cubid.c > */
 
-t_cubid	cubid__parse(t_const_string id);
-void	parser__parse_line__id(t_parser *this, t_string line);
 void	parser__parse__id(t_parser *this);
+/*
+** < map.c > */
+
+void	parser__parse__map(t_parser *this);
 /*
 ** < parser.c > */
 
 void	parser__init(t_parser *this, t_const_string file);
-void	parser__parse__map(t_parser *this);
 void	parser__parse(t_parser *this);
 /*
 ** < rgb.c > */

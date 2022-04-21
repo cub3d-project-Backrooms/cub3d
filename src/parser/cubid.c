@@ -4,7 +4,7 @@
 #include "std__color.h"
 #include "std__system.h"
 
-t_cubid	cubid__parse(t_const_string id)
+static t_cubid	cubid__parse(t_const_string id)
 {
 	int						i;
 	static t_const_string	ids[] = {
@@ -19,7 +19,7 @@ t_cubid	cubid__parse(t_const_string id)
 }
 
 
-void	parser__parse_line__id(t_parser *this, t_string line)
+static void	parser__parse_line__id(t_parser *this, t_string line)
 {
 	t_cubid		id;
 	t_string	*arr;

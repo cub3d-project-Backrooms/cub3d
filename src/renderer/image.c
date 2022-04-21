@@ -1,6 +1,7 @@
+#include <stdio.h>
 #include "types__renderer.h"
 #include "std__types__math.h"
-#include <stdio.h>
+#include "std__color.h"
 
 void	image__write_to_buffer(t_image *this, int texline[])
 {
@@ -25,7 +26,7 @@ void	image__init(t_image *this, t_mlx__ref mlx, t_string path)
 		std__panic__null("image__init: failed to load image");
 	this->data = (int *)mlx_get_data_addr(this->img_ref,
 			&this->bits_per_pixel, &this->line_size, &this->endian);
-	printf("loaded %s\n", path);
+	printf(CYN "🖼️ loaded %s\n" END, path);
 }
 
 void	image__deinit(t_image *this)
