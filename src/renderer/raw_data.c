@@ -2,6 +2,8 @@
 #include "renderer.h"
 #include "std__types.h"
 #include "std__system.h"
+#include <assert.h>
+#include <stdio.h>
 
 int			g_worldmap[mapWidth][mapHeight] = {
 	{8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 6, 4, 4, 6, 4, 6, 4, 4, 4, 6, 4},
@@ -29,9 +31,6 @@ int			g_worldmap[mapWidth][mapHeight] = {
 	{2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0, 5, 0, 5, 0, 0, 0, 5, 5},
 	{2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5}};
 
-
-#include <assert.h>
-#include <stdio.h>
 void	load_image(t_renderer *r, int *texture, char *path, t_image *img)
 {
 	// TODO: make image self-contained object with methods

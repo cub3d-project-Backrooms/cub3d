@@ -1,7 +1,8 @@
-#include "std__string.h"
-#include "parser.h"
 #include <stdio.h>
+#include "parser.h"
+#include "std__string.h"
 #include "std__color.h"
+#include "std__system.h"
 
 t_cubid	cubid__parse(t_const_string id)
 {
@@ -17,31 +18,16 @@ t_cubid	cubid__parse(t_const_string id)
 	return (CUBID__ERR);
 }
 
-bool	parser__all_cubid_found(t_parser *this)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 6)
-		if (not this->found_cubid[i])
-			return (false);
-	return (true);
-}
-
-bool	parser__has_duplicate_cubid(t_parser *this, t_cubid id)
-{
-	return (this->found_cubid[id]);
-}
 
 void	parser__parse_line__id(t_parser *this, t_string line)
 {
 	t_cubid		id;
 	t_string	*arr;
 
-	if (str__is_equal(line, "\n"))
+	if (cubfile__is_line_empty(line))
 		return ;
 	arr = str__new_split(line, " ");
-	if (arr == NULL or str__len__arr(arr) != 2)
+	if (not (cubid__is_valid(arr)))
 		std__panic__value("parser__parse_line__id: invalid line", line);
 	str__strip(&arr[1], STD__SPACES);
 	id = cubid__parse(arr[0]);
@@ -49,10 +35,22 @@ void	parser__parse_line__id(t_parser *this, t_string line)
 		std__panic__value("parser__parse_line__id: invalid id", arr[0]);
 	if (parser__has_duplicate_cubid(this, id))
 		std__panic__value("parser__feed_ident: duplicate identifier", line);
-	if (id == CUBID__COLOR__FLOOR or id == CUBID__COLOR__CEILING)
+	if (cubid__is_color(id))
 		this->colors[id - (CUBID__TEXTURE__EAST + 1)]
 			= rgb__from_string(arr[1], ",");
-	// else
-	// 	this->textures[id] = str__new(arr[1]);
+	else
+		this->texture_path[id] = str__new(arr[1]);
 	this->found_cubid[id] = true;
+}
+
+void	parser__parse__id(t_parser *this)
+{
+	t_string	line;
+
+	while (not parser__all_cubid_found(this))
+	{
+		line = std__new_readfile__line(this->fd);
+		parser__parse_line__id(this, line);
+		str__delete(&line);
+	}
 }

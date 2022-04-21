@@ -30,9 +30,9 @@ typedef struct s_parser
 {
 	t_fd		fd;
 	t_string	raw_mapdata;
+	t_string	texture_path[4];
 	t_rgb		colors[2];
 	bool		found_cubid[6];
-	
 }	t_parser;
 
 #endif
