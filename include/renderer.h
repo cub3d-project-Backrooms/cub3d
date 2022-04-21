@@ -45,6 +45,12 @@ void		renderer__draw_to_window(t_renderer *info);
 void		renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos,
 				int color);
 /*
+** < image.c > */
+
+void		image__write_to_buffer(t_image *this, int texline[]);
+void		image__init(t_image *this, t_mlx__ref mlx, t_string path);
+void		image__deinit(t_image *this);
+/*
 ** < init.c > */
 
 void		renderer__init__world_data(t_renderer *this);
@@ -59,7 +65,7 @@ void		renderer__draw_minimap(t_renderer *this, t_camera *camera);
 /*
 ** < raw_data.c > */
 
-void		load_image(t_renderer *r, int *texture, char *path, t_image *img);
+void		load_image(t_renderer *r, int *texture, t_string path);
 void		renderer__init_texture(t_renderer *r);
 /*
 ** < raycast.c > */
