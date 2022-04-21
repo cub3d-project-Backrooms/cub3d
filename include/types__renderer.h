@@ -15,11 +15,11 @@ typedef int				**t_grid;
 
 typedef struct s_world
 {
-	int **worldmap;
-	t_string tex_name[TEX_AMOUNT];
-	int tex_width;
-	int tex_height;
-	int **texture;
+	int world_width;
+	int world_height;
+	t_grid worldmap;
+	t_string tex_name[TEX__AMOUNT];
+	int texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
 } t_world;
 
 typedef struct s_image
@@ -44,8 +44,6 @@ typedef enum e_config
 {
 	mapWidth = 24,
 	mapHeight = 24,
-	// WIDTH = 1920,
-	// HEIGHT = 1080,
 	WIDTH = 640,
 	HEIGHT = 480,
 }	t_config;
@@ -62,8 +60,6 @@ typedef struct s_step
 	t_vec				side_dist;
 	bool				is_hit_y_side;
 }	t_dda__step;
-
-typedef bool**			t_map_grid;
 
 // typedef struct s_world
 // {
@@ -90,15 +86,15 @@ typedef struct s_pair
 
 typedef struct s_floordata
 {
-	t_vec	ray_dir0;
-	t_vec	ray_dir1;
-	float	rowDistance;
-	t_vec	floorStep;
-	t_vec	floor;
-	t_vec	cell;
-	t_vec	deltaT;
-	int		floorTexture;
-	int		ceilingTexture;
+	t_vec ray_dir0;
+	t_vec ray_dir1;
+	float row_distance;
+	t_vec floor_step;
+	t_vec floor;
+	t_vec cell;
+	t_vec dt;
+	int floor_texture;
+	int ceiling_texture;
 } t_floordata;
 
 typedef struct s_walldata
@@ -108,14 +104,14 @@ typedef struct s_walldata
 	t_ivec map_pos;
 	t_vec delta_dist;
 	t_dda__step step;
-	double perpWallDist;
+	double perp_wall_dist;
 	int lineheight;
 	int draw_start;
 	int draw_end;
 	double wallx;
 	int texX;
 	double step_val;
-	double texPos;
+	double tex_pos;
 } t_walldata;
 
 #endif

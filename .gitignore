@@ -1,4 +1,5 @@
 # Compiled binary
+*.DS_store
 
 # Prerequisites
 *.d

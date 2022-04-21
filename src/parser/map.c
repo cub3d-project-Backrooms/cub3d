@@ -1,77 +1,27 @@
-#include <stdio.h>
 #include "parser.h"
 #include "std__system.h"
 #include "std__string.h"
 #include "std__math.h"
+#include "types__renderer.h"
 
-static int	raw_map_arr__max_width(t_string_arr this)
+static t_grid	raw_map_arr__into_map(t_string_arr this, t_sizevec map_size)
 {
-	int	i;
-	int	max_len;
+	t_i64vec	it;
+	t_grid		map;
 
-	i = -1;
-	max_len = UNSET;
-	while (this[++i])
-		max_len = math__max(str__len(this[i]), max_len);
-	return (max_len);
-}
-
-static	t_string	parser__new_raw_map_line(t_parser *this)
-{
-	t_string	line;
-	bool		is_start;
-	t_string	raw_mapline;
-
-	is_start = false;
-	raw_mapline = str__new_size(0);
-	while (true)
+	map = std__allocate(map_size.height, sizeof(int *));
+	it.y = -1;
+	while (++it.y < map_size.height)
 	{
-		line = std__new_readfile__line(this->fd);
-		if (line == NULL)
-			break ;
-		if (cubfile__is_line_empty(line))
-		{
-			if (is_start)
-				std__panic("parser__new_raw_map_arr: empty map line");
-			is_start = true;
-			continue ;
-		}
-		str__merge(&raw_mapline, &line);
+		it.x = -1;
+		map[it.y] = std__allocate(map_size.width, sizeof(int));
+		while (++it.x < map_size.width)
+			map[it.y][it.x] = this[it.y][it.x] != MAPFMT__FLOOR;
 	}
-	str__rstrip(&raw_mapline, "\n");
-	return (raw_mapline);
+	return (map);
 }
 
-static t_string_arr	parser__new_raw_map_arr(t_parser *this)
-{
-	int			i;
-	t_string	raw_mapline;
-	t_string	*raw_map_arr;
-
-	raw_mapline = parser__new_raw_map_line(this);
-	raw_map_arr = str__new_split(raw_mapline, "\n");
-	i = -1;
-	while (raw_map_arr[++i])
-		str__rstrip(&raw_map_arr[i], "\n");
-	str__delete(&raw_mapline);
-	return (raw_map_arr);
-}
-
-static void	raw_map_arr__pad(t_string_arr this, t_sizevec map_size)
-{
-	t_i64	i;
-	t_i64	len;
-
-	i = -1;
-	while (++i < map_size.height)
-	{
-		len = str__len(this[i]);
-		if (len < map_size.width)
-			str__pad_right(&this[i], map_size.width - len, ' ');
-	}
-}
-
-void	parser__parse__map(t_parser *this)
+void	parser__parse__map(t_parser *this, t_world *world)
 {
 	t_string_arr	raw_map_arr;
 	t_sizevec		map_size;
@@ -82,10 +32,7 @@ void	parser__parse__map(t_parser *this)
 		.width = raw_map_arr__max_width(raw_map_arr),
 		.height = str__len__arr(raw_map_arr),
 	};
-	printf("map_size: %d %d\n", map_size.width, map_size.height);
 	raw_map_arr__pad(raw_map_arr, map_size);
-	for (t_i64 i = 0; i < map_size.height; i++)
-		printf("[%s]\n", raw_map_arr[i]);
 	raw_map_arr__check_valid(raw_map_arr);
-	str__delete__arr(&raw_map_arr);
+	world->worldmap = raw_map_arr__into_map(raw_map_arr, map_size);
 }

@@ -43,9 +43,10 @@ static void	parser__parse_line__id(t_parser *this, t_string line)
 	this->found_cubid[id] = true;
 }
 
-void	parser__parse__id(t_parser *this)
+void	parser__parse__id(t_parser *this, t_world *world)
 {
 	t_string	line;
+	(void)world;
 
 	while (not parser__all_cubid_found(this))
 	{
