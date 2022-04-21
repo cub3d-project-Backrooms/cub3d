@@ -20,9 +20,6 @@ body:
   - type: input
     id: one-liner
     attributes:
-      label: 'Subtitle'
-      description: Abstract the details of error
-      placeholder: Segmentation fault while rotating to the left
     validations:
       required: true
 
