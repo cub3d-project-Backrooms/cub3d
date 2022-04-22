@@ -1,5 +1,5 @@
 run: all
-	./$(NAME) asset/map/square.cub
+	./$(NAME) map/square.cub
 # ./$(NAME) asset/map/mandatory.cub
 
 lclean:
