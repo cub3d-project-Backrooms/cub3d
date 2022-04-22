@@ -3,8 +3,8 @@
 
 # include <stdbool.h>
 
-typedef enum e_flags
-{
-	FLAGS__USE_DEFAULT_TEXTURE = false,
-}	t_flags;
+# ifndef FLAGS__USE_DEFAULT_TEXTURE
+#  define FLAGS__USE_DEFAULT_TEXTURE 0
+# endif
+
 #endif

@@ -1,6 +1,9 @@
 CFLAGS += -I include/
+ifdef BONUS
+	CFLAGS += -D FLAGS__USE_DEFAULT_TEXTURE=1
+endif
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -9,8 +12,10 @@ $(NAME): $(OBJ) $(DEPENDENCIES)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
 	@echo 🚪 compiled $@
 
-
 all: $(NAME)
+
+bonus:
+	make BONUS=1
 
 clean:
 	@make -C $(MLX_DIR) clean
