@@ -61,4 +61,8 @@ t_world			parser__parse(t_parser *this);
 void			rgb__print(t_rgb rgb);
 t_rgb			rgb__from_arr(int raw_rgb[3]);
 t_rgb			rgb__from_string(t_const_string str, t_const_string delim);
+/*
+** < fluidfill.c > */
+bool raw_map_arr__fluidfill(t_string_arr this, t_sizevec map_size);
+
 #endif
