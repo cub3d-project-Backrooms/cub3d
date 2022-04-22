@@ -38,7 +38,7 @@ bool			parser__has_duplicate_cubid(t_parser *this, t_cubid id);
 /*
 ** < cubid.c > */
 
-void			parser__parse__id(t_parser *this, t_world *world);
+void			parser__parse__id(t_parser *this);
 /*
 ** < map.c > */
 

@@ -19,7 +19,7 @@ t_world	parser__parse(t_parser *this)
 {
 	t_world		world;
 
-	parser__parse__id(this, &world);
+	parser__parse__id(this);
 	parser__parse__map(this, &world);
 	return (world);
 }

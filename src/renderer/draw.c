@@ -27,7 +27,29 @@ void	renderer__draw_to_window(t_renderer *info)
 		info->buffer_window.img_ref, 0, 0);
 }
 
-void	renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos, int color)
+// void	renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos, int color)
+// {
+// 	this->buf[pos->y][pos->x] = color;
+// }
+
+void	grid__fill(t_grid this, t_sizevec size, t_rgb color)
 {
-	this->buf[pos->y][pos->x] = color;
+	t_i64vec	it;
+
+	it.y = -1;
+	while (++it.y < size.height)
+	{
+		it.x = -1;
+		while (++it.x < size.width)
+			this[it.y][it.x] = color;
+	}
+}
+
+void	texline__fill(int this[], int size, t_rgb color)
+{
+	int		i;
+
+	i = -1;
+	while (++i < size)
+		this[i] = color;
 }

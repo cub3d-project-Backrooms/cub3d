@@ -24,7 +24,8 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	}
 }
 
-void	renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
+void	renderer__raycast__wall(
+	t_renderer *this, t_camera *camera, double zbuffer[WIDTH])
 {
 	t_walldata	walldata;
 	int			x;
@@ -45,8 +46,8 @@ void	renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 
 void	renderer__raycast(t_renderer *this, t_camera *camera)
 {
-	double	zBuffer[WIDTH];
+	double	zbuffer[WIDTH];
 
 	renderer__raycast__floor(this, camera);
-	renderer__raycast__wall(this, camera, zBuffer);
+	renderer__raycast__wall(this, camera, zbuffer);
 }

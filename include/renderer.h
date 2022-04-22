@@ -43,13 +43,14 @@ void		renderer__deinit(t_renderer *this);
 ** < draw.c > */
 
 void		renderer__draw_to_window(t_renderer *info);
-void		renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos,
-				int color);
+void		grid__fill(t_grid this, t_sizevec size, int color);
+void		texline__fill(int this[], int size, int color);
 /*
 ** < image.c > */
 
 void		image__write_to_buffer(t_image *this, int texline[]);
 void		image__init(t_image *this, t_mlx__ref mlx, t_string path);
+void		image__init_from_rgb(t_image *this, t_mlx__ref mlx, t_rgb rgb);
 void		image__deinit(t_image *this);
 /*
 ** < init.c > */
@@ -74,7 +75,7 @@ void		renderer__init_texture(t_renderer *r);
 ** < raycast.c > */
 
 void		renderer__raycast__floor(t_renderer *this, t_camera *camera);
-void		renderer__raycast__wall(t_renderer* this, t_camera* camera,
+void		renderer__raycast__wall(t_renderer *this, t_camera *camera,
 				double zbuffer[WIDTH]);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
 /*

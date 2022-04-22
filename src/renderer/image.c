@@ -2,6 +2,8 @@
 #include "types__renderer.h"
 #include "std__types__math.h"
 #include "std__color.h"
+#include "renderer.h"
+#include "parser.h"
 
 void	image__write_to_buffer(t_image *this, int texline[])
 {
@@ -27,6 +29,19 @@ void	image__init(t_image *this, t_mlx__ref mlx, t_string path)
 	this->data = (int *)mlx_get_data_addr(this->img_ref,
 			&this->bits_per_pixel, &this->line_size, &this->endian);
 	printf(CYN "🖼️ loaded %s\n" END, path);
+}
+
+
+void	image__init_from_rgb(t_image *this, t_mlx__ref mlx, t_rgb rgb)
+{
+	this->mlx_ref = mlx;
+	this->img_ref = mlx_new_image(this->mlx_ref, TEX__WIDTH, TEX__HEIGHT);
+	this->data = (int *)mlx_get_data_addr(this->img_ref,
+			&this->bits_per_pixel, &this->line_size, &this->endian);
+	texline__fill(this->data, TEX__WIDTH * TEX__HEIGHT, rgb);
+	printf(CYN "🖼️ drawn ");
+	rgb__print(rgb);
+	printf("\n" END);
 }
 
 void	image__deinit(t_image *this)
