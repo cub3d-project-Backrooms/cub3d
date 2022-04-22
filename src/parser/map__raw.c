@@ -33,6 +33,7 @@ t_string	parser__new_raw_map_line(t_parser *this)
 			if (is_start)
 				std__panic("parser__new_raw_map_arr: empty map line");
 			is_start = true;
+			str__delete(&line);
 			continue ;
 		}
 		str__merge(&raw_mapline, &line);

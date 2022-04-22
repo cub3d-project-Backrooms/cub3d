@@ -1,7 +1,7 @@
 {
   "[c]": {
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.formatOnSave": false,
+    "editor.tabSize": 4
   },
   "files.associations": {
     "**/*.pug": "jade",
@@ -23,5 +23,5 @@
     "*.sav": "json",
     "*.lalrpop": "rust",
     "ios": "c"
-  },
+  }
 }

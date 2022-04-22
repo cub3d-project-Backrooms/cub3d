@@ -41,6 +41,7 @@ static void	parser__parse_line__id(t_parser *this, t_string line)
 	else
 		this->texture_path[id] = str__new(arr[1]);
 	this->found_cubid[id] = true;
+	str__delete__arr(&arr);
 }
 
 void	parser__parse__id(t_parser *this, t_world *world)

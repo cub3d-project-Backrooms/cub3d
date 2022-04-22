@@ -48,4 +48,5 @@ void	parser__parse__map(t_parser *this, t_world *world)
 	raw_map_arr__pad(raw_map_arr, map_size);
 	raw_map_arr__check_valid(raw_map_arr);
 	world__init(world, raw_map_arr, map_size);
+	str__delete__arr(&raw_map_arr);
 }
