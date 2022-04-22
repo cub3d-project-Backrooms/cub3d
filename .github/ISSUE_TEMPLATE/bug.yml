@@ -1,36 +1,27 @@
-name: 버그 리포트
-description: 으에에엑
-title: "[버그 🐛] "
+name: Bug report
+description: Argharghargh !
+title: "[Bug 🐛] "
 labels: ["Bug 🐛"]
 body:
   - type: dropdown
     id: error-type
     attributes:
-      label: '오류 종류'
-      description: 발생한 오류의 종류
+      label: 'Error type'
+      description: What kind of error did you face ?
       options:
-        - 컴파일러/메이크파일 오류
-        - 메모리 누수/댕글링 포인터/이중 할당 해제
-        - 세그멘테이션 오류
-        - 그래픽 출력 오류
-        - 기타 예상하지 못한 동작
-    validations:
-      required: true
-
-  - type: input
-    id: one-liner
-    attributes:
-      label: '한 줄 요약'
-      description: 오류를 한 줄로 요약하면
-      placeholder: 좌회전 시 세그멘테이션 오류
+        - Error from compiler/makefile
+        - Memory leak/dangling pointer/double free
+        - Segmentation fault
+        - Graphic output error
+        - Misc unexpected behaviors
     validations:
       required: true
 
   - type: textarea
     id: to-recreate
     attributes:
-      label: '발생 과정'
-      description: 오류를 일으키는 법
+      label: 'Bug process'
+      description: The way to make bug in program
       render: Markdown
       placeholder: |
         1.
@@ -41,17 +32,17 @@ body:
   - type: textarea
     id: related-code
     attributes:
-      label: '관련 코드'
-      description: (자동 C 구문 하이라이팅)
+      label: 'Related codes'
+      description: (Auto highlighting in C)
       render: C
 
   - type: dropdown
     id: status
     attributes:
-      label: '오류 상태'
-      description: 현재 오류의 상태?
+      label: 'Error status'
+      description: Describe current status of error
       options:
-        - 원인 발견함
-        - 해결 방법 있음
-        - 클러스터 맥 이외 환경
+        - Cause is found
+        - Solution exists
+        - Envr diff with 42-cluster
       multiple: true

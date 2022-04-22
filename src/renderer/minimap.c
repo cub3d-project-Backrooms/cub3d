@@ -10,7 +10,7 @@ int	renderer__draw_minimap_color(
 
 	if (ivec__is_equal(pos_map, player_pos))
 		color = COLOR__RED;
-	else if (this->world.worldmap[pos_map->x][pos_map->y])
+	else if (this->world.worldmap[pos_map->y][pos_map->x])
 		color = COLOR__GRAY;
 	else
 		color = COLOR__WHITE;
@@ -25,18 +25,18 @@ void	renderer__draw_minimap_at(
 	t_irange	map_range_x;
 	t_irange	map_range_y;
 
-	map_range_y = (t_irange){0, this->world.world_width};
-	map_range_x = (t_irange){0, this->world.world_height};
+	map_range_x = (t_irange){0, this->world.world_width};
+	map_range_y = (t_irange){0, this->world.world_height};
 	idx = (t_ivec){x_range.start - 1, y_range.start - 1};
-	while (++idx.x < x_range.end)
+	while (++idx.y < y_range.end)
 	{
-		idx.y = y_range.start - 1;
-		while (++idx.y < x_range.end)
+		idx.x = x_range.start - 1;
+		while (++idx.x < x_range.end)
 		{
 			pos_map = (t_ivec){
 				math__normalize(idx.x, x_range, map_range_x),
 				math__normalize(idx.y, y_range, map_range_y)};
-			this->buf[idx.x][idx.y]
+			this->buf[idx.y][idx.x]
 				= renderer__draw_minimap_color(this, &pos_map, &player_pos);
 		}
 	}
