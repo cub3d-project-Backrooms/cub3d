@@ -3,8 +3,8 @@ SO ./texture/wolf/colorstone.xpm
 WE ./texture/wolf/mossy.xpm
 EA ./texture/wolf/greystone.xpm
 
-F 220,100,0
-C 225,30,0
+F 229,217,190
+C 203,229,190
 
 111111111111111111111111111111111
 100000010000000000000000000000001

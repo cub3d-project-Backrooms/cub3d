@@ -26,25 +26,3 @@ void	renderer__draw_to_window(t_renderer *info)
 	mlx_put_image_to_window(info->mlx, info->window,
 		info->buffer_window.img_ref, 0, 0);
 }
-
-void	grid__fill(t_grid this, t_sizevec size, t_rgb color)
-{
-	t_i64vec	it;
-
-	it.y = -1;
-	while (++it.y < size.height)
-	{
-		it.x = -1;
-		while (++it.x < size.width)
-			this[it.y][it.x] = color;
-	}
-}
-
-void	texline__fill(int this[], int size, t_rgb color)
-{
-	int		i;
-
-	i = -1;
-	while (++i < size)
-		this[i] = color;
-}

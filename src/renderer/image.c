@@ -31,19 +31,6 @@ void	image__init(t_image *this, t_mlx__ref mlx, t_string path)
 	printf(CYN "🖼️ loaded %s\n" END, path);
 }
 
-
-void	image__init_from_rgb(t_image *this, t_mlx__ref mlx, t_rgb rgb)
-{
-	this->mlx_ref = mlx;
-	this->img_ref = mlx_new_image(this->mlx_ref, TEX__WIDTH, TEX__HEIGHT);
-	this->data = (int *)mlx_get_data_addr(this->img_ref,
-			&this->bits_per_pixel, &this->line_size, &this->endian);
-	texline__fill(this->data, TEX__WIDTH * TEX__HEIGHT, rgb);
-	printf(CYN "🖼️ drawn ");
-	rgb__print(rgb);
-	printf("\n" END);
-}
-
 void	image__deinit(t_image *this)
 {
 	mlx_destroy_image(this->mlx_ref, this->img_ref);

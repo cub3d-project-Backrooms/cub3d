@@ -6,12 +6,25 @@
 # include "std__types__math.h"
 # include "types__platform__keycode.h"
 # include "types__parser.h"
-# include "defs__texture.h"
 
 typedef void			*t_mlx__ref;
 typedef void			*t_mlx__window_ref;
 typedef void			*t_mlx__image_ref;
 typedef int				**t_grid;
+
+typedef enum e_texdata
+{
+	TEX__AMOUNT = 4,
+	TEX__WIDTH = 64,
+	TEX__HEIGHT = 64,
+	TEX__WALL__NORTH = 0,
+	TEX__WALL__SOUTH,
+	TEX__WALL__EAST,
+	TEX__WALL__WEST,
+	TEX__FLOOR,
+	TEX__CEILING0,
+	TEX__CEILING1,
+}	t_texdata;
 
 typedef struct s_camera
 {

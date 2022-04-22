@@ -8,8 +8,6 @@
 # include "types__x11_events.h"
 # include <stdbool.h>
 
-# include "defs__texture.h"
-
 // clang-format off
 //@func
 /*
@@ -43,8 +41,6 @@ void		renderer__deinit(t_renderer *this);
 ** < draw.c > */
 
 void		renderer__draw_to_window(t_renderer *info);
-void		grid__fill(t_grid this, t_sizevec size, t_rgb color);
-void		texline__fill(int this[], int size, t_rgb color);
 /*
 ** < image.c > */
 
@@ -59,6 +55,10 @@ void		renderer__init__world_data(t_renderer *this);
 void		renderer__init__mlx(t_renderer *this);
 void		renderer__init(t_renderer *this, t_world *world);
 /*
+** < load_tex.c > */
+
+void		renderer__init_texture(t_renderer *this);
+/*
 ** < minimap.c > */
 
 int			renderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map,
@@ -66,11 +66,6 @@ int			renderer__draw_minimap_color(t_renderer *this, t_ivec *pos_map,
 void		renderer__draw_minimap_at(t_renderer *this, t_ivec player_pos,
 				t_irange x_range, t_irange y_range);
 void		renderer__draw_minimap(t_renderer *this, t_camera *camera);
-/*
-** < raw_data.c > */
-
-void		load_image(t_renderer *r, int texline[], t_string path);
-void		renderer__init_texture(t_renderer *this);
 /*
 ** < raycast.c > */
 
