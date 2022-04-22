@@ -44,11 +44,6 @@ static void	parser__parse_line__id(t_parser *this, t_string line)
 	str__delete__arr(&arr);
 }
 
-// static void	parser__init_texture(t_parser *this, t_world *world)
-// {
-
-// }
-
 void	parser__parse__id(t_parser *this)
 {
 	t_string	line;

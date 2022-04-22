@@ -27,11 +27,6 @@ void	renderer__draw_to_window(t_renderer *info)
 		info->buffer_window.img_ref, 0, 0);
 }
 
-// void	renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos, int color)
-// {
-// 	this->buf[pos->y][pos->x] = color;
-// }
-
 void	grid__fill(t_grid this, t_sizevec size, t_rgb color)
 {
 	t_i64vec	it;
