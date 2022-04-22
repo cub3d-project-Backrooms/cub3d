@@ -6,7 +6,7 @@
 
 static bool	is_collision_with_wall(t_world *world, const t_vec *pos)
 {
-	return (world->worldmap[(int)pos->x][(int)pos->y] > 0);
+	return (world->worldmap[(int)pos->y][(int)pos->x] > 0);
 }
 
 void	engine__try_move_player(t_engine *e, double x, double y)
@@ -25,8 +25,8 @@ void	engine__try_move_player(t_engine *e, double x, double y)
 // both camera direction and camera plane must be rotated
 void	engine__rotate_player(t_engine *e, double angle)
 {
-	vec__rotate_assign(&e->camera.dir, -1 * angle * e->rotspeed);
-	vec__rotate_assign(&e->camera.plane, -1 * angle * e->rotspeed);
+	vec__rotate_assign(&e->camera.dir, angle * e->rotspeed);
+	vec__rotate_assign(&e->camera.plane, angle * e->rotspeed);
 }
 
 void	engine__move_player(t_engine *e)
