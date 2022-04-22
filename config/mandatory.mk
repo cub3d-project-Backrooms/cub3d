@@ -1,6 +1,6 @@
 CFLAGS += -I include/
 ifdef BONUS
-	CFLAGS += -D FLAGS__USE_DEFAULT_TEXTURE=1
+	CFLAGS += -D BONUS=1
 endif
 
 .PHONY: all bonus clean fclean re
@@ -15,7 +15,7 @@ $(NAME): $(OBJ) $(DEPENDENCIES)
 all: $(NAME)
 
 bonus:
-	make BONUS=1
+	make BONUS=true
 
 clean:
 	@make -C $(MLX_DIR) clean

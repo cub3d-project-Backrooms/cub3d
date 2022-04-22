@@ -54,7 +54,7 @@ void	renderer__init_texture(t_renderer *this)
 	i = -1;
 	while (++i < 4)
 		load_tex(this, this->world.texture[i], this->world.texture_path[i]);
-	if (FLAGS__USE_DEFAULT_TEXTURE)
+	if (BONUS)
 		renderer__load_tex_from_default(this);
 	else
 		renderer__load_tex_from_rgb(this);
