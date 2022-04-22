@@ -16,7 +16,9 @@ int	distance_shade(int color, double distance)
 
 void	floordata__draw__lights(t_floordata *this)
 {
-	const bool	is_tile_light = (int)this->floor.x % 2 and (int)this->floor.y % 2;
+	const bool	is_tile_light
+		= (int)this->floor.x % 2 and (int)this->floor.y % 2;
+
 	this->floor_texture = TEX__FLOOR;
 	if (is_tile_light)
 		this->ceiling_texture = TEX__CEILING1;

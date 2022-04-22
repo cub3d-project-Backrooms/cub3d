@@ -6,6 +6,20 @@
 #include "types__renderer.h"
 #include <stdio.h>
 
+static void	world__init__player(
+	t_world *this, t_string_arr raw_map, t_i64vec it)
+{
+	const t_mapformat	fmt = raw_map[it.y][it.x];
+
+	this->camera.pos = (t_vec){it.x, it.y};
+	if (fmt == MAPFMT__SOUTH)
+		camera__rotate(&this->camera, STD__PI);
+	else if (fmt == MAPFMT__WEST)
+		camera__rotate(&this->camera, STD__PI / 2);
+	else if (fmt == MAPFMT__EAST)
+		camera__rotate(&this->camera, -STD__PI / 2);
+}
+
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
@@ -28,8 +42,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 			this->worldmap[it.y][it.x]
 				= (raw_map[it.y][it.x] == MAPFMT__WALL);
 			if (mapformat__is_player(raw_map[it.y][it.x]))
-				this->camera.pos = (t_vec){it.x, it.y}; // FIXME: ADD doc and func for why y and x is inverted here
-			// TODO: setup func for player position
+				world__init__player(this, raw_map, it);
 		}
 	}
 }

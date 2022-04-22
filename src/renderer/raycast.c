@@ -24,7 +24,8 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	}
 }
 
-void	renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
+void	renderer__raycast__wall(
+	t_renderer *this, t_camera *camera)
 {
 	t_walldata	walldata;
 	int			x;
@@ -34,7 +35,6 @@ void	renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 	while (++x < WIDTH)
 	{
 		walldata__raycast__set_dda_vector(&walldata, camera, x, &this->world);
-		zbuffer[x] = walldata.perp_wall_dist;
 		walldata__draw__set_wall_data(&walldata, camera);
 		walldata__draw__set_texture_data(&walldata);
 		y = walldata.draw_start - 1;
@@ -45,8 +45,6 @@ void	renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[
 
 void	renderer__raycast(t_renderer *this, t_camera *camera)
 {
-	double	zBuffer[WIDTH];
-
 	renderer__raycast__floor(this, camera);
-	renderer__raycast__wall(this, camera, zBuffer);
+	renderer__raycast__wall(this, camera);
 }

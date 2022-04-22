@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Launch cub3d",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/../cub3d.out",
+      "cwd": "${workspaceFolder}",
+      "args": ["../map/square_child.cub"]
+    },
+    {
+      "name": "Launch libscarf",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/../lib/libscarf/test/test.out",
+      "cwd": "${workspaceFolder}",
+      "args": [""]
+    }
+  ]
+}

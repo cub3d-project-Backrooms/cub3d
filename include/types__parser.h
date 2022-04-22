@@ -26,25 +26,9 @@ typedef enum e_mapformat
 	MAPFMT__ERR = -1,
 }	t_mapformat;
 
-// typedef enum e_neighbor_dir
-// {
-// 	NEIGHBOR__NW,
-// 	NEIGHBOR__N,
-// 	NEIGHBOR__NE,
-// 	NEIGHBOR__E,
-// 	NEIGHBOR__SE,
-// 	NEIGHBOR__S,
-// 	NEIGHBOR__SW,
-// 	NEIGHBOR__W,
-// }	t_neighbor_dir;
-
-// typedef bool	t_neighbor_dirs[8];
-
 typedef struct s_parser
 {
 	t_fd		fd;
-	t_string	texture_path[4];
-	t_rgb		colors[2];
 	bool		found_cubid[6];
 }	t_parser;
 

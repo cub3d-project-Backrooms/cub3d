@@ -15,11 +15,8 @@ void	parser__init(t_parser *this, t_const_string file)
 	this->fd = std__open(file, O_RDONLY);
 }
 
-t_world	parser__parse(t_parser *this)
+void	parser__parse(t_parser *this, t_world *world)
 {
-	t_world		world;
-
-	parser__parse__id(this, &world);
-	parser__parse__map(this, &world);
-	return (world);
+	parser__parse__id(this, world);
+	parser__parse__map(this, world);
 }

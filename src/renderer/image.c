@@ -2,6 +2,8 @@
 #include "types__renderer.h"
 #include "std__types__math.h"
 #include "std__color.h"
+#include "renderer.h"
+#include "parser.h"
 
 void	image__write_to_buffer(t_image *this, int texline[])
 {

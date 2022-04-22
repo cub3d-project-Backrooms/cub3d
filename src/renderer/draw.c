@@ -26,8 +26,3 @@ void	renderer__draw_to_window(t_renderer *info)
 	mlx_put_image_to_window(info->mlx, info->window,
 		info->buffer_window.img_ref, 0, 0);
 }
-
-void	renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos, int color)
-{
-	this->buf[pos->y][pos->x] = color;
-}

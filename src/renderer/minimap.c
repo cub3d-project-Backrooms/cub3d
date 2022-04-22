@@ -6,7 +6,7 @@
 int	renderer__draw_minimap_color(
 	t_renderer *this, t_ivec *pos_map, t_ivec *player_pos)
 {
-	int color;
+	int	color;
 
 	if (ivec__is_equal(pos_map, player_pos))
 		color = COLOR__RED;
@@ -42,7 +42,6 @@ void	renderer__draw_minimap_at(
 	}
 }
 
-//	FIXME: changing here causes segfault
 void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 {
 	t_ivec	pos;
@@ -50,6 +49,6 @@ void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 	pos = camera__to_pos_at_map(camera);
 	renderer__draw_minimap_at(
 		this, pos,
-		(t_irange){5, 96 + 5},
-		(t_irange){5, 96 + 5});
+		(t_irange){5, 4 * this->world.world_width + 5},
+		(t_irange){5, 4 * this->world.world_height + 5});
 }

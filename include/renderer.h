@@ -8,8 +8,6 @@
 # include "types__x11_events.h"
 # include <stdbool.h>
 
-# include "defs__texture.h"
-
 // clang-format off
 //@func
 /*
@@ -17,6 +15,7 @@
 
 t_vec		camera__ray_dir_at_position(t_camera *this, double x);
 t_ivec		camera__to_pos_at_map(t_camera *this);
+void		camera__rotate(t_camera *this, double angle);
 /*
 ** < dda__dist.c > */
 
@@ -43,8 +42,6 @@ void		renderer__deinit(t_renderer *this);
 ** < draw.c > */
 
 void		renderer__draw_to_window(t_renderer *info);
-void		renderer__draw_buf_by_ivec(t_renderer *this, t_ivec *pos,
-				int color);
 /*
 ** < image.c > */
 
@@ -54,9 +51,12 @@ void		image__deinit(t_image *this);
 /*
 ** < init.c > */
 
-void		renderer__init__world_data(t_renderer *this);
 void		renderer__init__mlx(t_renderer *this);
 void		renderer__init(t_renderer *this, t_world *world);
+/*
+** < load_tex.c > */
+
+void		renderer__init_texture(t_renderer *this);
 /*
 ** < minimap.c > */
 
@@ -66,16 +66,10 @@ void		renderer__draw_minimap_at(t_renderer *this, t_ivec player_pos,
 				t_irange x_range, t_irange y_range);
 void		renderer__draw_minimap(t_renderer *this, t_camera *camera);
 /*
-** < raw_data.c > */
-
-void		load_image(t_renderer *r, int texline[], t_string path);
-void		renderer__init_texture(t_renderer *r);
-/*
 ** < raycast.c > */
 
 void		renderer__raycast__floor(t_renderer *this, t_camera *camera);
-void		renderer__raycast__wall(t_renderer* this, t_camera* camera,
-				double zbuffer[WIDTH]);
+void		renderer__raycast__wall(t_renderer *this, t_camera *camera);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
 /*
 ** < raycast_floor.c > */

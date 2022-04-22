@@ -4,7 +4,7 @@
 #include <math.h>
 
 /**
- * @brief
+ * @brief length of ray from one x or y-side to next x or y-side
  * rayDirX : raydirY = 1 : deltadistX_height
  * deltadistX = sqrt(1 + deltadistX_height ** 2)
  * = sqrt(1 + rayDirY ** 2 / rayDirX ** 2)
@@ -17,7 +17,6 @@
  * @param ray_dir
  * @return t_vec
  */
-// length of ray from one x or y-side to next x or y-side
 t_vec	dda__dist_to_next_closest_grid(t_vec *ray_dir)
 {
 	return ((t_vec){fabs(1 / ray_dir->x), fabs(1 / ray_dir->y)});
@@ -36,10 +35,10 @@ double	dda__perpendicular_dist_to_closest_grid(t_dda__step *step,
 	double	perp_wall_dist;
 
 	if (step->is_hit_y_side)
-		perp_wall_dist =
-			(map_pos->y - camera->pos.y + (1 - step->y_sign) / 2) / ray_dir->y;
+		perp_wall_dist = (map_pos->y - camera->pos.y + (1 - step->y_sign) / 2)
+			/ ray_dir->y;
 	else
-		perp_wall_dist =
-			(map_pos->x - camera->pos.x + (1 - step->x_sign) / 2) / ray_dir->x;
+		perp_wall_dist = (map_pos->x - camera->pos.x + (1 - step->x_sign) / 2)
+			/ ray_dir->x;
 	return (perp_wall_dist);
 }
