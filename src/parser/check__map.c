@@ -72,7 +72,6 @@ void	raw_map_arr__check_valid(t_string_arr this)
 		{
 			tile = this[it.y][it.x];
 			mapformat__assert_valid(tile);
-			// tile__check_neighbor(tile, it, this);
 		}
 	}
 }

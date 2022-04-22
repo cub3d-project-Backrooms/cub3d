@@ -23,6 +23,7 @@ typedef enum e_mapformat
 	MAPFMT__WEST = 'W',
 	MAPFMT__EAST = 'E',
 	MAPFMT__EMPTY = ' ',
+	MAPFMT__FILL = '2',
 	MAPFMT__ERR = -1,
 }	t_mapformat;
 
