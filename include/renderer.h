@@ -15,6 +15,7 @@
 
 t_vec		camera__ray_dir_at_position(t_camera *this, double x);
 t_ivec		camera__to_pos_at_map(t_camera *this);
+void		camera__rotate(t_camera *this, double angle);
 /*
 ** < dda__dist.c > */
 
@@ -46,12 +47,10 @@ void		renderer__draw_to_window(t_renderer *info);
 
 void		image__write_to_buffer(t_image *this, int texline[]);
 void		image__init(t_image *this, t_mlx__ref mlx, t_string path);
-void		image__init_from_rgb(t_image *this, t_mlx__ref mlx, t_rgb rgb);
 void		image__deinit(t_image *this);
 /*
 ** < init.c > */
 
-void		renderer__init__world_data(t_renderer *this);
 void		renderer__init__mlx(t_renderer *this);
 void		renderer__init(t_renderer *this, t_world *world);
 /*

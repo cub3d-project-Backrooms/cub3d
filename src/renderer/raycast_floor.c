@@ -1,6 +1,7 @@
 #include "renderer.h"
 
-void	floordata__raycast__set_raydir_vector(t_floordata *this, t_camera *camera)
+void	floordata__raycast__set_raydir_vector(
+	t_floordata *this, t_camera *camera)
 {
 	this->ray_dir0 = (t_vec){camera->dir.x - camera->plane.x, camera->dir.y
 		- camera->plane.y};
@@ -18,7 +19,8 @@ void	floordata__raycast__set_row_distance(t_floordata *this, int current_y)
 	this->row_distance = vertical_camera_position / position_from_center;
 }
 
-void	floordata__raycast__set_floor_vectors(t_floordata *this, t_camera *camera)
+void	floordata__raycast__set_floor_vectors(
+	t_floordata *this, t_camera *camera)
 {
 	this->floor_step.x = this->row_distance * (this->ray_dir1.x
 			- this->ray_dir0.x) / WIDTH;
@@ -45,13 +47,13 @@ void	renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 {
 	int	color;
 
-	color = this->world.texture[vecs->floor_texture][(int)(TEX__WIDTH * vecs->dt.y
-			+ vecs->dt.x)];
+	color = this->world.texture[vecs->floor_texture][(int)(
+			TEX__WIDTH * vecs->dt.y + vecs->dt.x)];
 	color = (color >> 1) & 8355711;
 	color = distance_shade(color, vecs->row_distance);
 	this->buf[current_y][current_x] = color;
-	color = this->world.texture[vecs->ceiling_texture][(int)(TEX__WIDTH * vecs->dt.y
-			+ vecs->dt.x)];
+	color = this->world.texture[vecs->ceiling_texture][(int)(
+			TEX__WIDTH * vecs->dt.y + vecs->dt.x)];
 	color = (color >> 1) & 8355711;
 	color = distance_shade(color, vecs->row_distance);
 	this->buf[HEIGHT - current_y - 1][current_x] = color;
