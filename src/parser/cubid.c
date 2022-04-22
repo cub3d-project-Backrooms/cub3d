@@ -19,7 +19,8 @@ static t_cubid	cubid__parse(t_const_string id)
 }
 
 
-static void	parser__parse_line__id(t_parser *this, t_string line)
+static void	parser__parse_line__id(
+	t_parser *this, t_world *world, t_string line)
 {
 	t_cubid		id;
 	t_string	*arr;
@@ -36,22 +37,22 @@ static void	parser__parse_line__id(t_parser *this, t_string line)
 	if (parser__has_duplicate_cubid(this, id))
 		std__panic__value("parser__feed_ident: duplicate identifier", line);
 	if (cubid__is_color(id))
-		this->colors[id - (CUBID__TEXTURE__EAST + 1)]
+		world->colors[id - (CUBID__TEXTURE__EAST + 1)]
 			= rgb__from_string(arr[1], ",");
 	else
-		this->texture_path[id] = str__new(arr[1]);
+		world->texture_path[id] = str__new(arr[1]);
 	this->found_cubid[id] = true;
 	str__delete__arr(&arr);
 }
 
-void	parser__parse__id(t_parser *this)
+void	parser__parse__id(t_parser *this, t_world *world)
 {
 	t_string	line;
 
 	while (not parser__all_cubid_found(this))
 	{
 		line = std__new_readfile__line(this->fd);
-		parser__parse_line__id(this, line);
+		parser__parse_line__id(this, world, line);
 		str__delete(&line);
 	}
 }

@@ -25,7 +25,8 @@ typedef struct s_world
 	int			world_width;
 	int			world_height;
 	t_grid		worldmap;
-	t_string	tex_name[TEX__AMOUNT];
+	t_rgb		colors[2];
+	t_string	texture_path[TEX__AMOUNT];
 	int			texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
 	t_camera	camera;
 }	t_world;

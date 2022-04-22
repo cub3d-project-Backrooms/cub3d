@@ -20,7 +20,7 @@ int	main(int argc, t_const_string argv[])
 	if (argc != 2)
 		std__panic__value("main", "usage: ./cub3d.out <cub_file>.cub");
 	parser__init(&parser, argv[1]);
-	world = parser__parse(&parser);
+	parser__parse(&parser, &world);
 	engine__init(&engine, &world);
 	engine__run(&engine);
 	return (0);

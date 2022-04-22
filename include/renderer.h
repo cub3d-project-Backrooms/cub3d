@@ -70,7 +70,7 @@ void		renderer__draw_minimap(t_renderer *this, t_camera *camera);
 ** < raw_data.c > */
 
 void		load_image(t_renderer *r, int texline[], t_string path);
-void		renderer__init_texture(t_renderer *r);
+void		renderer__init_texture(t_renderer *this);
 /*
 ** < raycast.c > */
 

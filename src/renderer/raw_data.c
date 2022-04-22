@@ -6,28 +6,41 @@
 #include <stdio.h>
 
 // TODO: refactor
-void	load_image(t_renderer *r, int texline[], t_string path)
+static void	load_tex(t_renderer *this, int texline[], t_string path)
 {
 	t_image	image;
 
-	image__init(&image, r->mlx, path);
+	image__init(&image, this->mlx, path);
 	image__write_to_buffer(&image, texline);
 	image__deinit(&image);
 }
 
-void	renderer__init_texture(t_renderer *r)
+static void	load_tex_from_rgb(t_renderer *this, int texline[], t_rgb rgb)
 {
-	// FIXME: use actual parse result
-	r->world.tex_name[TEX__WALL__NORTH] = "texture/backroom/wall0.xpm";
-	r->world.tex_name[TEX__WALL__SOUTH] = "texture/backroom/wall1.xpm";
-	r->world.tex_name[TEX__WALL__EAST] = "texture/backroom/wall2.xpm";
-	r->world.tex_name[TEX__WALL__WEST] = "texture/backroom/wall3.xpm";
+	t_image	image;
 
-	load_image(r, r->world.texture[TEX__WALL__NORTH], r->world.tex_name[TEX__WALL__NORTH]);
-	load_image(r, r->world.texture[TEX__WALL__SOUTH], r->world.tex_name[TEX__WALL__SOUTH]);
-	load_image(r, r->world.texture[TEX__WALL__EAST], r->world.tex_name[TEX__WALL__EAST]);
-	load_image(r, r->world.texture[TEX__WALL__WEST], r->world.tex_name[TEX__WALL__WEST]);
-	load_image(r, r->world.texture[TEX__FLOOR], FLOOR_PATH);
-	load_image(r, r->world.texture[TEX__CEILING0], CEILING_PATH);
-	load_image(r, r->world.texture[TEX__CEILING1], CEILING2_PATH);
+	image__init_from_rgb(&image, this->mlx, rgb);
+	image__write_to_buffer(&image, texline);
+	image__deinit(&image);
+}
+
+void	renderer__init_texture(t_renderer *this)
+{
+	int			i;
+	t_world		*world;
+	// const char	*default_tex[] = {
+	// 	"texture/backroom/floor1.xpm",
+	// 	"texture/backroom/ceiling0.xpm",
+	// 	"texture/backroom/light0.xpm"};
+
+	world = &this->world;
+	i = -1;
+	while (++i <= TEX__WALL__WEST)
+		load_tex(this, world->texture[i], world->texture_path[i]);
+	load_tex_from_rgb(this, world->texture[TEX__FLOOR], world->colors[0]);
+	load_tex_from_rgb(this, world->texture[TEX__CEILING0], world->colors[1]);
+	load_tex_from_rgb(this, world->texture[TEX__CEILING1], world->colors[1]);
+	// i = -1;
+	// while (++i < 3)
+	// 	load_tex(this, world->texture[i + 4], (t_string)default_tex[i]);
 }
