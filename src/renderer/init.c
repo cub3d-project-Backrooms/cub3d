@@ -39,13 +39,13 @@ void	renderer__init__world_data(t_renderer *this)
 
 	world.world_width = 24;
 	world.world_height = 24;
-	world.worldmap = std__allocate(world.world_width, sizeof(int *));
+	world.worldmap = std__allocate(world.world_height, sizeof(int *));
 	i = -1;
-	while (++i < world.world_width)
+	while (++i < world.world_height)
 	{
-		world.worldmap[i] = std__allocate(world.world_height, sizeof(int));
+		world.worldmap[i] = std__allocate(world.world_width, sizeof(int));
 		j = -1;
-		while (++j < world.world_height)
+		while (++j < world.world_width)
 			world.worldmap[i][j] = g_worldmap[i][j];
 	}
 	this->world = world;

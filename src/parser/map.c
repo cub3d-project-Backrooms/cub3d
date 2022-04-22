@@ -12,7 +12,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 
 	this->camera = (t_camera){
 		.pos = {UNSET, UNSET},
-		.dir = {0, 1},
+		.dir = {0, -1},
 		.plane = {0.66, 0},
 	};
 	this->world_height = map_size.height;
@@ -28,7 +28,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 			this->worldmap[it.y][it.x]
 				= (raw_map[it.y][it.x] == MAPFMT__WALL);
 			if (mapformat__is_player(raw_map[it.y][it.x]))
-				this->camera.pos = (t_vec){it.y, it.x}; // FIXME: ADD doc and func for why y and x is inverted here
+				this->camera.pos = (t_vec){it.x, it.y}; // FIXME: ADD doc and func for why y and x is inverted here
 			// TODO: setup func for player position
 		}
 	}
