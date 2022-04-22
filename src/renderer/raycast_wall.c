@@ -18,7 +18,7 @@ void	renderer__draw__vertical_wall(t_renderer *this,
 		this->buf[y][x] = color;
 }
 
-void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x, t_world *world)
+void	walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int current_x, t_world *world)
 {
 	this->camera_x = dda__normalized_plane_x(current_x);
 	this->ray_dir = camera__ray_dir_at_position(camera, this->camera_x);
@@ -30,7 +30,7 @@ void walldata__raycast__set_dda_vector(t_walldata *this, t_camera *camera, int c
 		&this->step, camera, &this->map_pos, &this->ray_dir);
 }
 
-void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
+void	walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 {
 	this->lineheight = (int)(HEIGHT / this->perp_wall_dist * 1);
 	this->draw_start = math__max(-this->lineheight / 2 + HEIGHT / 2, 0);
@@ -42,7 +42,7 @@ void walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 	this->wallx -= floor(this->wallx);
 }
 
-void walldata__draw__set_texture_data(t_walldata *this)
+void	walldata__draw__set_texture_data(t_walldata *this)
 {
 	this->texX = (int)(this->wallx * (double)TEX__WIDTH);
 	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
@@ -53,7 +53,7 @@ void walldata__draw__set_texture_data(t_walldata *this)
 	this->tex_pos = (this->draw_start - HEIGHT / 2 + this->lineheight / 2) * this->step_val;
 }
 
-int renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
+int	renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 {
 	int texY;
 	int texnum;

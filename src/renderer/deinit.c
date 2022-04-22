@@ -1,12 +1,12 @@
 #include "renderer.h"
 #include <stdlib.h>
 
-void world__deinit(t_world *this)
+void	world__deinit(t_world *this)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while (++i < this->world_width)
+	while (++i < this->world_height)
 		free(this->worldmap[i]);
 	free(this->worldmap);
 }

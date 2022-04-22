@@ -17,12 +17,11 @@ void	engine__try_move_player(t_engine *e, double x, double y)
 	if (!is_collision_with_wall(&e->renderer.world,
 			&(t_vec){e->camera.pos.x + dx, e->camera.pos.y}))
 		e->camera.pos.x += dx;
-	if (!is_collision_with_wall(&e->renderer.world, &(t_vec){e->camera.pos.x, e->camera.pos.y
-			+ dy}))
+	if (!is_collision_with_wall(&e->renderer.world,
+			&(t_vec){e->camera.pos.x, e->camera.pos.y + dy}))
 		e->camera.pos.y += dy;
 }
 
-// TODO: make it into camera method
 // both camera direction and camera plane must be rotated
 void	engine__rotate_player(t_engine *e, double angle)
 {

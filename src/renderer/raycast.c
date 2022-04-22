@@ -8,7 +8,7 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	int			y;
 	int			x;
 
-	y = HEIGHT / 2;
+	y = HEIGHT / 2 - 1;
 	while (++y < HEIGHT)
 	{
 		floordata__raycast__set_raydir_vector(&floordata, camera);
@@ -24,11 +24,11 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 	}
 }
 
-void renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
+void	renderer__raycast__wall(t_renderer* this, t_camera* camera, double zbuffer[WIDTH])
 {
-	t_walldata walldata;
-	int x;
-	int y;
+	t_walldata	walldata;
+	int			x;
+	int			y;
 
 	x = -1;
 	while (++x < WIDTH)
