@@ -35,9 +35,7 @@ int	engine__loop(t_engine *this)
 	static char	pos[80];
 
 	if (this->inputhandler.is_exit)
-	{
 		engine__deinit(this);
-	}
 	else if (inputhandler__is_movement(&this->inputhandler))
 	{
 		engine__refresh(this);

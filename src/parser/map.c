@@ -6,12 +6,17 @@
 #include "types__renderer.h"
 #include <stdio.h>
 
+/**
+ * @brief set position and direction of player.
+ *
+ * 0.5 is added to x and y to avoid 'ghosting' thru walls.
+ */
 static void	world__init__player(
 	t_world *this, t_string_arr raw_map, t_i64vec it)
 {
 	const t_mapformat	fmt = raw_map[it.y][it.x];
 
-	this->camera.pos = (t_vec){it.x, it.y};
+	this->camera.pos = (t_vec){it.x + 0.5, it.y + 0.5};
 	if (fmt == MAPFMT__SOUTH)
 		camera__rotate(&this->camera, STD__PI);
 	else if (fmt == MAPFMT__WEST)
