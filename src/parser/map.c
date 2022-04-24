@@ -25,6 +25,23 @@ static void	world__init__player(
 		camera__rotate(&this->camera, -STD__PI / 2);
 }
 
+/**
+ * although raycasting only checks if given floor is 0,
+ * map rules forbid noclipping through walls, hence
+ * `to` can be of any value to represent 'emptiness'
+ */
+static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
+{
+	const t_mapformat	raw = raw_map[it.y][it.x];
+	int					to;
+
+	if (raw == MAPFMT__EMPTY)
+		to = raw;
+	else
+		to = raw == MAPFMT__WALL;
+	this->worldmap[it.y][it.x] = to;
+}
+
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
@@ -44,8 +61,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(int));
 		while (++it.x < map_size.width)
 		{
-			this->worldmap[it.y][it.x]
-				= (raw_map[it.y][it.x] == MAPFMT__WALL);
+			world__init__tile(this, raw_map, it);
 			if (mapformat__is_player(raw_map[it.y][it.x]))
 				world__init__player(this, raw_map, it);
 		}
