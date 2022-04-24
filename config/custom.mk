@@ -6,6 +6,7 @@ try: all
 		MAP=$$(python -c "from random import shuffle;\
 			from pathlib import Path;m=list(Path('map').iterdir());\
 			shuffle(m);print(m.pop())");\
+		echo 🗺️ running $$MAP;\
 		./$(NAME) $$MAP
 # ./$(NAME) asset/map/mandatory.cub
 
