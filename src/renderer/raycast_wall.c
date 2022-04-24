@@ -47,11 +47,11 @@ void	walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 
 void	walldata__draw__set_texture_data(t_walldata *this)
 {
-	this->texX = (int)(this->wallx * (double)TEX__WIDTH);
+	this->texx = (int)(this->wallx * (double)TEX__WIDTH);
 	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
-		this->texX = TEX__WIDTH - this->texX - 1;
+		this->texx = TEX__WIDTH - this->texx - 1;
 	if (this->step.is_hit_y_side == 1 && this->ray_dir.y < 0)
-		this->texX = TEX__WIDTH - this->texX - 1;
+		this->texx = TEX__WIDTH - this->texx - 1;
 	this->step_val = 1.0 * TEX__HEIGHT / this->lineheight;
 	this->tex_pos
 		= (this->draw_start - HEIGHT / 2 + this->lineheight / 2)
@@ -74,7 +74,7 @@ int	renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 		texnum = TEX__WALL__EAST;
 	else
 		texnum = TEX__WALL__WEST;
-	color = this->world.texture[texnum][TEX__HEIGHT * tex_y + data->texX];
+	color = this->world.texture[texnum][TEX__HEIGHT * tex_y + data->texx];
 	color = distance_shade(color, data->perp_wall_dist);
 	return (color);
 }

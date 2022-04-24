@@ -57,12 +57,9 @@ typedef struct s_image
 
 typedef enum e_config
 {
-	// mapWidth = 24,
-	// mapHeight = 24,
-	// WIDTH = 1920,
-	// HEIGHT = 1080,
 	WIDTH = 640,
 	HEIGHT = 480,
+	MINIMAP_SIZE = 4,
 }	t_config;
 
 typedef enum e_sign
@@ -118,7 +115,7 @@ typedef struct s_walldata
 	int			draw_start;
 	int			draw_end;
 	double		wallx;
-	int			texX;
+	int			texx;
 	double		step_val;
 	double		tex_pos;
 }	t_walldata;

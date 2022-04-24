@@ -3,8 +3,8 @@ SO texture/backroom/wall1.xpm
 WE texture/backroom/wall2.xpm
 EA texture/backroom/wall3.xpm
 
-F 220,100,0
-C 225,30,0
+F 212, 197, 146
+C 105,102,103
 
         1111111111111111111111111
         1000000000110000000000001

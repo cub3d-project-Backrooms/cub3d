@@ -4,9 +4,8 @@ import re
 import textwrap
 from pathlib import Path
 
-WORKDIR = Path(__file__).parent.parent
-SRC = WORKDIR / "src"
-PKG = WORKDIR / "config" / "packages.mk"
+SRC = Path("src")
+PKG = Path("config") / "packages.mk"
 
 
 def get_subdirs(path: Path):
