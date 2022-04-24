@@ -1,5 +1,5 @@
 run: all
-	./$(NAME) map/valid1.cub
+	./$(NAME) map/valid_mandatory.cub
 
 try: all
 	@set -e ;\
