@@ -20,9 +20,9 @@ static void	world__init__player(
 	if (fmt == MAPFMT__SOUTH)
 		camera__rotate(&this->camera, STD__PI);
 	else if (fmt == MAPFMT__WEST)
-		camera__rotate(&this->camera, STD__PI / 2);
-	else if (fmt == MAPFMT__EAST)
 		camera__rotate(&this->camera, -STD__PI / 2);
+	else if (fmt == MAPFMT__EAST)
+		camera__rotate(&this->camera, STD__PI / 2);
 }
 
 /**
