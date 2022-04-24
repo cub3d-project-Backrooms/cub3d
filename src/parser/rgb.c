@@ -31,6 +31,8 @@ t_rgb	rgb__from_string(t_const_string str, t_const_string delim)
 	t_string	*arr;
 	int			arr_len;
 
+	if (str__count_of(str, delim) != 2)
+		std__panic__value("rgb__from_string", delim);
 	arr = str__new_split(str, delim);
 	arr_len = str__len__arr(arr);
 	if (arr_len != 3)
