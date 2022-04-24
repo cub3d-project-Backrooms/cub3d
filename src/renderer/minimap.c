@@ -51,6 +51,6 @@ void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 	pos = camera__to_pos_at_map(camera);
 	renderer__draw_minimap_at(
 		this, pos,
-		(t_irange){5, 4 * this->world.world_width + 5},
-		(t_irange){5, 4 * this->world.world_height + 5});
+		(t_irange){4, 4 + 4 * this->world.world_width},
+		(t_irange){4, 4 + 4 * this->world.world_height});
 }
