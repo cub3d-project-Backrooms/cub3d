@@ -8,16 +8,15 @@ parserV = map check__parser check__cubid parser check__cubfile cubid\
 		map__raw fluidfill check__map__index rgb check__map
 
 # Macro
-SRC = src/
+SRC_DIR = src/
 define choose_modules
 	$(foreach pkg, $(1),\
 		$(foreach file, $($(pkg)V),\
-			$(SRC)/$(pkg)/$(file).c\
+			$(SRC_DIR)/$(pkg)/$(file).c\
 		)\
-	) $(SRC)/main.c
+	) $(SRC_DIR)/main.c
 endef
 
 # Sources & Objects
-SRC = $(wildcard src/**/*.c) src/main.c
-# SRC = $(call choose_modules, $(PKGS))
+SRC = $(call choose_modules, $(PKGS))
 OBJ = $(SRC:%.c=%.o)
