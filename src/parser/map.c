@@ -6,18 +6,40 @@
 #include "types__renderer.h"
 #include <stdio.h>
 
+/**
+ * @brief set position and direction of player.
+ *
+ * 0.5 is added to x and y to avoid 'ghosting' thru walls.
+ */
 static void	world__init__player(
 	t_world *this, t_string_arr raw_map, t_i64vec it)
 {
 	const t_mapformat	fmt = raw_map[it.y][it.x];
 
-	this->camera.pos = (t_vec){it.x, it.y};
+	this->camera.pos = (t_vec){it.x + 0.5, it.y + 0.5};
 	if (fmt == MAPFMT__SOUTH)
 		camera__rotate(&this->camera, STD__PI);
 	else if (fmt == MAPFMT__WEST)
-		camera__rotate(&this->camera, STD__PI / 2);
-	else if (fmt == MAPFMT__EAST)
 		camera__rotate(&this->camera, -STD__PI / 2);
+	else if (fmt == MAPFMT__EAST)
+		camera__rotate(&this->camera, STD__PI / 2);
+}
+
+/**
+ * although raycasting only checks if given floor is 0,
+ * map rules forbid noclipping through walls, hence
+ * `to` can be of any value to represent 'emptiness'
+ */
+static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
+{
+	const t_mapformat	raw = raw_map[it.y][it.x];
+	int					to;
+
+	if (raw == MAPFMT__EMPTY)
+		to = raw;
+	else
+		to = raw == MAPFMT__WALL;
+	this->worldmap[it.y][it.x] = to;
 }
 
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
@@ -39,8 +61,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(int));
 		while (++it.x < map_size.width)
 		{
-			this->worldmap[it.y][it.x]
-				= (raw_map[it.y][it.x] == MAPFMT__WALL);
+			world__init__tile(this, raw_map, it);
 			if (mapformat__is_player(raw_map[it.y][it.x]))
 				world__init__player(this, raw_map, it);
 		}

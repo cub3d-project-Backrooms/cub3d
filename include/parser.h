@@ -21,6 +21,7 @@ bool			cubid__is_texture(t_cubid id);
 
 bool			mapformat__is_player(t_mapformat this);
 bool			mapformat__is_valid(t_mapformat this);
+bool			mapformat__is_valid_fluidfill(t_mapformat this);
 void			mapformat__assert_valid(t_mapformat this);
 void			raw_map_arr__check_valid(t_string_arr this);
 /*
@@ -39,6 +40,12 @@ bool			parser__has_duplicate_cubid(t_parser *this, t_cubid id);
 ** < cubid.c > */
 
 void			parser__parse__id(t_parser *this, t_world *world);
+/*
+** < fluidfill.c > */
+
+t_ivec			fluidfill__start_pos(t_string_arr this);
+void			fluidfill__recursive(t_string_arr this, t_ivec node);
+bool			raw_map_arr__fluidfill(t_string_arr this, t_sizevec map_size);
 /*
 ** < map.c > */
 
@@ -61,8 +68,4 @@ void			parser__parse(t_parser *this, t_world *world);
 void			rgb__print(t_rgb rgb);
 t_rgb			rgb__from_arr(int raw_rgb[3]);
 t_rgb			rgb__from_string(t_const_string str, t_const_string delim);
-/*
-** < fluidfill.c > */
-bool raw_map_arr__fluidfill(t_string_arr this, t_sizevec map_size);
-
 #endif

@@ -6,7 +6,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/../cub3d.out",
       "cwd": "${workspaceFolder}",
-      "args": ["../map/square_child.cub"]
+      "args": ["${workspaceFolder}/../map/invalidrgb1.cub"]
     },
     {
       "name": "Launch libscarf",

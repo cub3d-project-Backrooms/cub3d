@@ -18,19 +18,27 @@ static t_cubid	cubid__parse(t_const_string id)
 	return (CUBID__ERR);
 }
 
+static void	split_id_data(t_string line, t_string arr[2])
+{
+	const int	at = str__find(line, " ");
+
+	if (at == ERR)
+		std__panic__value("parser__parse_line__id: invalid line", line);
+	arr[0] = str__new_substr(line, 0, at);
+	arr[1] = str__new_substr(line, at + 1, -1);
+	str__strip(&arr[0], STD__SPACES);
+	str__strip(&arr[1], STD__SPACES);
+}
 
 static void	parser__parse_line__id(
 	t_parser *this, t_world *world, t_string line)
 {
 	t_cubid		id;
-	t_string	*arr;
+	t_string	arr[2];
 
 	if (cubfile__is_line_empty(line))
 		return ;
-	arr = str__new_split(line, " ");
-	if (not (cubid__is_valid(arr)))
-		std__panic__value("parser__parse_line__id: invalid line", line);
-	str__strip(&arr[1], STD__SPACES);
+	split_id_data(line, arr);
 	id = cubid__parse(arr[0]);
 	if (id == CUBID__ERR)
 		std__panic__value("parser__parse_line__id: invalid id", arr[0]);
@@ -42,7 +50,8 @@ static void	parser__parse_line__id(
 	else
 		world->texture_path[id] = str__new(arr[1]);
 	this->found_cubid[id] = true;
-	str__delete__arr(&arr);
+	str__delete(&arr[0]);
+	str__delete(&arr[1]);
 }
 
 void	parser__parse__id(t_parser *this, t_world *world)

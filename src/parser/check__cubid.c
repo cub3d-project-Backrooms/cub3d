@@ -14,4 +14,3 @@ bool	cubid__is_texture(t_cubid id)
 {
 	return (CUBID__TEXTURE__NORTH <= id and id <= CUBID__TEXTURE__EAST);
 }
-
