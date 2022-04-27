@@ -1,3 +1,0 @@
-[submodule "test/theft"]
-	path = test/lib/theft
-	url = git@github.com:silentbicycle/theft.git

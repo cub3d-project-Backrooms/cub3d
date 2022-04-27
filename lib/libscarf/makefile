@@ -1,21 +1,21 @@
-# ===== Target & FLAGS =====
+# Target & FLAGS
 NAME     := libft.a
 
 CC       := clang
 CFLAGS   := -g3 -Wall -Wextra -Werror -std=c99 -I include
-#-DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address"
 
 AR       := ar -rcs
 
-# ===== @Packages =====
-PKGS     := error math string system
+# @Packages
+PKGS = error math string system
 
-#FIXME: specify packages
-stringV  := alloc util
-errorV   := error
-systemV  := alloc dalloc write
+errorV = panic panic__index panic__value
+mathV = check_char check_num math vector
+stringV = alloc append cmp convert dealloc find find_of index len move\
+		slice split strip util
+systemV = alloc mem read read__file write
 
-# ===== Macros =====
+# Macros
 define choose_modules
 	$(foreach pkg, $(1),\
 		$(foreach file, $($(pkg)V),\
@@ -24,13 +24,11 @@ define choose_modules
 	)
 endef
 
-# ===== Sources & Objects & Include =====
-#FIXME: specify sources
-SRC      := $(wildcard src/**/*.c)
-# SRC      := $(call choose_modules, $(PKGS))
+# Sources & Objects & Include
+SRC      := $(call choose_modules, $(PKGS))
 OBJ      := $(SRC:%.c=%.o)
 
-# ===== Rules =====
+# Rules
 .PHONY: all re clean fclean
 
 %.o: %.c
@@ -53,18 +51,9 @@ fclean: clean
 
 re: fclean all
 
-# ===== Custom Rules =====
+# Custom
 docs:
 	@set -e;\
 		for p in $(PKGS); do\
 			hgen -I include/std__$$p.h src/std__$$p;\
 		done
-
-test_make: docs all
-	@$(CC) $(CFLAGS) $(wildcard test/*.c) $(NAME)  -o test/test.out
-#-I test/lib/theft/inc -L test/lib/theft/build/ -ltheft
-test: test_make
-	@./test/test.out
-
-leak: test_make
-	@colour-valgrind ./test/test.out
