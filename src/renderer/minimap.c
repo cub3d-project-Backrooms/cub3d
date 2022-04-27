@@ -46,12 +46,11 @@ void	renderer__draw_minimap_at(
 
 void	renderer__draw_minimap(t_renderer *this, t_camera *camera)
 {
-	t_ivec	pos;
+	const t_ivec	pos = camera__to_pos_at_map(camera);
+	const t_irange	xrange = (t_irange){
+		4, math__min(4 + MINIMAP_PIX * (this->world.world_width), WIDTH / 2)};
+	const t_irange	yrange = (t_irange){
+		4, math__min(4 + MINIMAP_PIX * (this->world.world_height), HEIGHT / 2)};
 
-	pos = camera__to_pos_at_map(camera);
-	renderer__draw_minimap_at(
-		this, pos,
-		(t_irange){MINIMAP_SIZE, MINIMAP_SIZE * (1 + this->world.world_width)},
-		(t_irange){MINIMAP_SIZE, MINIMAP_SIZE * (1 + this->world.world_height)}
-		);
+	renderer__draw_minimap_at(this, pos, xrange, yrange);
 }
