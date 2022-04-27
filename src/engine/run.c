@@ -1,3 +1,4 @@
+#include "flags.h"
 #include "engine.h"
 #include "mlx.h"
 #include "renderer.h"
@@ -11,7 +12,8 @@ void	engine__refresh(t_engine *this)
 
 	renderer = &this->renderer;
 	renderer__raycast(renderer, &this->camera);
-	renderer__draw_minimap(renderer, &this->camera);
+	if (BONUS)
+		renderer__draw_minimap(renderer, &this->camera);
 	renderer__draw_to_window(renderer);
 }
 
