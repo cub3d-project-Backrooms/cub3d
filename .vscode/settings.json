@@ -39,5 +39,7 @@
     "vector": "c",
     "__locale": "c",
     "random": "c"
-  }
+  },
+  "git-graph.repository.sign.commits": false,
+  "git.enableCommitSigning": false
 }
