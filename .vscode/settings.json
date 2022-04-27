@@ -3,6 +3,9 @@
     "editor.formatOnSave": false,
     "editor.tabSize": 4
   },
+  "[plaintext]": {
+    "files.trimTrailingWhitespace": false
+  },
   "files.associations": {
     "**/*.pug": "jade",
     "**/*.h": "c",
