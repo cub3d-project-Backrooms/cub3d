@@ -59,7 +59,7 @@ typedef enum e_config
 {
 	WIDTH = 640,
 	HEIGHT = 480,
-	MINIMAP_PIX = 4,
+	MINIMAP_PIX = 40,
 }	t_config;
 
 typedef enum e_sign
