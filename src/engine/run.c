@@ -29,11 +29,8 @@ void	engine__set_movespeed(t_engine *this)
 	}
 }
 
-// TODO: remove sprintf
 int	engine__loop(t_engine *this)
 {
-	static char	pos[80];
-
 	if (this->inputhandler.is_exit)
 		engine__deinit(this);
 	else if (inputhandler__is_movement(&this->inputhandler))
@@ -41,12 +38,7 @@ int	engine__loop(t_engine *this)
 		engine__refresh(this);
 		engine__set_movespeed(this);
 		engine__move_player(this);
-		sprintf(pos, "X: %f Y: %f dir: %f, %f",
-			this->camera.pos.x, this->camera.pos.y,
-			this->camera.dir.x, this->camera.dir.y);
 	}
-	mlx_string_put(this->renderer.mlx, this->renderer.window, 0, 96 + 13,
-		0xFFFFFF, pos);
 	return (0);
 }
 
