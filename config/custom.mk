@@ -1,15 +1,6 @@
 run: all
-	@echo 🗺️ running map/valid_mandatory.cub
-	@./$(NAME) map/valid_mandatory.cub
-
-try: all
-	@set -e ;\
-		MAP=$$(python -c "from random import shuffle;\
-			from pathlib import Path;m=list(Path('map').iterdir());\
-			shuffle(m);print(m.pop())");\
-		echo 🗺️ running $$MAP;\
-		./$(NAME) $$MAP
-# ./$(NAME) asset/map/mandatory.cub
+	@echo 🗺️ running map/valid.cub
+	@./$(NAME) map/valid.cub
 
 lclean:
 	@rm -f $(OBJ)

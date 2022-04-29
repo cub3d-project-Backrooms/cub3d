@@ -42,6 +42,7 @@ typedef struct s_world
 	t_string	texture_path[TEX__AMOUNT];
 	int			texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
 	t_camera	camera;
+	bool		has_player;
 }	t_world;
 
 typedef struct s_image
