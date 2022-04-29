@@ -15,8 +15,6 @@ int	main(int argc, t_const_string argv[])
 	t_world		world;
 	t_engine	engine;
 
-	(void)argc;
-	(void)argv;
 	if (argc != 2)
 		std__panic__value("main", "usage: ./cub3d.out <cub_file>.cub");
 	parser__init(&parser, argv[1]);

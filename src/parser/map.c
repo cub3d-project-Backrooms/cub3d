@@ -16,6 +16,9 @@ static void	world__init__player(
 {
 	const t_mapformat	fmt = raw_map[it.y][it.x];
 
+	if (this->has_player)
+		std__panic("duplicate player position");
+	this->has_player = true;
 	this->camera.pos = (t_vec){it.x + 0.5, it.y + 0.5};
 	if (fmt == MAPFMT__SOUTH)
 		camera__rotate(&this->camera, STD__PI);
@@ -46,6 +49,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
 
+	this->has_player = false;
 	this->camera = (t_camera){
 		.pos = {UNSET, UNSET},
 		.dir = {0, -1},
@@ -66,6 +70,8 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 				world__init__player(this, raw_map, it);
 		}
 	}
+	if (not this->has_player)
+		std__panic("player not in map");
 }
 
 void	parser__parse__map(t_parser *this, t_world *world)
