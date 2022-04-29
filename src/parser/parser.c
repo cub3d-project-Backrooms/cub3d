@@ -20,7 +20,6 @@ static bool	str__ends_with(t_const_string this, t_const_string other)
 	return (at != ERR and at == this_len - other_len);
 }
 
-
 void	parser__init(t_parser *this, t_const_string file)
 {
 	int			i;
