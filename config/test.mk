@@ -9,8 +9,8 @@ try: all
 
 test-map:
 	@set -e ;\
-		for cub in map/**/*.cub; do\
-			echo 🚨 invalid file $$cub;\
+		for cub in map/**/*; do\
+			echo -n "🚨 $${cub%.*} -> " ;\
 			! ./$(NAME) $$cub;\
 		done
 	@echo ✅ all invalid maps failed successfully

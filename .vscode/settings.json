@@ -4,7 +4,8 @@
     "editor.tabSize": 4
   },
   "[plaintext]": {
-    "files.trimTrailingWhitespace": false
+    "files.trimTrailingWhitespace": false,
+    "files.insertFinalNewline": false
   },
   "files.associations": {
     "**/*.pug": "jade",
