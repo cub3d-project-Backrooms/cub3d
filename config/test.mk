@@ -7,10 +7,10 @@ try: all
 		./$(NAME) $$MAP
 # ./$(NAME) asset/map/mandatory.cub
 
-test-map:
+test: all
 	@set -e ;\
 		for cub in map/**/*; do\
-			printf "🚨 $${cub%.*} -> " ;\
+			echo "🚨 $${cub%.*}" ;\
 			! ./$(NAME) $$cub;\
 		done
 	@echo ✅ all invalid maps failed successfully
@@ -25,3 +25,4 @@ norminette:
 			echo ✅ $$dir: OK! ;\
 		done
 	@echo ✅ norminette passed successfully
+
