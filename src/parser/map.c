@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/05/04 13:24:47 by youkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 		}
 	}
 	if (!this->has_player)
-		std__panic("player !in map");
+		std__panic("player not in map");
 }
 
 void	parser__parse__map(t_parser *this, t_world *world)

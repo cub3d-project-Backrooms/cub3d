@@ -6,7 +6,7 @@
 #    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 13:12:18 by youkim            #+#    #+#              #
-#    Updated: 2022/05/04 13:12:19 by youkim           ###   ########.fr        #
+#    Updated: 2022/05/04 13:25:42 by youkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ test: all
 		for cub in map/**/*; do\
 			echo "🚨 $${cub%.*}" ;\
 			! ./$(NAME) $$cub;\
+			echo ;\
 		done
 	@echo ✅ all invalid maps failed successfully
 
