@@ -6,7 +6,7 @@
 #    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 13:12:20 by youkim            #+#    #+#              #
-#    Updated: 2022/05/04 13:12:22 by youkim           ###   ########.fr        #
+#    Updated: 2022/05/04 13:36:03 by youkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,8 @@ clean:
 	@echo "🗑 cleaned $(NAME)'s object files and libraries"
 
 fclean: clean
+	@make -C $(MLX_DIR) fclean
+	@make -C $(LIBFT_DIR) fclean
 	@rm -f $(NAME)
 	@echo 🗑 cleaned $(NAME)
 
