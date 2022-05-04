@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:06:16 by youkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,6 @@
 #include "types__renderer.h"
 #include "std__system.h"
 #include "std__color.h"
-
-/**
- * @brief check if a string ends with another string. e.g. an extension.
- *
- * example) ab.cd ends with cd?
- * str__find("ab.cd", "cd") == 3, 5 - 2 = 3, so it's true.
- */
-static bool	str__ends_with(t_const_string this, t_const_string other)
-{
-	const int	this_len = str__len(this);
-	const int	other_len = str__len(other);
-	const int	at = str__find(this, other);
-
-	return (at != ERR && at == this_len - other_len);
-}
 
 void	parser__init(t_parser *this, t_const_string file)
 {
