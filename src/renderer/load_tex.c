@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_tex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/05/04 15:11:20 by youkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@
 #include <assert.h>
 #include <stdio.h>
 
-// TODO: refactor
 static void	load_tex(t_renderer *this, int texline[], t_string path)
 {
 	t_image	image;
 
-	image__init(&image, this->mlx, path);
+	image__init_xpm(&image, this->mlx, path);
 	image__write_to_buffer(&image, texline);
 	image__deinit(&image);
 }
