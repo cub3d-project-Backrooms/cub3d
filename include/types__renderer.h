@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types__renderer.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/05/04 13:26:48 by youkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef enum e_config
 {
 	WIDTH = 640,
 	HEIGHT = 480,
-	MINIMAP_PIX = 40,
+	MINIMAP_PIX = 4,
 }	t_config;
 
 typedef enum e_sign
