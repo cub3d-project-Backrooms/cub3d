@@ -1,6 +1,6 @@
 try: all
 	@set -e ;\
-		MAP=$$(python -c "from random import shuffle;\
+		MAP=$$(python3 -c "from random import shuffle;\
 			from pathlib import Path;m=list(Path('map').iterdir());\
 			shuffle(m);print(m.pop())");\
 		echo 🗺️ running $$MAP;\
@@ -10,7 +10,7 @@ try: all
 test-map:
 	@set -e ;\
 		for cub in map/**/*; do\
-			echo -n "🚨 $${cub%.*} -> " ;\
+			printf "🚨 $${cub%.*} -> " ;\
 			! ./$(NAME) $$cub;\
 		done
 	@echo ✅ all invalid maps failed successfully
