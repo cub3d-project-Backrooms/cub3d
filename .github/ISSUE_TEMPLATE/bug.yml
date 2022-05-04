@@ -22,7 +22,6 @@ body:
     attributes:
       label: 'Bug process'
       description: The way to make bug in program
-      render: Markdown
       placeholder: |
         1.
         2.
