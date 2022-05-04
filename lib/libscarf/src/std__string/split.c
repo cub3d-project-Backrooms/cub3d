@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__string.h"
 #include "std__system.h"
 #include <stdio.h>
@@ -21,7 +33,7 @@ t_int_or_neg_as_err	str__count_of(t_const_string str, t_const_string other)
 	const int			other_len = str__len(other);
 	t_int_or_neg_as_err	count;
 
-	if (other_len == ERR or str_len == ERR)
+	if (other_len == ERR || str_len == ERR)
 		return (ERR);
 	if (other_len == 0)
 		std__panic__value("str__count_of", "string to match is zero witdh");
@@ -58,7 +70,7 @@ t_string	*str__new_split(t_const_string str, t_const_string delim)
 	t_string	*arr;
 	int			arr_i;
 
-	if (not delim)
+	if (!delim)
 		std__panic__null("str__split");
 	if (str__len(delim) == 0)
 		std__panic__value("str__split", "empty separator");

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmp.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__string.h"
 
 /** @brief Compare two strings.
@@ -22,7 +34,7 @@ int	str__ncmp(t_const_string s1, t_const_string s2, int n)
 	return (0);
 }
 
-/** @return true if value of s1 and s2 are same. */
+/** @return true if value of s1 && s2 are same. */
 bool	str__is_equal(t_const_string s1, t_const_string s2)
 {
 	const int	s1_len = str__len(s1);

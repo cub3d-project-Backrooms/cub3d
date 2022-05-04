@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dealloc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__string.h"
 #include "std__system.h"
 #include <stdlib.h>
 
 /**
- * @brief deletes a string and set it to NULL.
+ * @brief deletes a string && set it to NULL.
  *
  * @param this the string to delete.
  */

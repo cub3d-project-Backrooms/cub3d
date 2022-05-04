@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mem.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__system.h"
 #include <stdlib.h>
 
@@ -27,7 +39,7 @@ void	*std__memcpy(void *dst, const void *src, size_t count)
 	t_u8		*dstptr;
 	const t_u8	*srcptr;
 
-	if (not dst and not src)
+	if (!dst && !src)
 		return (dst);
 	srcptr = (t_u8 *)src;
 	dstptr = (t_u8 *)dst;

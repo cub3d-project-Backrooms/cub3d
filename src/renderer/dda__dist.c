@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda__dist.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "engine.h"
 #include "renderer.h"
 #include "types__renderer.h"
 #include <math.h>
 
 /**
- * @brief length of ray from one x or y-side to next x or y-side
+ * @brief length of ray from one x || y-side to next x || y-side
  * rayDirX : raydirY = 1 : deltadistX_height
  * deltadistX = sqrt(1 + deltadistX_height ** 2)
  * = sqrt(1 + rayDirY ** 2 / rayDirX ** 2)

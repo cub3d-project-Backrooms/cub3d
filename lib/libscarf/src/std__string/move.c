@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__string.h"
 #include "std__system.h"
 #include <stdlib.h>
@@ -12,7 +24,7 @@ void	str__move(t_string *this, t_string *other)
 }
 
 /**
- * @brief free this and replace with address of other.
+ * @brief free this && replace with address of other.
  *        used to swap 'this' with temporary objects.
  *
  * @param other address to replace.

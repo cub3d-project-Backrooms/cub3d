@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   panic.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:40:12 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__color.h"
 #include "std__string.h"
 #include "std__system.h"
@@ -12,10 +24,10 @@ void	std__panic_write_internal(t_const_string arr[])
 
 	if (arr)
 		std__writes(STDERR_FILENO, (t_const_string[]){
-			BHRED "panic " BMAG "@", arr[0], HRED, NULL});
+			BHRED "Error\n -> " BMAG "@", arr[0], HRED, NULL});
 	else
 	{
-		std__write(STDERR_FILENO, BHRED "panic " BMAG
+		std__write(STDERR_FILENO, BHRED "Error\n -> " BMAG
 			"@std__panic_write_internal : arr is NULL\n" END);
 		exit(EXIT_FAILURE);
 	}
@@ -32,7 +44,7 @@ void	std__panic__syscall(t_const_string category)
 	exit(EXIT_FAILURE);
 }
 
-// prints error and exits program
+// prints error && exits program
 void	std__panic(t_const_string what)
 {
 	std__panic_write_internal((t_const_string[]){what, NULL});

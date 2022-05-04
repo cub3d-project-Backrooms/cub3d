@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__string.h"
 #include <stdlib.h>
 
@@ -6,7 +18,7 @@
  */
 bool	str__is_empty(t_const_string this)
 {
-	return (not this or str__len(this) == 0);
+	return (!this || str__len(this) == 0);
 }
 
 void	str__pad_right(t_string *this, t_uint len, char c)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read__file.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__math.h"
 #include "std__system.h"
 #include "std__string.h"
@@ -40,9 +52,9 @@ t_string	std__new_readfile__line(t_fd fd)
 
 	if (fd < 0 || fd >= OPEN_MAX)
 		return (NULL);
-	if (not done[fd] and not cache[fd])
+	if (!done[fd] && !cache[fd])
 		cache[fd] = str__new_size(0);
-	while (not done[fd])
+	while (!done[fd])
 	{
 		at.x = str__find(cache[fd], "\n");
 		if (at.x == ERR)
@@ -50,7 +62,7 @@ t_string	std__new_readfile__line(t_fd fd)
 		else
 			return (str__new_take_away_from_front(&cache[fd], at.x + 1));
 	}
-	if (not str__is_empty(cache[fd]))
+	if (!str__is_empty(cache[fd]))
 		return (str__new_move(&cache[fd]));
 	if (cache[fd])
 		str__delete(&cache[fd]);

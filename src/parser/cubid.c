@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cubid.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "parser.h"
 #include "std__string.h"
@@ -58,7 +70,7 @@ void	parser__parse__id(t_parser *this, t_world *world)
 {
 	t_string	line;
 
-	while (not parser__all_cubid_found(this))
+	while (!parser__all_cubid_found(this))
 	{
 		line = std__new_readfile__line(this->fd);
 		parser__parse_line__id(this, world, line);

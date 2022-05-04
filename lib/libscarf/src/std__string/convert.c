@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__math.h"
 #include "std__string.h"
 #include "std__system.h"
@@ -46,10 +58,10 @@ t_int_res	str__to_int(t_const_string str)
 	while (is_digit(str[i]))
 	{
 		num = 10 * num + (str[i++] - '0');
-		if ((sign == 1 and num > INT_MAX) or (sign == -1 and num > INT_MIN_ABS))
+		if ((sign == 1 && num > INT_MAX) || (sign == -1 && num > INT_MIN_ABS))
 			return ((t_int_res){ERR, 0});
 	}
-	if (not str[i] or str__find_first_not_of(str + i, STD__SPACES) == ERR)
+	if (!str[i] || str__find_first_not_of(str + i, STD__SPACES) == ERR)
 		return ((t_int_res){OK, sign * num});
 	return ((t_int_res){ERR, ERR});
 }
