@@ -102,4 +102,5 @@ void				str__strip(t_string *this, t_const_string charset);
 bool				str__is_empty(t_const_string this);
 void				str__pad_right(t_string *this, t_uint len, char c);
 void				str__pad_left(t_string *this, t_uint len, char c);
+bool				str__ends_with(t_const_string this, t_const_string other);
 #endif
