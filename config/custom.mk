@@ -6,13 +6,13 @@
 #    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 13:12:38 by youkim            #+#    #+#              #
-#    Updated: 2022/05/04 13:12:39 by youkim           ###   ########.fr        #
+#    Updated: 2022/05/04 14:01:40 by youkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 run: all
-	@echo 🗺️ running map/valid.cub
-	@./$(NAME) map/valid.cub
+	@echo 🗺️ running map/mandatory.cub
+	@./$(NAME) map/mandatory.cub
 
 lclean:
 	@rm -f $(OBJ)

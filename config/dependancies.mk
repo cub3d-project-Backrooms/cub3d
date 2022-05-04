@@ -6,20 +6,20 @@
 #    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 13:12:28 by youkim            #+#    #+#              #
-#    Updated: 2022/05/04 13:12:29 by youkim           ###   ########.fr        #
+#    Updated: 2022/05/04 14:09:48 by youkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # MinilibX
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
-#   $(info 🍏)
+	ENV_STR   := 🍏
 	MLX_DIR   := lib/mlx_mac
 	LIBMLX    := $(MLX_DIR)/libmlx.dylib
-	LIB       += -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	LIB       += -L. -lmlx -framework Metal -framework MetalKit
 	CFLAGS    += -I include/mac/
 else ifeq ($(UNAME), Linux)
-#    $(info 🐧)
+	ENV_STR   := 🐧
 	MLX_DIR   := lib/mlx_linux
 	LIBMLX    := $(MLX_DIR)/libmlx.a
 	LIB       += -L $(MLX_DIR) -lXext -lX11 -lm -lmlx
