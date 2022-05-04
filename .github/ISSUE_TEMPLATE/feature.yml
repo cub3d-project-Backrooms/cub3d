@@ -21,8 +21,6 @@ body:
     id: implementation
     attributes:
       label: "Implementing process / Goal"
-      description: (Auto highlighting in markdown)
-      render: Markdown
 
   - type: textarea
     id: related-code
