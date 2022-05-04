@@ -17,7 +17,7 @@ static bool	str__ends_with(t_const_string this, t_const_string other)
 	const int	other_len = str__len(other);
 	const int	at = str__find(this, other);
 
-	return (at != ERR and at == this_len - other_len);
+	return (at != ERR && at == this_len - other_len);
 }
 
 void	parser__init(t_parser *this, t_const_string file)
@@ -27,7 +27,7 @@ void	parser__init(t_parser *this, t_const_string file)
 	i = -1;
 	while (++i < 6)
 		this->found_cubid[i] = false;
-	if (not str__ends_with(file, ".cub"))
+	if (!str__ends_with(file, ".cub"))
 		std__panic__value("parser__init", "file must end with .cub");
 	this->fd = std__open(file, O_RDONLY);
 }

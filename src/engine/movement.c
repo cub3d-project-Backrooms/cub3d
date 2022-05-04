@@ -22,7 +22,7 @@ void	engine__try_move_player(t_engine *e, double x, double y)
 		e->camera.pos.y += dy;
 }
 
-// both camera direction and camera plane must be rotated
+// both camera direction && camera plane must be rotated
 void	engine__rotate_player(t_engine *e, double angle)
 {
 	camera__rotate(&e->camera, angle * e->rotspeed);

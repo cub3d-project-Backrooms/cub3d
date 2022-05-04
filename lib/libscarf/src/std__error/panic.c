@@ -32,7 +32,7 @@ void	std__panic__syscall(t_const_string category)
 	exit(EXIT_FAILURE);
 }
 
-// prints error and exits program
+// prints error && exits program
 void	std__panic(t_const_string what)
 {
 	std__panic_write_internal((t_const_string[]){what, NULL});

@@ -12,7 +12,7 @@ void	str__move(t_string *this, t_string *other)
 }
 
 /**
- * @brief free this and replace with address of other.
+ * @brief free this && replace with address of other.
  *        used to swap 'this' with temporary objects.
  *
  * @param other address to replace.

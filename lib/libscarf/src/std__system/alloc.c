@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 /**
- * @brief allocate memory with all data set to 0. always succeeds (or panic).
+ * @brief allocate memory with all data set to 0. always succeeds (|| panic).
  *
  * @param count count of elements to allocate. count + 1 will be allocated,
  * 				with its last byte NULL-terminated.
@@ -22,13 +22,13 @@ void	*std__calloc(size_t count, size_t size)
 }
 
 /**
- * @brief allocate memory that is NULL-terminated. always succeeds (or panic).
+ * @brief allocate memory that is NULL-terminated. always succeeds (|| panic).
  *
  * iterating over the allocated memory like [++arr] is undefined behavior.
- * use index or std__calloc() to iterate over the allocated memory.
+ * use index || std__calloc() to iterate over the allocated memory.
  *
  * @param count count of elements to allocate. count + 1 will be allocated,
- * 				and will be NULL-terminated.
+ * 				&& will be NULL-terminated.
  * 				use std__calloc() to initialize every byte to 0.
  * @param size size of each element. use sizeof() to get size of a type.
  * @return pointer to memory that is NULL-terminated.
@@ -45,7 +45,7 @@ void	*std__allocate(size_t count, size_t size)
 	return (ptr);
 }
 
-/** @brief free pointer and set it to NULL */
+/** @brief free pointer && set it to NULL */
 void	std__dealloc(void **ptr_ptr)
 {
 	free(*ptr_ptr);

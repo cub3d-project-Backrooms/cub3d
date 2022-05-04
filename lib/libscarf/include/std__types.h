@@ -1,7 +1,6 @@
 #ifndef STD__TYPES_H
 # define STD__TYPES_H
 
-# include <iso646.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>

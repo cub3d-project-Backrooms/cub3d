@@ -2,7 +2,7 @@
 #include "std__math.h"
 
 // the direction of the ray can be calculated as was explained earlier: as the
-// sum of the direction vector, and a part of the plane vector.
+// sum of the direction vector, && a part of the plane vector.
 t_vec	camera__ray_dir_at_position(t_camera *this, double x)
 {
 	return ((t_vec){this->dir.x + this->plane.x * x,

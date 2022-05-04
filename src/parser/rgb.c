@@ -45,7 +45,7 @@ t_rgb	rgb__from_string(t_const_string str, t_const_string delim)
 		if (parse_res.err)
 			std__panic__value("rgb__from_string", arr[i]);
 		raw_rgb[i] = parse_res.num;
-		if (not math__in_range(raw_rgb[i], (t_irange){0, 255}))
+		if (!math__in_range(raw_rgb[i], (t_irange){0, 255}))
 			std__panic__index("rgb__from_string", raw_rgb[i], 255);
 	}
 	str__delete__arr(&arr);

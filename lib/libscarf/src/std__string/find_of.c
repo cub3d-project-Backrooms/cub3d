@@ -14,7 +14,7 @@ t_int_or_neg_as_err	str__find_first_of(t_const_string this,
 {
 	int	i;
 
-	if (not charset)
+	if (!charset)
 		return (ERR);
 	i = -1;
 	while (this[++i])
@@ -36,11 +36,11 @@ t_int_or_neg_as_err	str__find_first_not_of(t_const_string this,
 {
 	int	i;
 
-	if (not charset)
+	if (!charset)
 		return (ERR);
 	i = -1;
 	while (this[++i])
-		if (not str__is_in(charset, this[i]))
+		if (!str__is_in(charset, this[i]))
 			return (i);
 	return (ERR);
 }
@@ -59,7 +59,7 @@ t_int_or_neg_as_err	str__find_last_of(t_const_string this,
 	int			i;
 	const int	len = str__len(this);
 
-	if (not charset or len == ERR)
+	if (!charset || len == ERR)
 		return (ERR);
 	i = len;
 	while (--i >= 0)
@@ -82,11 +82,11 @@ t_int_or_neg_as_err	str__find_last_not_of(t_const_string this,
 	int			i;
 	const int	len = str__len(this);
 
-	if (not charset or len == ERR)
+	if (!charset || len == ERR)
 		return (ERR);
 	i = len;
 	while (--i >= 0)
-		if (not str__is_in(charset, this[i]))
+		if (!str__is_in(charset, this[i]))
 			return (i);
 	return (ERR);
 }

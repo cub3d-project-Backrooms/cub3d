@@ -6,7 +6,7 @@
  */
 bool	str__is_empty(t_const_string this)
 {
-	return (not this or str__len(this) == 0);
+	return (!this || str__len(this) == 0);
 }
 
 void	str__pad_right(t_string *this, t_uint len, char c)

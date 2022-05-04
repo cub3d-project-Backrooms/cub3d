@@ -58,7 +58,7 @@ void	parser__parse__id(t_parser *this, t_world *world)
 {
 	t_string	line;
 
-	while (not parser__all_cubid_found(this))
+	while (!parser__all_cubid_found(this))
 	{
 		line = std__new_readfile__line(this->fd);
 		parser__parse_line__id(this, world, line);

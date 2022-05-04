@@ -7,9 +7,9 @@
 #include <stdio.h>
 
 /**
- * @brief set position and direction of player.
+ * @brief set position && direction of player.
  *
- * 0.5 is added to x and y to avoid 'ghosting' thru walls.
+ * 0.5 is added to x && y to avoid 'ghosting' thru walls.
  */
 static void	world__init__player(
 	t_world *this, t_string_arr raw_map, t_i64vec it)
@@ -70,8 +70,8 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 				world__init__player(this, raw_map, it);
 		}
 	}
-	if (not this->has_player)
-		std__panic("player not in map");
+	if (!this->has_player)
+		std__panic("player !in map");
 }
 
 void	parser__parse__map(t_parser *this, t_world *world)

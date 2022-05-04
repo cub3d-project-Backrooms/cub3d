@@ -20,7 +20,7 @@ t_int_or_neg_as_err	str__find_from(t_const_string this,
 	const int	this_len = str__len(this);
 	const int	other_len = str__len(other);
 
-	if (other_len == ERR or other_len == 0)
+	if (other_len == ERR || other_len == 0)
 		return (other_len);
 	i = from - 1;
 	while (++i <= this_len - other_len)

@@ -4,7 +4,7 @@
 #include <math.h>
 
 /**
- * @brief length of ray from one x or y-side to next x or y-side
+ * @brief length of ray from one x || y-side to next x || y-side
  * rayDirX : raydirY = 1 : deltadistX_height
  * deltadistX = sqrt(1 + deltadistX_height ** 2)
  * = sqrt(1 + rayDirY ** 2 / rayDirX ** 2)

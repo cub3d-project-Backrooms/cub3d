@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 /**
- * @brief deletes a string and set it to NULL.
+ * @brief deletes a string && set it to NULL.
  *
  * @param this the string to delete.
  */
