@@ -6,7 +6,7 @@
 #    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 13:12:18 by youkim            #+#    #+#              #
-#    Updated: 2022/05/04 13:25:42 by youkim           ###   ########.fr        #
+#    Updated: 2022/05/04 14:34:26 by youkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,4 +38,3 @@ norminette:
 			echo ✅ $$dir: OK! ;\
 		done
 	@echo ✅ norminette passed successfully
-
