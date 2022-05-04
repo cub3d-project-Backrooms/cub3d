@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/04 13:12:46 by youkim            #+#    #+#              #
+#    Updated: 2022/05/04 13:13:05 by youkim           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Target & FLAGS
 NAME     := libft.a
 
 CC       := clang
-CFLAGS   := -g3 -Wall -Wextra -Werror -std=c99 -I include
+CFLAGS   := -Wall -Wextra -Werror -std=c99 -I include #-g3
 
 AR       := ar -rcs
 
