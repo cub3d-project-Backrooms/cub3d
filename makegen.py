@@ -3,6 +3,7 @@
 import re
 import textwrap
 from pathlib import Path
+from typing import List
 
 SRC = Path("src")
 PKG = Path("config") / "packages.mk"
@@ -16,7 +17,7 @@ def get_src_files(subdir: Path):
     yield from (p for p in subdir.glob("*.c"))
 
 
-def make_var(name: str, values: list[str]) -> str:
+def make_var(name: str, values: List[str]) -> str:
     name_len = len(name)
     wrapped = textwrap.wrap(" ".join(values), 70 - name_len)
     wrapped_len = len(wrapped)
@@ -48,7 +49,7 @@ def create_template(subdir: Path) -> str:
     return res
 
 
-def regex_index(lst: list[str], pattern: str, flags=0):
+def regex_index(lst: 'list[str]', pattern: str, flags=0):
     for i, line in enumerate(lst):
         if re.match(pattern, line, flags):
             return i

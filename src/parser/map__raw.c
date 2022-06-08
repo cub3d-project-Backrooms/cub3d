@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map__raw.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 14:24:02 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 #include "std__math.h"
 #include "std__string.h"
@@ -32,10 +44,11 @@ t_string	parser__new_raw_map_line(t_parser *this)
 		{
 			if (is_start)
 				std__panic("parser__new_raw_map_arr: empty map line");
-			is_start = true;
 			str__delete(&line);
 			continue ;
 		}
+		else
+			is_start = true;
 		str__merge(&raw_mapline, &line);
 	}
 	str__rstrip(&raw_mapline, "\n");

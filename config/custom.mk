@@ -1,15 +1,24 @@
-run: all
-	@echo 🗺️ running map/valid_mandatory.cub
-	@./$(NAME) map/valid_mandatory.cub
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    custom.mk                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/04 13:12:38 by youkim            #+#    #+#              #
+#    Updated: 2022/05/04 14:46:58 by youkim           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-try: all
-	@set -e ;\
-		MAP=$$(python -c "from random import shuffle;\
-			from pathlib import Path;m=list(Path('map').iterdir());\
-			shuffle(m);print(m.pop())");\
-		echo 🗺️ running $$MAP;\
-		./$(NAME) $$MAP
-# ./$(NAME) asset/map/mandatory.cub
+ifdef LEAK
+	RUN_OPT = \
+		ASAN_OPTIONS=detect_leaks=1 \
+		LSAN_OPTIONS=suppressions=supp.txt
+endif
+
+run: all
+	@echo 🗺️ running map/mandatory.cub
+	@$(RUN_OPT) ./$(NAME) map/mandatory.cub
 
 lclean:
 	@rm -f $(OBJ)

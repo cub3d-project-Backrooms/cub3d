@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 13:24:47 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 #include "renderer.h"
 #include "std__system.h"
@@ -7,15 +19,18 @@
 #include <stdio.h>
 
 /**
- * @brief set position and direction of player.
+ * @brief set position && direction of player.
  *
- * 0.5 is added to x and y to avoid 'ghosting' thru walls.
+ * 0.5 is added to x && y to avoid 'ghosting' thru walls.
  */
 static void	world__init__player(
 	t_world *this, t_string_arr raw_map, t_i64vec it)
 {
 	const t_mapformat	fmt = raw_map[it.y][it.x];
 
+	if (this->has_player)
+		std__panic("duplicate player position");
+	this->has_player = true;
 	this->camera.pos = (t_vec){it.x + 0.5, it.y + 0.5};
 	if (fmt == MAPFMT__SOUTH)
 		camera__rotate(&this->camera, STD__PI);
@@ -46,6 +61,7 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
 
+	this->has_player = false;
 	this->camera = (t_camera){
 		.pos = {UNSET, UNSET},
 		.dir = {0, -1},
@@ -66,6 +82,8 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 				world__init__player(this, raw_map, it);
 		}
 	}
+	if (!this->has_player)
+		std__panic("player not in map");
 }
 
 void	parser__parse__map(t_parser *this, t_world *world)

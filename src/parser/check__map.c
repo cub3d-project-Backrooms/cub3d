@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check__map.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "std__math.h"
 #include "parser.h"
 #include <stdio.h>
@@ -18,14 +30,14 @@ bool	mapformat__is_valid(t_mapformat this)
 
 bool	mapformat__is_valid_fluidfill(t_mapformat this)
 {
-	return (not (this == MAPFMT__WALL
+	return (!(this == MAPFMT__WALL
 			|| this == MAPFMT__EMPTY
 			|| this == MAPFMT__FILL));
 }
 
 void	mapformat__assert_valid(t_mapformat this)
 {
-	if (not (mapformat__is_valid(this)))
+	if (!(mapformat__is_valid(this)))
 		std__panic__value__char(
 			"raw_map_arr__check_valid: invalid tile", this);
 }

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/04 13:12:13 by youkim            #+#    #+#              #
+#    Updated: 2022/05/04 13:12:14 by youkim           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME   := cub3d.out
 
 # Flags
@@ -12,4 +24,4 @@ include config/dependancies.mk
 # Rules
 include config/mandatory.mk
 include config/custom.mk
-
+include config/test.mk

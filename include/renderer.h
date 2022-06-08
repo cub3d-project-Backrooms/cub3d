@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   renderer.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 15:11:20 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RENDERER_H
 # define RENDERER_H
 
@@ -46,7 +58,7 @@ void		renderer__draw_to_window(t_renderer *info);
 ** < image.c > */
 
 void		image__write_to_buffer(t_image *this, int texline[]);
-void		image__init(t_image *this, t_mlx__ref mlx, t_string path);
+void		image__init_xpm(t_image *this, t_mlx__ref mlx, t_string path);
 void		image__deinit(t_image *this);
 /*
 ** < init.c > */

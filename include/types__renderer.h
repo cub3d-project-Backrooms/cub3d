@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types__renderer.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
+/*   Updated: 2022/05/04 13:26:48 by youkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TYPES__RENDERER_H
 # define TYPES__RENDERER_H
 
@@ -42,6 +54,7 @@ typedef struct s_world
 	t_string	texture_path[TEX__AMOUNT];
 	int			texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
 	t_camera	camera;
+	bool		has_player;
 }	t_world;
 
 typedef struct s_image
@@ -59,7 +72,7 @@ typedef enum e_config
 {
 	WIDTH = 640,
 	HEIGHT = 480,
-	MINIMAP_SIZE = 4,
+	MINIMAP_PIX = 4,
 }	t_config;
 
 typedef enum e_sign
