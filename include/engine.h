@@ -38,6 +38,7 @@ int					inputhandler__key_press(t_keycode key,
 
 void				engine__try_move_player(t_engine *e, double dx, double dy);
 void				engine__try_move_player_straight(t_engine *e, t_sign dir);
+void				engine__try_strafe_player(t_engine *e, t_sign dir);
 void				engine__rotate_player(t_engine *e, double angle);
 void				engine__move_player(t_engine *e);
 /*
