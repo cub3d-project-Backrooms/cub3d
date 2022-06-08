@@ -16,45 +16,47 @@
 
 t_inputhandler	inputhandler__init(void)
 {
-	return ((t_inputhandler){false, false, false, false, false, false});
+	return ((t_inputhandler){
+		false, false, false, false,
+		false, false, false, false});
 }
 
 bool	inputhandler__is_movement(t_inputhandler *this)
 {
 	return (this->is_up_pressed || this->is_down_pressed
-		|| this->is_left_pressed || this->is_right_pressed);
+		|| this->is_left_pressed || this->is_right_pressed
+		|| this->is_left_rotate_pressed || this->is_right_rotate_pressed);
+}
+
+inline static void	inputhandler__key_action(
+	t_keycode key, t_inputhandler *this, bool value)
+{
+	if (key == KEY_W || key == KEY_UP)
+		this->is_up_pressed = value;
+	if (key == KEY_S || key == KEY_DOWN)
+		this->is_down_pressed = value;
+	if (key == KEY_A)
+		this->is_left_pressed = value;
+	if (key == KEY_D)
+		this->is_right_pressed = value;
+	if (key == KEY_LEFT)
+		this->is_left_rotate_pressed = value;
+	if (key == KEY_RIGHT)
+		this->is_right_rotate_pressed = value;
+	if (key == KEY_ESC)
+		this->is_exit = value;
+	if (key == KEY_SHIFT)
+		this->is_shift_pressed = value;
 }
 
 int	inputhandler__key_release(t_keycode key, t_inputhandler *this)
 {
-	if (key == KEY_W || key == KEY_UP)
-		this->is_up_pressed = false;
-	if (key == KEY_S || key == KEY_DOWN)
-		this->is_down_pressed = false;
-	if (key == KEY_A || key == KEY_LEFT)
-		this->is_left_pressed = false;
-	if (key == KEY_D || key == KEY_RIGHT)
-		this->is_right_pressed = false;
-	if (key == KEY_ESC)
-		this->is_exit = true;
-	if (key == KEY_SHIFT)
-		this->is_shift_pressed = false;
+	inputhandler__key_action(key, this, false);
 	return (0);
 }
 
 int	inputhandler__key_press(t_keycode key, t_inputhandler *this)
 {
-	if (key == KEY_W || key == KEY_UP)
-		this->is_up_pressed = true;
-	if (key == KEY_S || key == KEY_DOWN)
-		this->is_down_pressed = true;
-	if (key == KEY_A || key == KEY_LEFT)
-		this->is_left_pressed = true;
-	if (key == KEY_D || key == KEY_RIGHT)
-		this->is_right_pressed = true;
-	if (key == KEY_ESC)
-		this->is_exit = true;
-	if (key == KEY_SHIFT)
-		this->is_shift_pressed = true;
+	inputhandler__key_action(key, this, true);
 	return (0);
 }
