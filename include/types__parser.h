@@ -39,7 +39,7 @@ typedef enum e_mapformat
 	MAPFMT__FILL = 'f',
 	MAPFMT__DOOR = 'D',
 	MAPFMT__DOOR_OPEN = 'O',
-	MAPFMT__SPRITE = 'S',
+	MAPFMT__SPRITE = 'T',
 	MAPFMT__ERR = -1,
 }	t_mapformat;
 
