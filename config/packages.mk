@@ -13,7 +13,8 @@
 # @Packages
 PKGS = renderer engine parser
 
-rendererV = raycast_tool raycast_floor camera image init minimap draw\
+rendererV = raycast_tool raycast_floor raycast_texture \
+			camera image init minimap draw\
 			raycast load_tex raycast_wall deinit dda__dist dda__step
 engineV = init keyinput movement run collision door
 parserV = map check__parser check__cubid parser check__cubfile cubid\
