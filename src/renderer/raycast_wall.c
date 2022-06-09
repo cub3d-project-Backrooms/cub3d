@@ -72,7 +72,7 @@ void	walldata__draw__set_texture_data(t_walldata *this)
 t_texdata	walldata__get_texdata(t_walldata *data, t_grid worldmap)
 {
 	t_texdata			texdata;
-	const t_mapformat	tile_type
+	const t_mapfmt	tile_type
 		= worldmap[data->map_pos.y][data->map_pos.x];
 
 	if (tile_type == MAPFMT__DOOR)

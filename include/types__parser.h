@@ -41,9 +41,9 @@ typedef enum e_mapformat
 	MAPFMT__DOOR_OPEN = 'O',
 	MAPFMT__SPRITE = 'T',
 	MAPFMT__ERR = -1,
-}	t_mapformat;
+}	t_mapfmt;
 
-typedef bool(*t_mapformat__validator_f)(t_mapformat);
+typedef bool(*t_mapformat__validator_f)(t_mapfmt);
 
 typedef struct s_parser
 {

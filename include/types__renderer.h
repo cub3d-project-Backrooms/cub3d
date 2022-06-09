@@ -22,7 +22,7 @@
 typedef void			*t_mlx__ref;
 typedef void			*t_mlx__window_ref;
 typedef void			*t_mlx__image_ref;
-typedef int				**t_grid;
+typedef t_mapfmt		**t_grid;
 
 typedef enum e_texdata
 {

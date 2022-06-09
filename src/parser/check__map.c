@@ -14,13 +14,13 @@
 #include "parser.h"
 #include "flags.h"
 
-bool	mapformat__is_player(t_mapformat this)
+bool	mapformat__is_player(t_mapfmt this)
 {
 	return (this == MAPFMT__NORTH || this == MAPFMT__SOUTH
 		|| this == MAPFMT__WEST || this == MAPFMT__EAST);
 }
 
-bool	mapformat__is_valid(t_mapformat this)
+bool	mapformat__is_valid(t_mapfmt this)
 {
 	return (this == MAPFMT__FLOOR
 		|| this == MAPFMT__WALL
@@ -28,14 +28,14 @@ bool	mapformat__is_valid(t_mapformat this)
 		|| mapformat__is_player(this));
 }
 
-bool	mapformat__is_valid_bonus(t_mapformat this)
+bool	mapformat__is_valid_bonus(t_mapfmt this)
 {
 	return (mapformat__is_valid(this)
 		|| this == MAPFMT__DOOR
 		|| this == MAPFMT__SPRITE);
 }
 
-bool	mapformat__is_valid_fluidfill(t_mapformat this)
+bool	mapformat__is_valid_fluidfill(t_mapfmt this)
 {
 	return (!(this == MAPFMT__WALL
 			|| this == MAPFMT__EMPTY
@@ -43,7 +43,7 @@ bool	mapformat__is_valid_fluidfill(t_mapformat this)
 }
 
 void	mapformat__assert_valid(
-	t_mapformat this, t_mapformat__validator_f func)
+	t_mapfmt this, t_mapformat__validator_f func)
 {
 	if (!(func(this)))
 		std__panic__value__char(
@@ -53,7 +53,7 @@ void	mapformat__assert_valid(
 void	raw_map_arr__check_valid(t_string_arr this)
 {
 	t_ivec						it;
-	t_mapformat					tile;
+	t_mapfmt					tile;
 	t_mapformat__validator_f	func;
 
 	if (BONUS)

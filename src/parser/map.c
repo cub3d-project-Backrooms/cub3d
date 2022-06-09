@@ -26,7 +26,7 @@
 static void	world__init__player(
 	t_world *this, t_string_arr raw_map, t_i64vec it)
 {
-	const t_mapformat	fmt = raw_map[it.y][it.x];
+	const t_mapfmt	fmt = raw_map[it.y][it.x];
 
 	if (this->has_player)
 		std__panic("duplicate player position");
@@ -52,12 +52,12 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 	};
 	this->world_height = map_size.height;
 	this->world_width = map_size.width;
-	this->worldmap = std__allocate(map_size.height, sizeof(t_mapformat *));
+	this->worldmap = std__allocate(map_size.height, sizeof(t_mapfmt *));
 	it.y = -1;
 	while (++it.y < map_size.height)
 	{
 		it.x = -1;
-		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(t_mapformat));
+		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(t_mapfmt));
 		while (++it.x < map_size.width)
 		{
 			this->worldmap[it.y][it.x] = raw_map[it.y][it.x];
