@@ -18,7 +18,7 @@
 static void	renderer__draw_minimap_color(
 	t_renderer *this, t_ivec *pos_map, t_ivec *player_pos, t_ivec *it)
 {
-	int			color;
+	t_rgb		color;
 	const int	tile = this->world.worldmap[pos_map->y][pos_map->x];
 
 	if (tile == MAPFMT__EMPTY)

@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 NAME   := cub3d.out
+CFLAGS = -Wall -Wextra -Werror -std=c99
 
 # Flags
 include config/flags.mk

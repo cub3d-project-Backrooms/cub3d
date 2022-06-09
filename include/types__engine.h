@@ -21,6 +21,8 @@ typedef struct s_inputhandler
 	bool	is_down_pressed;
 	bool	is_left_pressed;
 	bool	is_right_pressed;
+	bool	is_left_rotate_pressed;
+	bool	is_right_rotate_pressed;
 	bool	is_exit;
 	bool	is_shift_pressed;
 }	t_inputhandler;

@@ -12,7 +12,7 @@
 
 #include "renderer.h"
 
-int	shade_color(int color, double divide)
+t_rgb	shade_color(int color, double divide)
 {
 	if (divide <= 1.)
 		return (color);
@@ -21,7 +21,7 @@ int	shade_color(int color, double divide)
 		+ ((int)((0x0000FF & color) / divide)));
 }
 
-int	distance_shade(int color, double distance)
+t_rgb	distance_shade(int color, double distance)
 {
 	return (shade_color(color, distance / 1.5));
 }

@@ -96,18 +96,17 @@ void		renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 /*
 ** < raycast_tool.c > */
 
-int			shade_color(int color, double divide);
-int			distance_shade(int color, double distance);
+t_rgb		shade_color(int color, double divide);
+t_rgb		distance_shade(int color, double distance);
 void		floordata__draw__lights(t_floordata *this);
 /*
 ** < raycast_wall.c > */
 
 void		renderer__draw__vertical_wall(t_renderer *this, int lineheight,
-				int color, int x);
+				t_rgb color, int x);
 void		walldata__raycast__set_dda_vector(t_walldata *this,
 				t_camera *camera, int current_x, t_world *world);
 void		walldata__draw__set_wall_data(t_walldata *this, t_camera *camera);
 void		walldata__draw__set_texture_data(t_walldata *this);
-int			renderer__draw__wall_texture(t_renderer *this,
-				t_walldata *data);
+t_rgb		renderer__draw__wall_texture(t_renderer *this, t_walldata *data);
 #endif  // __RENDERER_H__

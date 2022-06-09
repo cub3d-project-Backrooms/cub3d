@@ -1,47 +1,15 @@
-name: Bug report
-description: Argharghargh !
+name: 버-그
+description: 으에엨
 title: "[Bug 🐛] "
 labels: ["Bug 🐛"]
 body:
-  - type: dropdown
-    id: error-type
-    attributes:
-      label: 'Error type'
-      description: What kind of error did you face ?
-      options:
-        - Error from compiler/makefile
-        - Memory leak/dangling pointer/double free
-        - Segmentation fault
-        - Graphic output error
-        - Misc unexpected behaviors
-    validations:
-      required: true
-
   - type: textarea
     id: to-recreate
     attributes:
-      label: 'Bug process'
-      description: The way to make bug in program
+      label: 내용
+      description: 무엇이, 어째서, 왜?
       placeholder: |
         1.
         2.
         3.
         ...
-
-  - type: textarea
-    id: related-code
-    attributes:
-      label: 'Related codes'
-      description: (Auto highlighting in C)
-      render: C
-
-  - type: dropdown
-    id: status
-    attributes:
-      label: 'Error status'
-      description: Describe current status of error
-      options:
-        - Cause is found
-        - Solution exists
-        - Envr diff with 42-cluster
-      multiple: true

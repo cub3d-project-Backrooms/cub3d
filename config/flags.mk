@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror -std=c99
 
 ifdef LEAK
 $(info Leak test enabled)

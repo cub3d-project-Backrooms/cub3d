@@ -1,40 +1,9 @@
-name: New feature
-description: Creating new feature
+name: 할거
+description: 와! 할게 또 늘었다
 title: "[Feature ⭐] "
 labels: ["Feature ⭐"]
 body:
-  - type: dropdown
-    id: feature-type
-    attributes:
-      label: "Feature type"
-      description: Which type of feature you are going to create ?
-      options:
-        - Library functions
-        - Math/graphical feature
-        - Engine/event/game mechanics
-        - Makefile
-        - Misc
-    validations:
-      required: true
-
   - type: textarea
     id: implementation
     attributes:
-      label: "Implementing process / Goal"
-
-  - type: textarea
-    id: related-code
-    attributes:
-      label: "Related code"
-      description: API or example codes (Auto highlighting in C)
-      render: C
-
-  - type: dropdown
-    id: others
-    attributes:
-      label: "Note"
-      description: Additional message
-      options:
-        - Need to modify existing codes
-        - Huge-scale construction is required
-      multiple: true
+      label: 내용
