@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME   := cub3d.out
+NAME   := cub3D
 CFLAGS = -Wall -Wextra -Werror -std=c99
 
 # Flags
