@@ -27,6 +27,7 @@ typedef int				**t_grid;
 typedef enum e_texdata
 {
 	TEX__AMOUNT = 4,
+	TEX__AMOUNT_BONUS = 6,
 	TEX__WIDTH = 64,
 	TEX__HEIGHT = 64,
 	TEX__WALL__NORTH = 0,
@@ -36,6 +37,9 @@ typedef enum e_texdata
 	TEX__FLOOR,
 	TEX__CEILING0,
 	TEX__CEILING1,
+	TEX__DOOR,
+	TEX__SPRITE0,
+	TEX__SPRITE1
 }	t_texdata;
 
 typedef struct s_camera
@@ -52,7 +56,8 @@ typedef struct s_world
 	t_grid		worldmap;
 	t_rgb		colors[2];
 	t_string	texture_path[TEX__AMOUNT];
-	int			texture[TEX__AMOUNT + 3][TEX__WIDTH * TEX__HEIGHT];
+	int			texture
+	[TEX__AMOUNT + TEX__AMOUNT_BONUS][TEX__WIDTH * TEX__HEIGHT];
 	t_camera	camera;
 	bool		has_player;
 }	t_world;
