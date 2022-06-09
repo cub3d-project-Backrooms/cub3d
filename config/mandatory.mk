@@ -30,8 +30,8 @@ bonus:
 	make BONUS=true
 
 clean:
-	@make -C $(MLX_DIR) clean
-	@make -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(LIBFT_DIR) clean
 	@rm -f $(OBJ)
 	@if [[ $(UNAME) == "Darwin" && -f $(notdir $(LIBMLX)) ]]; then\
 		echo "rm $(notdir $(LIBMLX))" ;\
@@ -40,15 +40,15 @@ clean:
 	@echo "🗑 cleaned $(NAME)'s object files and libraries"
 
 fclean: clean
-	@make -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@rm -f $(NAME)
 	@echo 🗑 cleaned $(NAME)
 
 re: fclean all
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(LIBMLX):
-	make -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
 	cp $(LIBMLX) ./
