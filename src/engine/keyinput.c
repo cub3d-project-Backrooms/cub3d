@@ -39,9 +39,9 @@ inline static void	inputhandler__key_action(
 		this->is_left_pressed = value;
 	if (key == KEY_D)
 		this->is_right_pressed = value;
-	if (key == KEY_LEFT)
+	if (key == KEY_Q || key == KEY_LEFT)
 		this->is_left_rotate_pressed = value;
-	if (key == KEY_RIGHT)
+	if (key == KEY_E || key == KEY_RIGHT)
 		this->is_right_rotate_pressed = value;
 	if (key == KEY_ESC)
 		this->is_exit = value;
