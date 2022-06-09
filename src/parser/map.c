@@ -45,16 +45,17 @@ static void	world__init__player(
  * map rules forbid noclipping through walls, hence
  * `to` can be of any value to represent 'emptiness'
  */
+// FIXME: needs to handle doors and sprites
 static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
 {
 	const t_mapformat	raw = raw_map[it.y][it.x];
-	int					to;
+	int					into;
 
 	if (raw == MAPFMT__EMPTY)
-		to = raw;
+		into = raw;
 	else
-		to = raw == MAPFMT__WALL;
-	this->worldmap[it.y][it.x] = to;
+		into = (raw == MAPFMT__WALL);
+	this->worldmap[it.y][it.x] = into;
 }
 
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)

@@ -47,10 +47,10 @@ double	dda__perpendicular_dist_to_closest_grid(t_dda__step *step,
 	double	perp_wall_dist;
 
 	if (step->is_hit_y_side)
-		perp_wall_dist = (map_pos->y - camera->pos.y + (1 - step->y_sign) / 2)
-			/ ray_dir->y;
+		perp_wall_dist =
+			(map_pos->y - camera->pos.y + (1 - step->y_sign) / 2) / ray_dir->y;
 	else
-		perp_wall_dist = (map_pos->x - camera->pos.x + (1 - step->x_sign) / 2)
-			/ ray_dir->x;
+		perp_wall_dist =
+			(map_pos->x - camera->pos.x + (1 - step->x_sign) / 2) / ray_dir->x;
 	return (perp_wall_dist);
 }

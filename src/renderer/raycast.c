@@ -17,21 +17,20 @@
 void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 {
 	t_floordata	floordata;
-	int			y;
-	int			x;
+	t_ivec		v;
 
-	y = HEIGHT / 2 - 1;
-	while (++y < HEIGHT)
+	v.y = HEIGHT / 2 - 1;
+	while (++v.y < HEIGHT)
 	{
 		floordata__raycast__set_raydir_vector(&floordata, camera);
-		floordata__raycast__set_row_distance(&floordata, y);
+		floordata__raycast__set_row_distance(&floordata, v.y);
 		floordata__raycast__set_floor_vectors(&floordata, camera);
-		x = -1;
-		while (++x < WIDTH)
+		v.x = -1;
+		while (++v.x < WIDTH)
 		{
 			floordata__raycast__set_dtexture_vector(&floordata);
 			floordata__draw__lights(&floordata);
-			renderer__draw__floor(this, &floordata, x, y);
+			renderer__draw__floor(this, &floordata, v.x, v.y);
 		}
 	}
 }
@@ -40,18 +39,17 @@ void	renderer__raycast__wall(
 	t_renderer *this, t_camera *camera)
 {
 	t_walldata	walldata;
-	int			x;
-	int			y;
+	t_ivec		v;
 
-	x = -1;
-	while (++x < WIDTH)
+	v.x = -1;
+	while (++v.x < WIDTH)
 	{
-		walldata__raycast__set_dda_vector(&walldata, camera, x, &this->world);
+		walldata__raycast__set_dda_vector(&walldata, camera, v.x, &this->world);
 		walldata__draw__set_wall_data(&walldata, camera);
 		walldata__draw__set_texture_data(&walldata);
-		y = walldata.draw_start - 1;
-		while (++y < walldata.draw_end)
-			this->buf[y][x] = renderer__draw__wall_texture(this, &walldata);
+		v.y = walldata.draw_start - 1;
+		while (++v.y < walldata.draw_end)
+			this->buf[v.y][v.x] = renderer__draw__wall_texture(this, &walldata);
 	}
 }
 

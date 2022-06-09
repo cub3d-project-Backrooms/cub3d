@@ -15,29 +15,27 @@
 void	floordata__raycast__set_raydir_vector(
 	t_floordata *this, t_camera *camera)
 {
-	this->ray_dir0 = (t_vec){camera->dir.x - camera->plane.x, camera->dir.y
-		- camera->plane.y};
-	this->ray_dir1 = (t_vec){camera->dir.x + camera->plane.x, camera->dir.y
-		+ camera->plane.y};
+	this->ray_dir0 = (t_vec){
+		camera->dir.x - camera->plane.x, camera->dir.y - camera->plane.y};
+	this->ray_dir1 = (t_vec){
+		camera->dir.x + camera->plane.x, camera->dir.y + camera->plane.y};
 }
 
 void	floordata__raycast__set_row_distance(t_floordata *this, int current_y)
 {
-	int		position_from_center;
-	float	vertical_camera_position;
+	const int	position_from_center  = current_y - HEIGHT / 2;
+	const float	vertical_camera_position = 0.5 * HEIGHT;
 
-	position_from_center = current_y - HEIGHT / 2;
-	vertical_camera_position = 0.5 * HEIGHT;
 	this->row_distance = vertical_camera_position / position_from_center;
 }
 
 void	floordata__raycast__set_floor_vectors(
 	t_floordata *this, t_camera *camera)
 {
-	this->floor_step.x = this->row_distance * (this->ray_dir1.x
-			- this->ray_dir0.x) / WIDTH;
-	this->floor_step.y = this->row_distance * (this->ray_dir1.y
-			- this->ray_dir0.y) / WIDTH;
+	this->floor_step.x =
+			this->row_distance * (this->ray_dir1.x - this->ray_dir0.x) / WIDTH;
+	this->floor_step.y =
+			this->row_distance * (this->ray_dir1.y - this->ray_dir0.y) / WIDTH;
 	this->floor.x = camera->pos.x + this->row_distance * this->ray_dir0.x;
 	this->floor.y = camera->pos.y + this->row_distance * this->ray_dir0.y;
 }

@@ -16,15 +16,13 @@
 
 void	renderer__draw__vertical_wall(t_renderer *this,
 									int lineheight,
-									int color,
+									t_rgb color,
 									int x)
 {
-	int	draw_start;
-	int	draw_end;
-	int	y;
+	const int	draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
+	const int	draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
+	int			y;
 
-	draw_start = math__max(-lineheight / 2 + HEIGHT / 2, 0);
-	draw_end = math__min(lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
 	y = draw_start - 1;
 	while (++y < draw_end)
 		this->buf[y][x] = color;
@@ -50,19 +48,19 @@ void	walldata__draw__set_wall_data(t_walldata *this, t_camera *camera)
 	this->lineheight = (int)(HEIGHT / this->perp_wall_dist * 1);
 	this->draw_start = math__max(-this->lineheight / 2 + HEIGHT / 2, 0);
 	this->draw_end = math__min(this->lineheight / 2 + HEIGHT / 2, HEIGHT - 1);
-	if (this->step.is_hit_y_side == 0)
-		this->wallx = camera->pos.y + this->perp_wall_dist * this->ray_dir.y;
-	else
+	if (this->step.is_hit_y_side)
 		this->wallx = camera->pos.x + this->perp_wall_dist * this->ray_dir.x;
+	else
+		this->wallx = camera->pos.y + this->perp_wall_dist * this->ray_dir.y;
 	this->wallx -= floor(this->wallx);
 }
 
 void	walldata__draw__set_texture_data(t_walldata *this)
 {
 	this->texx = (int)(this->wallx * (double)TEX__WIDTH);
-	if (this->step.is_hit_y_side == 0 && this->ray_dir.x > 0)
+	if (!this->step.is_hit_y_side && this->ray_dir.x > 0)
 		this->texx = TEX__WIDTH - this->texx - 1;
-	if (this->step.is_hit_y_side == 1 && this->ray_dir.y < 0)
+	if (this->step.is_hit_y_side && this->ray_dir.y < 0)
 		this->texx = TEX__WIDTH - this->texx - 1;
 	this->step_val = 1.0 * TEX__HEIGHT / this->lineheight;
 	this->tex_pos
@@ -70,13 +68,13 @@ void	walldata__draw__set_texture_data(t_walldata *this)
 		* this->step_val;
 }
 
-int	renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
+// TODO: add case for doors
+t_rgb	renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 {
-	int	tex_y;
-	int	texnum;
-	int	color;
+	int			texnum;
+	t_rgb		color;
+	const int	tex_y = (int)data->tex_pos & (TEX__HEIGHT - 1);
 
-	tex_y = (int)data->tex_pos & (TEX__HEIGHT - 1);
 	data->tex_pos += data->step_val;
 	if (data->step.is_hit_y_side && (data->step.y_sign == POSITIVE))
 		texnum = TEX__WALL__NORTH;
