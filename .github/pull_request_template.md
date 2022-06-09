@@ -1,17 +1,5 @@
-# Abstract
+# 개요
 
-- Fixes # (Issue number)
+- Fixes # (이슈 번호)
 
-## Types of edition
-
-(Please remove irrelevant tags)
-
-- [ ] Bug fix (not modifying existing features)
-- [ ] New feature (not modifying existing features)
-- [ ] Changing feature (modifying existing feature or fixing bug)
-- [ ] Docs updated required
-
-# 테스트 결과
-
-- [ ] Compile succeed
-- [ ] Envr diff with 42-cluster
+# 내용
