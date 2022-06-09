@@ -15,15 +15,6 @@
 #include "std__math.h"
 #include <math.h>
 
-// FIXME: move to collision.c
-bool	is_collision_with_wall(t_world *world, const t_ivec *pos)
-{
-	const t_mapfmt	tile_type = world->worldmap[pos->y][pos->x];
-
-	return (tile_type == MAPFMT__WALL
-		|| tile_type == MAPFMT__DOOR);
-}
-
 void	engine__try_move_player(t_engine *e, const t_vec d)
 {
 	if (!is_collision_with_wall(&e->renderer.world,

@@ -21,14 +21,15 @@ t_inputhandler	inputhandler__init(void)
 	return (ih);
 }
 
-bool	inputhandler__is_movement(t_inputhandler *this)
+bool	inputhandler__is_action(t_inputhandler *this)
 {
 	return (this->is_up_pressed || this->is_down_pressed
 		|| this->is_left_pressed || this->is_right_pressed
-		|| this->is_left_rotate_pressed || this->is_right_rotate_pressed);
+		|| this->is_left_rotate_pressed || this->is_right_rotate_pressed
+		|| this->is_toggle_door);
 }
 
-inline static void	inputhandler__key_action(
+static void	inputhandler__key_action(
 	t_keycode key, t_inputhandler *this, bool value)
 {
 	if (key == KEY_W || key == KEY_UP)
@@ -47,7 +48,7 @@ inline static void	inputhandler__key_action(
 		this->is_exit = value;
 	if (key == KEY_SHIFT)
 		this->is_shift_pressed = value;
-	if (key == KEY_ENTER)
+	if (key == KEY_SPACE)
 		this->is_toggle_door = value;
 }
 
