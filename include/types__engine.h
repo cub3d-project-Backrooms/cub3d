@@ -25,6 +25,7 @@ typedef struct s_inputhandler
 	bool	is_right_rotate_pressed;
 	bool	is_exit;
 	bool	is_shift_pressed;
+	bool	is_toggle_door;
 }	t_inputhandler;
 
 typedef struct s_engine

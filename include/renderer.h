@@ -42,7 +42,6 @@ t_dda__step	dda__initial_step(t_camera *camera, t_ivec *map_pos,
 				t_vec *ray_dir, t_vec *delta_dist);
 void		dda__advance_step(t_dda__step *step, t_ivec *map_pos,
 				t_vec *delta_dist);
-bool		dda__is_ray_hit_wall(const t_ivec *pos, t_world *world);
 void		dda__advance_step_until_hit(t_dda__step *step, t_ivec *map_pos,
 				t_vec *delta_dist, t_world *world);
 /*
@@ -94,6 +93,11 @@ void		floordata__raycast__set_dtexture_vector(t_floordata *this);
 void		renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 				int current_x, int current_y);
 /*
+** < raycast_texture.c > */
+
+t_texdata	walldata__get_texdata(t_walldata *data, t_mapfmt tile_type);
+t_rgb		renderer__draw__wall_texture(t_renderer *this, t_walldata *data);
+/*
 ** < raycast_tool.c > */
 
 t_rgb		shade_color(int color, double divide);
@@ -108,5 +112,4 @@ void		walldata__raycast__set_dda_vector(t_walldata *this,
 				t_camera *camera, int current_x, t_world *world);
 void		walldata__draw__set_wall_data(t_walldata *this, t_camera *camera);
 void		walldata__draw__set_texture_data(t_walldata *this);
-t_rgb		renderer__draw__wall_texture(t_renderer *this, t_walldata *data);
 #endif  // __RENDERER_H__

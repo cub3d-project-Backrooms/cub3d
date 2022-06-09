@@ -42,11 +42,15 @@ static void	renderer__load_tex_from_default(t_renderer *this)
 	const char	*default_tex[] = {
 		"texture/backroom/floor1.xpm",
 		"texture/backroom/ceiling0.xpm",
-		"texture/backroom/light0.xpm"};
+		"texture/backroom/light0.xpm",
+		"texture/wolf/wood.xpm",
+		"texture/wolf/pillar.xpm",
+		"texture/wolf/greenlight.xpm"};
 
 	i = -1;
-	while (++i < 3)
-		load_tex(this, this->world.texture[i + 4], (t_string)default_tex[i]);
+	while (++i < TEX__AMOUNT_BONUS)
+		load_tex(this, this->world.texture[TEX__AMOUNT + i],
+			(t_string)default_tex[i]);
 }
 
 static void	renderer__load_tex_from_rgb(t_renderer *this)

@@ -26,7 +26,7 @@
 static void	world__init__player(
 	t_world *this, t_string_arr raw_map, t_i64vec it)
 {
-	const t_mapformat	fmt = raw_map[it.y][it.x];
+	const t_mapfmt	fmt = raw_map[it.y][it.x];
 
 	if (this->has_player)
 		std__panic("duplicate player position");
@@ -40,22 +40,15 @@ static void	world__init__player(
 		camera__rotate(&this->camera, STD__PI / 2);
 }
 
-/**
- * although raycasting only checks if given floor is 0,
- * map rules forbid noclipping through walls, hence
- * `to` can be of any value to represent 'emptiness'
- */
-// FIXME: needs to handle doors and sprites
-static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
+static t_camera	camera__init(void)
 {
-	const t_mapformat	raw = raw_map[it.y][it.x];
-	int					into;
+	const t_camera	camera = {
+		.pos = {UNSET, UNSET},
+		.dir = {0, -1},
+		.plane = {0.66, 0},
+	};
 
-	if (raw == MAPFMT__EMPTY)
-		into = raw;
-	else
-		into = (raw == MAPFMT__WALL);
-	this->worldmap[it.y][it.x] = into;
+	return (camera);
 }
 
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
@@ -63,23 +56,19 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 	t_i64vec	it;
 
 	this->has_player = false;
-	this->camera = (t_camera){
-		.pos = {UNSET, UNSET},
-		.dir = {0, -1},
-		.plane = {0.66, 0},
-	};
+	this->camera = camera__init();
 	this->world_height = map_size.height;
 	this->world_width = map_size.width;
-	this->worldmap = std__allocate(map_size.height, sizeof(int *));
+	this->worldmap = std__allocate(map_size.height, sizeof(t_mapfmt *));
 	it.y = -1;
 	while (++it.y < map_size.height)
 	{
 		it.x = -1;
-		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(int));
+		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(t_mapfmt));
 		while (++it.x < map_size.width)
 		{
-			world__init__tile(this, raw_map, it);
-			if (mapformat__is_player(raw_map[it.y][it.x]))
+			this->worldmap[it.y][it.x] = raw_map[it.y][it.x];
+			if (mapformat__is_player(this->worldmap[it.y][it.x]))
 				world__init__player(this, raw_map, it);
 		}
 	}

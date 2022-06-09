@@ -47,8 +47,9 @@ int	engine__loop(t_engine *this)
 {
 	if (this->inputhandler.is_exit)
 		engine__deinit(this);
-	else if (inputhandler__is_movement(&this->inputhandler))
+	else if (inputhandler__is_action(&this->inputhandler))
 	{
+		engine__handle_door(this);
 		engine__refresh(this);
 		engine__set_movespeed(this);
 		engine__move_player(this);

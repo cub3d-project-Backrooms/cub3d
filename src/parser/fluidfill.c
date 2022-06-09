@@ -19,7 +19,7 @@
 t_ivec	fluidfill__start_pos(t_string_arr this)
 {
 	t_ivec		it;
-	t_mapformat	tile;
+	t_mapfmt	tile;
 
 	it.y = -1;
 	while (this[++it.y])
@@ -38,7 +38,7 @@ t_ivec	fluidfill__start_pos(t_string_arr this)
 void	fluidfill__recursive(t_string_arr this, t_ivec node)
 {
 	int				i;
-	t_mapformat		tile;
+	t_mapfmt		tile;
 	const t_ivec	neighbors[8] = {
 	{node.x + 1, node.y},
 	{node.x - 1, node.y},
