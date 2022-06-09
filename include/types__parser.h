@@ -15,6 +15,7 @@
 
 # include "std__string.h"
 
+
 typedef enum e_cubid
 {
 	CUBID__TEXTURE__NORTH,
@@ -41,6 +42,8 @@ typedef enum e_mapformat
 	MAPFMT__SPRITE = 'S',
 	MAPFMT__ERR = -1,
 }	t_mapformat;
+
+typedef bool(*t_mapformat__validator_f)(t_mapformat);
 
 typedef struct s_parser
 {

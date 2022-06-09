@@ -33,8 +33,10 @@ bool			cubid__is_texture(t_cubid id);
 
 bool			mapformat__is_player(t_mapformat this);
 bool			mapformat__is_valid(t_mapformat this);
+bool			mapformat__is_valid_bonus(t_mapformat this);
 bool			mapformat__is_valid_fluidfill(t_mapformat this);
-void			mapformat__assert_valid(t_mapformat this);
+void			mapformat__assert_valid(t_mapformat this,
+					t_mapformat__validator_f func);
 void			raw_map_arr__check_valid(t_string_arr this);
 /*
 ** < check__map__index.c > */
