@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "engine.h"
 #include "renderer.h"
 #include "types__parser.h"
 #include "std__math.h"
@@ -69,11 +70,9 @@ void	walldata__draw__set_texture_data(t_walldata *this)
 		* this->step_val;
 }
 
-t_texdata	walldata__get_texdata(t_walldata *data, t_grid worldmap)
+t_texdata	walldata__get_texdata(t_walldata *data, t_mapfmt tile_type)
 {
 	t_texdata			texdata;
-	const t_mapfmt	tile_type
-		= worldmap[data->map_pos.y][data->map_pos.x];
 
 	if (tile_type == MAPFMT__DOOR)
 		texdata = TEX__DOOR;
@@ -88,12 +87,12 @@ t_texdata	walldata__get_texdata(t_walldata *data, t_grid worldmap)
 	return (texdata);
 }
 
-// TODO: add case for doors
 t_rgb	renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 {
 	const int			tex_y = (int)data->tex_pos & (TEX__HEIGHT - 1);
+	const t_mapfmt		tile_type = get_tile_type(&this->world, &data->map_pos);
 	const t_texdata		texdata
-		= walldata__get_texdata(data, this->world.worldmap);
+		= walldata__get_texdata(data, tile_type);
 	const t_rgb			color
 		= this->world.texture[texdata][TEX__HEIGHT * tex_y + data->texx];
 

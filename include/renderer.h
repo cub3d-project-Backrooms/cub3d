@@ -107,6 +107,6 @@ void		walldata__raycast__set_dda_vector(t_walldata *this,
 				t_camera *camera, int current_x, t_world *world);
 void		walldata__draw__set_wall_data(t_walldata *this, t_camera *camera);
 void		walldata__draw__set_texture_data(t_walldata *this);
-t_texdata	walldata__get_texdata(t_walldata *data, t_grid worldmap);
+t_texdata	walldata__get_texdata(t_walldata *data, t_mapfmt tile_type);
 t_rgb		renderer__draw__wall_texture(t_renderer *this, t_walldata *data);
 #endif  // __RENDERER_H__
