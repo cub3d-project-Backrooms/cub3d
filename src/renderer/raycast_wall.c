@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "renderer.h"
+#include "types__parser.h"
 #include "std__math.h"
 #include <math.h>
 
@@ -68,23 +69,34 @@ void	walldata__draw__set_texture_data(t_walldata *this)
 		* this->step_val;
 }
 
+t_texdata	walldata__get_texdata(t_walldata *data, t_grid worldmap)
+{
+	t_texdata			texdata;
+	const t_mapformat	tile_type
+		= worldmap[data->map_pos.y][data->map_pos.x];
+
+	if (tile_type == MAPFMT__DOOR)
+		texdata = TEX__DOOR;
+	else if (data->step.is_hit_y_side && (data->step.y_sign == POSITIVE))
+		texdata = TEX__WALL__NORTH;
+	else if (data->step.is_hit_y_side && (data->step.y_sign == NEGATIVE))
+		texdata = TEX__WALL__SOUTH;
+	else if (!data->step.is_hit_y_side && (data->step.x_sign == POSITIVE))
+		texdata = TEX__WALL__EAST;
+	else
+		texdata = TEX__WALL__WEST;
+	return (texdata);
+}
+
 // TODO: add case for doors
 t_rgb	renderer__draw__wall_texture(t_renderer *this, t_walldata *data)
 {
-	int			texnum;
-	t_rgb		color;
-	const int	tex_y = (int)data->tex_pos & (TEX__HEIGHT - 1);
+	const int			tex_y = (int)data->tex_pos & (TEX__HEIGHT - 1);
+	const t_texdata		texdata
+		= walldata__get_texdata(data, this->world.worldmap);
+	const t_rgb			color
+		= this->world.texture[texdata][TEX__HEIGHT * tex_y + data->texx];
 
 	data->tex_pos += data->step_val;
-	if (data->step.is_hit_y_side && (data->step.y_sign == POSITIVE))
-		texnum = TEX__WALL__NORTH;
-	else if (data->step.is_hit_y_side && (data->step.y_sign == NEGATIVE))
-		texnum = TEX__WALL__SOUTH;
-	else if (!data->step.is_hit_y_side && (data->step.x_sign == POSITIVE))
-		texnum = TEX__WALL__EAST;
-	else
-		texnum = TEX__WALL__WEST;
-	color = this->world.texture[texnum][TEX__HEIGHT * tex_y + data->texx];
-	color = distance_shade(color, data->perp_wall_dist);
-	return (color);
+	return (distance_shade(color, data->perp_wall_dist));
 }
