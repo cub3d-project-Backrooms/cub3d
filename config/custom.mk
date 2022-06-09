@@ -16,9 +16,17 @@ ifdef LEAK
 		LSAN_OPTIONS=suppressions=supp.txt
 endif
 
+.PHONY : run run-bonus lclean lfclean le docs
+
+MANDATORY_MAP := map/mandatory.cub
 run: all
-	@echo 🗺️ running map/mandatory.cub
-	@$(RUN_OPT) ./$(NAME) map/mandatory.cub
+	@echo 🗺️ running $(MANDATORY_MAP)
+	@$(RUN_OPT) ./$(NAME) $(MANDATORY_MAP)
+
+BONUS_MAP := map/bonus/bonus.cub
+run-bonus: bonus
+	@echo 🗺️ running $(BONUS_MAP)
+	@$(RUN_OPT) ./$(NAME) $(BONUS_MAP)
 
 lclean:
 	@rm -f $(OBJ)
