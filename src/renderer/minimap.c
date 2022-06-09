@@ -26,9 +26,9 @@ static void	renderer__draw_minimap_color(
 		return ;
 	else if (ivec__is_equal(pos_map, player_pos))
 		color = COLOR__RED;
-	else if (BONUS && (tile == MAPFMT__DOOR || tile == MAPFMT__DOOR_OPEN))
+	else if (tile == MAPFMT__DOOR || tile == MAPFMT__DOOR_OPEN)
 		color = COLOR__BLUE;
-	else if (BONUS && tile == MAPFMT__SPRITE)
+	else if (tile == MAPFMT__SPRITE)
 		color = COLOR__ORANGE;
 	else if (tile == MAPFMT__WALL)
 		color = COLOR__GRAY;
