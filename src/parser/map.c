@@ -40,16 +40,23 @@ static void	world__init__player(
 		camera__rotate(&this->camera, STD__PI / 2);
 }
 
+static t_camera	camera__init(void)
+{
+	const t_camera	camera = {
+		.pos = {UNSET, UNSET},
+		.dir = {0, -1},
+		.plane = {0.66, 0},
+	};
+
+	return (camera);
+}
+
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
 
 	this->has_player = false;
-	this->camera = (t_camera){
-		.pos = {UNSET, UNSET},
-		.dir = {0, -1},
-		.plane = {0.66, 0},
-	};
+	this->camera = camera__init();
 	this->world_height = map_size.height;
 	this->world_width = map_size.width;
 	this->worldmap = std__allocate(map_size.height, sizeof(t_mapfmt *));

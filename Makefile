@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME   := cub3D
-CFLAGS = -Wall -Wextra -Werror -std=c99
+CFLAGS = -Wall -Wextra -Werror -Wpedantic -std=c99
 
 # Flags
 include config/flags.mk

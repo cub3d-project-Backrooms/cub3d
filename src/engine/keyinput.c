@@ -16,9 +16,9 @@
 
 t_inputhandler	inputhandler__init(void)
 {
-	return ((t_inputhandler){
-		false, false, false, false,
-		false, false, false, false});
+	const t_inputhandler	ih = {false};
+
+	return (ih);
 }
 
 bool	inputhandler__is_movement(t_inputhandler *this)
@@ -47,6 +47,8 @@ inline static void	inputhandler__key_action(
 		this->is_exit = value;
 	if (key == KEY_SHIFT)
 		this->is_shift_pressed = value;
+	if (key == KEY_ENTER)
+		this->is_toggle_door = value;
 }
 
 int	inputhandler__key_release(t_keycode key, t_inputhandler *this)
