@@ -68,5 +68,5 @@ void	engine__move_player(t_engine *e)
 	if (ih->is_right_rotate_pressed)
 		engine__rotate_player(e, POSITIVE);
 	if (ih->is_left_rotate_pressed)
-		engine__rotate_player(e, -1);
+		engine__rotate_player(e, NEGATIVE);
 }
