@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/06/10 01:52:33 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void	engine__move_player(t_engine *e)
 		engine__try_strafe_player(e, NEGATIVE);
 	if (ih->is_right_pressed)
 		engine__try_strafe_player(e, POSITIVE);
-	if (ih->is_right_rotate_pressed)
+	if (ih->is_right_rotate_pressed || (ih->x > WIDTH / 2 && ih->delay_x % 5 == 0))
 		engine__rotate_player(e, POSITIVE);
-	if (ih->is_left_rotate_pressed)
+	if (ih->is_left_rotate_pressed || (ih->x < WIDTH / 2 && ih->delay_x % 5 == 0))
 		engine__rotate_player(e, NEGATIVE);
+
 }

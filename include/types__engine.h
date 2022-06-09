@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types__engine.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/06/10 01:51:12 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_inputhandler
 	bool	is_exit;
 	bool	is_shift_pressed;
 	bool	is_toggle_door;
+	int x;
+	int delay_x;
 }	t_inputhandler;
 
 typedef struct s_engine
