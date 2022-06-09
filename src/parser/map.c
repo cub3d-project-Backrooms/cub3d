@@ -43,7 +43,10 @@ static void	world__init__player(
 /**
  * although raycasting only checks if given floor is 0,
  * map rules forbid noclipping through walls, hence
- * `to` can be of any value to represent 'emptiness'
+ * `into` can be of any value to represent 'emptiness'.
+ *
+ * here MAPFMT__SPRITE and MAPFMT__DOOR are not checked
+ * because it's already done in raw_map_arr__check_valid()
  */
 // FIXME: needs to handle doors and sprites
 static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
@@ -51,7 +54,9 @@ static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
 	const t_mapformat	raw = raw_map[it.y][it.x];
 	int					into;
 
-	if (raw == MAPFMT__EMPTY)
+	if (raw == MAPFMT__EMPTY
+		|| raw == MAPFMT__SPRITE
+		|| raw == MAPFMT__DOOR)
 		into = raw;
 	else
 		into = (raw == MAPFMT__WALL);

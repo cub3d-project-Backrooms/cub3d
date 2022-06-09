@@ -13,6 +13,7 @@
 #include "engine.h"
 #include "renderer.h"
 #include "std__math.h"
+#include "flags.h"
 #include <math.h>
 
 static void	renderer__draw_minimap_color(
@@ -25,6 +26,10 @@ static void	renderer__draw_minimap_color(
 		return ;
 	else if (ivec__is_equal(pos_map, player_pos))
 		color = COLOR__RED;
+	else if (BONUS && (tile == MAPFMT__DOOR || tile == MAPFMT__DOOR_OPEN))
+		color = COLOR__BLUE;
+	else if (BONUS && tile == MAPFMT__SPRITE)
+		color = COLOR__ORANGE;
 	else if (tile)
 		color = COLOR__GRAY;
 	else

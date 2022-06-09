@@ -24,6 +24,9 @@
     }
   ],
   "settings": {
+    "material-icon-theme.files.associations": {
+      "**/*.cub": "document"
+    },
     "files.associations": {
       "**/*.pug": "jade",
       "**/*.h": "c",
