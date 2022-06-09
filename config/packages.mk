@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # @Packages
-PKGS = renderer util engine parser
+PKGS = renderer engine parser
 
 rendererV = raycast_tool raycast_floor camera image init minimap draw\
 			raycast load_tex raycast_wall deinit dda__dist dda__step
