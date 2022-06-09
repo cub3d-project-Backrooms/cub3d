@@ -30,7 +30,7 @@ static void	renderer__draw_minimap_color(
 		color = COLOR__BLUE;
 	else if (BONUS && tile == MAPFMT__SPRITE)
 		color = COLOR__ORANGE;
-	else if (tile)
+	else if (tile == MAPFMT__WALL)
 		color = COLOR__GRAY;
 	else
 		color = COLOR__WHITE;

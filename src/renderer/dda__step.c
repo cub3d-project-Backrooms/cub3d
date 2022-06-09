@@ -61,17 +61,11 @@ void	dda__advance_step(t_dda__step *step, t_ivec *map_pos, t_vec *delta_dist)
 	}
 }
 
-// TODO: handle sprites too
-bool	dda__is_ray_hit_wall(const t_ivec *pos, t_world *world)
-{
-	return (world->worldmap[pos->y][pos->x] > 0);
-}
-
 void	dda__advance_step_until_hit(t_dda__step *step,
 									t_ivec *map_pos,
 									t_vec *delta_dist, t_world *world)
 {
-	while (!dda__is_ray_hit_wall(map_pos, world))
+	while (!is_collision_with_wall(world, map_pos))
 	{
 		dda__advance_step(step, map_pos, delta_dist);
 	}

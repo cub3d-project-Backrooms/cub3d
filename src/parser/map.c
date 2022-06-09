@@ -40,29 +40,6 @@ static void	world__init__player(
 		camera__rotate(&this->camera, STD__PI / 2);
 }
 
-/**
- * although raycasting only checks if given floor is 0,
- * map rules forbid noclipping through walls, hence
- * `into` can be of any value to represent 'emptiness'.
- *
- * here MAPFMT__SPRITE and MAPFMT__DOOR are not checked
- * because it's already done in raw_map_arr__check_valid()
- */
-// FIXME: needs to handle doors and sprites
-static void	world__init__tile(t_world *this, t_string_arr raw_map, t_i64vec it)
-{
-	const t_mapformat	raw = raw_map[it.y][it.x];
-	int					into;
-
-	if (raw == MAPFMT__EMPTY
-		|| raw == MAPFMT__SPRITE
-		|| raw == MAPFMT__DOOR)
-		into = raw;
-	else
-		into = (raw == MAPFMT__WALL);
-	this->worldmap[it.y][it.x] = into;
-}
-
 static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 {
 	t_i64vec	it;
@@ -75,16 +52,16 @@ static void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 	};
 	this->world_height = map_size.height;
 	this->world_width = map_size.width;
-	this->worldmap = std__allocate(map_size.height, sizeof(int *));
+	this->worldmap = std__allocate(map_size.height, sizeof(t_mapformat *));
 	it.y = -1;
 	while (++it.y < map_size.height)
 	{
 		it.x = -1;
-		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(int));
+		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(t_mapformat));
 		while (++it.x < map_size.width)
 		{
-			world__init__tile(this, raw_map, it);
-			if (mapformat__is_player(raw_map[it.y][it.x]))
+			this->worldmap[it.y][it.x] = raw_map[it.y][it.x];
+			if (mapformat__is_player(this->worldmap[it.y][it.x]))
 				world__init__player(this, raw_map, it);
 		}
 	}

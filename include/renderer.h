@@ -42,7 +42,6 @@ t_dda__step	dda__initial_step(t_camera *camera, t_ivec *map_pos,
 				t_vec *ray_dir, t_vec *delta_dist);
 void		dda__advance_step(t_dda__step *step, t_ivec *map_pos,
 				t_vec *delta_dist);
-bool		dda__is_ray_hit_wall(const t_ivec *pos, t_world *world);
 void		dda__advance_step_until_hit(t_dda__step *step, t_ivec *map_pos,
 				t_vec *delta_dist, t_world *world);
 /*
