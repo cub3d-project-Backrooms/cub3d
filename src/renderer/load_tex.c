@@ -44,8 +44,8 @@ static void	renderer__load_tex_from_default(t_renderer *this)
 		"texture/backroom/ceiling0.xpm",
 		"texture/backroom/light0.xpm",
 		"texture/wolf/wood.xpm",
-		"texture/wolf/pillar.xpm",
-		"texture/wolf/greenlight.xpm"};
+		"texture/wolf/greenlight.xpm",
+		"texture/wolf/greenlight_other.xpm"};
 
 	i = -1;
 	while (++i < TEX__AMOUNT_BONUS)

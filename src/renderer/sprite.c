@@ -2,7 +2,7 @@
 #include "raycast.h"
 #include "renderer.h"
 #include "std__math.h"
-
+#include "engine.h"
 // void	renderer__draw__sprite_texture(
 // 	t_renderer *this, t_camera* camera, int i)
 // {
@@ -48,7 +48,7 @@ t_spritedata	spritedata__init(const t_sprites sprites, t_camera* camera, int i)
 }
 
 void	renderer__raycast__sprite(
-	t_renderer* this, t_camera* camera, int i, bool other_frame)
+	t_renderer* this, t_camera* camera, int i, int frame)
 {
 	const t_sprites		sprites = this->world.sprites;
 	const t_spritedata	s = spritedata__init(sprites, camera, i);
@@ -67,9 +67,9 @@ void	renderer__raycast__sprite(
         {
           int d = y * 256 - HEIGHT * 128 + s.size.height * 128;  // 256 and 128 factors to avoid floats
           int texy = ((d * TEX__HEIGHT) / s.size.height) / 256;
-          int color = this->world.texture[TEX__SPRITE0 + other_frame][TEX__WIDTH * texy + texx];  // get current color from the texture
+          int color = this->world.texture[TEX__SPRITE0 + is_other_frame(frame)][TEX__WIDTH * texy + texx];  // get current color from the texture
           if ((color & 0xFFFFFF) != 0)
-            this->buf[y][stripe] = distance_shade(color, sprites[i].distance / 5);
+            this->buf[y][stripe] = distance_shade(color, sprites[i].distance / 4);
 			// paint pixel if it isn't black,
             // black is the invisible color
         }
@@ -78,7 +78,7 @@ void	renderer__raycast__sprite(
 }
 
 void	renderer__draw__sprites(
-	t_renderer* this, t_camera* camera, bool other_frame) {
+	t_renderer* this, t_camera* camera, int frame) {
 	int			i;
 	t_sprites	sprites;
 
@@ -88,6 +88,6 @@ void	renderer__draw__sprites(
 	{
 		const t_vec delta = vec__sub(&sprites[i].pos, &camera->pos);
 		sprites[i].distance = delta.x * delta.x + delta.y * delta.y;
-		renderer__raycast__sprite(this, camera, i, other_frame);
+		renderer__raycast__sprite(this, camera, i, frame);
 	}
 }

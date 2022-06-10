@@ -20,7 +20,7 @@
 /*
 ** < animation.c > */
 
-bool			engine__is_other_frame(t_engine *this);
+bool			is_other_frame(int frame);
 void			engine__change_frames(t_engine *this);
 /*
 ** < collision.c > */

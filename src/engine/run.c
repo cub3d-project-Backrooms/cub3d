@@ -23,8 +23,7 @@ void	engine__refresh(t_engine *this)
 
 	renderer = &this->renderer;
 	renderer__raycast(renderer, &this->camera);
-	renderer__draw__sprites(
-		renderer, &this->camera, engine__is_other_frame(this));
+	renderer__draw__sprites(renderer, &this->camera, this->frame);
 	if (BONUS)
 		renderer__draw_minimap(renderer, &this->camera);
 	renderer__draw_to_window(renderer);

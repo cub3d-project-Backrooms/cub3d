@@ -87,9 +87,9 @@ void			renderer__draw_minimap(t_renderer *this, t_camera *camera);
 t_spritedata	spritedata__init(const t_sprites sprites, t_camera* camera,
 					int i);
 void			renderer__raycast__sprite(t_renderer* this, t_camera* camera,
-					int i, bool other_frame);
+					int i, int frame);
 void			renderer__draw__sprites(t_renderer* this, t_camera* camera,
-					bool other_frame);
+					int frame);
 /*
 ** < util.c > */
 
