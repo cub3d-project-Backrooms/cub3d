@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "std__system.h"
 #include "parser.h"
+#include "engine.h"
 
 /**
  * @brief set position && direction of player.
@@ -10,27 +11,25 @@
  */
 static void	world__init__player(t_world *this, t_i64vec it)
 {
-	const t_mapfmt	fmt = this->worldmap[it.y][it.x];
+	const t_mapfmt	tile = get_tile_type64(this, &it);
 
-	if (!mapformat__is_player(fmt))
+	if (!mapformat__is_player(tile))
 		return ;
 	if (this->has_player)
 		std__panic("duplicate player position");
 	this->has_player = true;
 	this->camera.pos = (t_vec){it.x + 0.5, it.y + 0.5};
-	if (fmt == MAPFMT__SOUTH)
+	if (tile == MAPFMT__SOUTH)
 		camera__rotate(&this->camera, STD__PI);
-	else if (fmt == MAPFMT__WEST)
+	else if (tile == MAPFMT__WEST)
 		camera__rotate(&this->camera, -STD__PI / 2);
-	else if (fmt == MAPFMT__EAST)
+	else if (tile == MAPFMT__EAST)
 		camera__rotate(&this->camera, STD__PI / 2);
 }
 
 static void	world__count_sprites(t_world *this, t_i64vec it)
 {
-	const t_mapfmt	fmt = this->worldmap[it.y][it.x];
-
-	if (fmt == MAPFMT__SPRITE)
+	if (get_tile_type64(this, &it) == MAPFMT__SPRITE)
 		this->num_sprites++;
 }
 

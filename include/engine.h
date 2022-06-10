@@ -21,6 +21,7 @@
 ** < collision.c > */
 
 t_mapfmt		get_tile_type(t_world *world, const t_ivec *pos);
+t_mapfmt		get_tile_type64(t_world *world, const t_i64vec *pos);
 bool			is_collision_with_wall(t_world *world, const t_ivec *pos);
 bool			is_collision_with_door(t_world *world, const t_ivec *pos);
 /*

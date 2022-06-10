@@ -85,6 +85,10 @@ void			rgb__print(t_rgb rgb);
 t_rgb			rgb__from_arr(int raw_rgb[3]);
 t_rgb			rgb__from_string(t_const_string str, t_const_string delim);
 /*
+** < sprite.c > */
+
+void			world__init__sprites(t_world *this);
+/*
 ** < world.c > */
 
 void			world__init(t_world *this, t_string_arr raw_map,
