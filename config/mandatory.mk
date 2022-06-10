@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS += -MMD -I include/
+CFLAGS += -I include/
 ifdef BONUS
 	CFLAGS += -D BONUS=1
 endif
@@ -18,10 +18,8 @@ endif
 .PHONY: all bonus clean fclean re
 
 $(NAME): $(OBJ) $(DEPENDENCIES)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
+	$(CC) $(CFLAGS) $^ $(LIB) -o $@
 	@echo 🚪 compiled $@ for $(ENV_STR)
-
--include $(OBJ:%.o=%.d)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
