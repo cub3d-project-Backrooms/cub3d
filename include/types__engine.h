@@ -37,6 +37,7 @@ typedef struct s_engine
 	t_camera		camera;
 	double			movespeed;
 	double			rotspeed;
+	int				frame;
 }	t_engine;
 
 typedef enum s_mousemotion

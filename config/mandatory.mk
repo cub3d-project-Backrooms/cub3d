@@ -10,19 +10,21 @@
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS += -I include/
+CFLAGS += -MMD -I include/
 ifdef BONUS
 	CFLAGS += -D BONUS=1
 endif
 
 .PHONY: all bonus clean fclean re
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
 $(NAME): $(OBJ) $(DEPENDENCIES)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
 	@echo 🚪 compiled $@ for $(ENV_STR)
+
+-include $(OBJ:%.o=%.d)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 

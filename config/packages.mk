@@ -11,15 +11,16 @@
 # **************************************************************************** #
 
 # @Packages
-PKGS = engine parser raycast renderer
+PKGS = renderer raycast engine parser
 
-engineV = collision door init keyinput movement movement_impl run
-parserV = check__cubfile check__cubid check__map check__map__format\
-		check__map__index check__parser cubid fluidfill map map__raw\
-		parser rgb sprite world
-raycastV = floor raycast sprite texture wall
-rendererV = camera dda__dist dda__step deinit draw image init load_tex\
-			minimap util
+rendererV = camera image init minimap draw sprite load_tex deinit util\
+			dda__dist dda__step
+raycastV = floor wall raycast texture
+engineV = animation door collision init keyinput movement movement_impl\
+		run
+parserV = map check__parser check__map__format check__cubid parser\
+		check__cubfile cubid map__raw fluidfill check__map__index\
+		sprite rgb check__map world
 
 # Macro
 SRC_DIR = src/
@@ -34,4 +35,3 @@ endef
 # Sources & Objects
 SRC = $(call choose_modules, $(PKGS))
 OBJ = $(SRC:%.c=%.o)
-

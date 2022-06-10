@@ -15,7 +15,6 @@
 #include "types__x11_events.h"
 #include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
 
 int	mouse_hook(int x, int y, t_engine *this)
 {
@@ -23,7 +22,6 @@ int	mouse_hook(int x, int y, t_engine *this)
 	this->inputhandler.mouse_motion_size++;
 	platform_mouse_get_pos(
 		this->renderer.mlx, this->renderer.window, &this->inputhandler.x, &y);
-	printf("mouse x: %d\n", this->inputhandler.x);
 	return (0);
 }
 
@@ -55,4 +53,5 @@ void	engine__init(t_engine *this, t_world *world)
 	renderer__init(&this->renderer, world);
 	this->inputhandler = inputhandler__init();
 	engine__init__input(this);
+	this->frame = 0;
 }

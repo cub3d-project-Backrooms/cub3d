@@ -47,7 +47,8 @@ t_spritedata	spritedata__init(const t_sprites sprites, t_camera* camera, int i)
 	return s;
 }
 
-void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
+void	renderer__raycast__sprite(
+	t_renderer* this, t_camera* camera, int i, bool other_frame)
 {
 	const t_sprites		sprites = this->world.sprites;
 	const t_spritedata	s = spritedata__init(sprites, camera, i);
@@ -66,7 +67,7 @@ void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
         {
           int d = y * 256 - HEIGHT * 128 + s.size.height * 128;  // 256 and 128 factors to avoid floats
           int texy = ((d * TEX__HEIGHT) / s.size.height) / 256;
-          int color = this->world.texture[TEX__SPRITE0][TEX__WIDTH * texy + texx];  // get current color from the texture
+          int color = this->world.texture[TEX__SPRITE0 + other_frame][TEX__WIDTH * texy + texx];  // get current color from the texture
           if ((color & 0xFFFFFF) != 0)
             this->buf[y][stripe] = distance_shade(color, sprites[i].distance / 5);
 			// paint pixel if it isn't black,
@@ -74,4 +75,19 @@ void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
         }
     }
 	// renderer__draw__sprite_texture(this, camera, i);
+}
+
+void	renderer__draw__sprites(
+	t_renderer* this, t_camera* camera, bool other_frame) {
+	int			i;
+	t_sprites	sprites;
+
+	sprites = this->world.sprites;
+	i = -1;
+	while (++i < this->world.num_sprites)
+	{
+		const t_vec delta = vec__sub(&sprites[i].pos, &camera->pos);
+		sprites[i].distance = delta.x * delta.x + delta.y * delta.y;
+		renderer__raycast__sprite(this, camera, i, other_frame);
+	}
 }

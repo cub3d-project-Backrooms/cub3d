@@ -18,6 +18,11 @@
 
 //@func
 /*
+** < animation.c > */
+
+bool			engine__is_other_frame(t_engine *this);
+void			engine__change_frames(t_engine *this);
+/*
 ** < collision.c > */
 
 t_mapfmt		get_tile_type(t_world *world, const t_ivec *pos);
