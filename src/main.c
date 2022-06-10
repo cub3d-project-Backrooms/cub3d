@@ -13,7 +13,7 @@
 #include "engine.h"
 #include "renderer.h"
 #include "parser.h"
-
+#include <stdio.h> // FIXME: remove
 int	main(int argc, t_const_string argv[])
 {
 	t_parser	parser;

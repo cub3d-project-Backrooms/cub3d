@@ -17,12 +17,12 @@ endif
 
 .PHONY: all bonus clean fclean re
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-
 $(NAME): $(OBJ) $(DEPENDENCIES)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
+	$(CC) $(CFLAGS) $^ $(LIB) -o $@
 	@echo 🚪 compiled $@ for $(ENV_STR)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 

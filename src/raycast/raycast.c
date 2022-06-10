@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "engine.h"
+#include "raycast.h"
 #include "renderer.h"
-#include <stdio.h>
+#include "std__math.h"
 
 void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 {
@@ -47,6 +48,7 @@ void	renderer__raycast__wall(
 		walldata__raycast__set_dda_vector(&walldata, camera, v.x, &this->world);
 		walldata__draw__set_wall_data(&walldata, camera);
 		walldata__draw__set_texture_data(&walldata);
+		this->zbuffer[v.x] = walldata.perp_wall_dist;
 		v.y = walldata.draw_start - 1;
 		while (++v.y < walldata.draw_end)
 			this->buf[v.y][v.x] = renderer__draw__wall_texture(this, &walldata);

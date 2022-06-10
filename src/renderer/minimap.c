@@ -40,13 +40,11 @@ static void	renderer__draw_minimap_color(
 void	renderer__draw_minimap_at(
 	t_renderer *this, t_ivec player_pos, t_irange x_range, t_irange y_range)
 {
-	t_ivec		it;
-	t_ivec		pos_map;
-	t_irange	map_range_x;
-	t_irange	map_range_y;
+	t_ivec			it;
+	t_ivec			pos_map;
+	const t_irange	map_range_x = (t_irange){0, this->world.world_width};
+	const t_irange	map_range_y = (t_irange){0, this->world.world_height};
 
-	map_range_x = (t_irange){0, this->world.world_width};
-	map_range_y = (t_irange){0, this->world.world_height};
 	it = (t_ivec){x_range.start - 1, y_range.start - 1};
 	while (++it.y < y_range.end)
 	{

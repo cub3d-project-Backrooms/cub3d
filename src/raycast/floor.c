@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "raycast.h"
 #include "renderer.h"
 
 void	floordata__raycast__set_raydir_vector(

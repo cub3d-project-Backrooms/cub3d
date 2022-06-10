@@ -6,7 +6,7 @@
         "${workspaceRoot}/lib/libscarf/include",
         "${workspaceRoot}/lib/mlx_linux",
         "${workspaceRoot}/include",
-        "${workspaceRoot}/include/linux",
+        "${workspaceRoot}/include/Linux",
         "${default}"
       ],
       "defines": [],
@@ -19,7 +19,7 @@
         "${workspaceRoot}/lib/libscarf/include",
         "${workspaceRoot}/lib/mlx_mac",
         "${workspaceRoot}/include",
-        "${workspaceRoot}/include/linux",
+        "${workspaceRoot}/include/Darwin",
         "${default}"
       ],
       "defines": [],

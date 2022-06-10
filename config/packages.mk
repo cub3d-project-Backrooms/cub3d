@@ -11,14 +11,16 @@
 # **************************************************************************** #
 
 # @Packages
-PKGS = renderer engine parser
+PKGS = renderer raycast engine parser
 
-rendererV = raycast_tool raycast_floor raycast_texture \
-			camera image init minimap draw\
-			raycast load_tex raycast_wall deinit dda__dist dda__step
-engineV = init keyinput movement movement2 run collision door
-parserV = map check__parser check__cubid parser check__cubfile cubid\
-		map__raw fluidfill check__map__index rgb check__map check__map2
+rendererV = camera image init minimap draw sprite load_tex deinit util\
+			dda__dist dda__step
+raycastV = floor wall raycast texture
+engineV = animation door collision init keyinput movement movement_impl\
+		run
+parserV = map check__parser check__map__format check__cubid parser\
+		check__cubfile cubid map__raw fluidfill check__map__index\
+		sprite rgb check__map world
 
 # Macro
 SRC_DIR = src/
@@ -27,7 +29,7 @@ define choose_modules
 		$(foreach file, $($(pkg)V),\
 			$(SRC_DIR)$(pkg)/$(file).c\
 		)\
-	) $(SRC_DIR)/main.c
+	) $(SRC_DIR)/main.c include/$(UNAME)/platform__hook.c
 endef
 
 # Sources & Objects

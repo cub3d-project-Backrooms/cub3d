@@ -22,7 +22,7 @@ AR       := ar -rcs
 PKGS = error math string system
 
 errorV = panic panic__index panic__value
-mathV = check_char check_num math vector vector_mul vector_util
+mathV = check_char check_num math vector vector_add vector_mul vector_util
 stringV = alloc append cmp convert dealloc find find_of index len move\
 		slice split strip util
 systemV = alloc mem read read__file write

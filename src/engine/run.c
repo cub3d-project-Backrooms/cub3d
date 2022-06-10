@@ -14,9 +14,8 @@
 #include "engine.h"
 #include "mlx.h"
 #include "renderer.h"
+#include "raycast.h"
 #include "std__math.h"
-#include <stdio.h>
-#include <time.h>
 
 void	engine__refresh(t_engine *this)
 {
@@ -24,6 +23,7 @@ void	engine__refresh(t_engine *this)
 
 	renderer = &this->renderer;
 	renderer__raycast(renderer, &this->camera);
+	renderer__draw__sprites(renderer, &this->camera, this->frame);
 	if (BONUS)
 		renderer__draw_minimap(renderer, &this->camera);
 	renderer__draw_to_window(renderer);
@@ -50,11 +50,12 @@ int	engine__loop(t_engine *this)
 	else if (inputhandler__is_action(&this->inputhandler))
 	{
 		engine__handle_door(this);
-		engine__refresh(this);
 		engine__set_movespeed(this);
 		engine__move_player(this);
 	}
+	engine__change_frames(this);
 	this->inputhandler.mouse_motion_size *= 0.9;
+	engine__refresh(this);
 	return (0);
 }
 

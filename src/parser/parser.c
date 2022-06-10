@@ -19,7 +19,7 @@
 
 void	parser__init(t_parser *this, t_const_string file)
 {
-	int			i;
+	int	i;
 
 	i = -1;
 	while (++i < 6)

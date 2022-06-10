@@ -49,6 +49,14 @@ typedef struct s_camera
 	t_vec				plane;
 }	t_camera;
 
+typedef struct s_sprite
+{
+	t_vec	pos;
+	double	distance;
+}	t_sprite;
+
+typedef t_sprite*	t_sprites;
+
 typedef struct s_world
 {
 	int			world_width;
@@ -60,6 +68,8 @@ typedef struct s_world
 	[TEX__AMOUNT + TEX__AMOUNT_BONUS][TEX__WIDTH * TEX__HEIGHT];
 	t_camera	camera;
 	bool		has_player;
+	int			num_sprites;
+	t_sprites	sprites;
 }	t_world;
 
 typedef struct s_image
@@ -78,6 +88,7 @@ typedef enum e_config
 	WIDTH = 640,
 	HEIGHT = 480,
 	MINIMAP_PIX = 4,
+	NUM_FRAMES = 240
 }	t_config;
 
 typedef enum e_sign
@@ -100,6 +111,7 @@ typedef struct s_renderer
 	t_mlx__window_ref	window;
 	t_image				buffer_window;
 	int					buf[HEIGHT][WIDTH];
+	double				zbuffer[WIDTH];
 }	t_renderer;
 
 typedef struct s_pair
@@ -137,5 +149,16 @@ typedef struct s_walldata
 	double		step_val;
 	double		tex_pos;
 }	t_walldata;
+
+typedef struct s_spritedata
+{
+	t_vec		d;
+	double		inverse_determinant;
+	t_vec		transform;
+	int			screen_x;
+	t_sizevec	size;
+	t_irange	x_range;
+	t_irange	y_range;
+}	t_spritedata;
 
 #endif
