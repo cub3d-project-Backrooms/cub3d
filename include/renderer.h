@@ -93,7 +93,8 @@ void			renderer__draw__sprites(t_renderer* this, t_camera* camera,
 /*
 ** < util.c > */
 
-t_rgb			shade_color(int color, double divide);
+t_rgb			shade_color(t_rgb color, double divide);
 t_rgb			distance_shade(int color, double distance);
+t_rgb			make_colorful(t_rgb color, int by);
 void			floordata__draw__lights(t_floordata *this);
 #endif  // __RENDERER_H__

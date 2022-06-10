@@ -12,7 +12,7 @@
 
 #include "renderer.h"
 
-t_rgb	shade_color(int color, double divide)
+t_rgb	shade_color(t_rgb color, double divide)
 {
 	if (divide <= 1.)
 		return (color);
@@ -24,6 +24,15 @@ t_rgb	shade_color(int color, double divide)
 t_rgb	distance_shade(int color, double distance)
 {
 	return (shade_color(color, distance / 1.5));
+}
+
+t_rgb	make_colorful(t_rgb color, int by)
+{
+	if (by == 0)
+		return (color);
+	return (((int)(((0xFF0000 & color) >> 16) + by) << 16)
+		+ ((int)(((0x00FF00 & color) >> 8) + by) << 8)
+		+ ((int)((0x0000FF & color) + by)));
 }
 
 void	floordata__draw__lights(t_floordata *this)

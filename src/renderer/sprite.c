@@ -47,6 +47,8 @@ t_spritedata	spritedata__init(const t_sprites sprites, t_camera* camera, int i)
 	return s;
 }
 
+
+
 void	renderer__raycast__sprite(
 	t_renderer* this, t_camera* camera, int i, int frame)
 {
@@ -69,7 +71,7 @@ void	renderer__raycast__sprite(
           int texy = ((d * TEX__HEIGHT) / s.size.height) / 256;
           int color = this->world.texture[TEX__SPRITE0 + is_other_frame(frame)][TEX__WIDTH * texy + texx];  // get current color from the texture
           if ((color & 0xFFFFFF) != 0)
-            this->buf[y][stripe] = distance_shade(color, sprites[i].distance / 4);
+            this->buf[y][stripe] = make_colorful(distance_shade(color, sprites[i].distance / 4), frame);
 			// paint pixel if it isn't black,
             // black is the invisible color
         }
