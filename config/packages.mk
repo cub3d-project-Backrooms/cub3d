@@ -11,14 +11,15 @@
 # **************************************************************************** #
 
 # @Packages
-PKGS = renderer engine parser
+PKGS = engine parser renderer
 
-rendererV = raycast_tool raycast_floor raycast_texture \
-			camera image init minimap draw\
-			raycast load_tex raycast_wall deinit dda__dist dda__step
-engineV = init keyinput movement movement2 run collision door
-parserV = map check__parser check__cubid parser check__cubfile cubid\
-		map__raw fluidfill check__map__index rgb check__map check__map2
+engineV = collision door init keyinput movement movement2 run
+parserV = check__cubfile check__cubid check__map check__map2\
+		check__map__index check__parser cubid fluidfill map map__raw\
+		parser rgb
+rendererV = camera dda__dist dda__step deinit draw image init load_tex\
+			minimap raycast raycast_floor raycast_texture raycast_tool\
+			raycast_wall
 
 # Macro
 SRC_DIR = src/
