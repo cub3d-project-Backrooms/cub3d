@@ -105,29 +105,18 @@ void sortSprites(int* order, double* dist, int amount) {
 }
 
 void	renderer__raycast__sprite(
-	t_renderer* this, t_camera* camera, double zbuffer[WIDTH]) {
-  // SPRITE CASTING
-  // sort sprites from far to close
-  for (int i = 0; i < numSprites; i++) {
-    spriteOrder[i] = i;
-    spriteDistance[i] =
-        ((camera->pos.x - sprites[i].x) * (camera->pos.x - sprites[i].x) +
-         (camera->pos.y - sprites[i].y) * (camera->pos.y - sprites[i].y));  // sqrt not taken, unneeded
-  }
-  sortSprites(spriteOrder, spriteDistance, numSprites);
-  // after sorting the sprites, do the projection and draw them
-  for (int i = 0; i < numSprites; i++) {
-    // translate sprites position to relative to camera
+	t_renderer* this, t_camera* camera, double zbuffer[WIDTH], int i) {
+// translate sprites position to relative to camera
     double spritex = sprites[spriteOrder[i]].x - camera->pos.x;
     double spritey = sprites[spriteOrder[i]].y - camera->pos.y;
 
-    double invDet = 1.0 / (camera->plane.x * camera->dir.y -
+    double inverse_determinant = 1.0 / (camera->plane.x * camera->dir.y -
                            camera->dir.x * camera->plane.y);
 
     double transformx =
-        invDet * (camera->dir.y * spritex - camera->dir.x * spritey);
+        inverse_determinant * (camera->dir.y * spritex - camera->dir.x * spritey);
     double transformy =
-        invDet * (-camera->plane.y * spritex + camera->plane.x * spritey);
+        inverse_determinant * (-camera->plane.y * spritex + camera->plane.x * spritey);
 		// this is actually the depth inside the screen, that
         // what Z is in 3D, the distance of sprites to player,
         // matching sqrt(spriteDistance[i])
@@ -162,12 +151,28 @@ void	renderer__raycast__sprite(
           int texy = ((d * TEX__HEIGHT) / spriteHeight) / 256;
           int color = this->world.texture[TEX__SPRITE0][TEX__WIDTH * texy + texx];  // get current color from the texture
           if ((color & 0xFFFFFF) != 0)
-            this->buf[y][stripe] = distance_shade(color, spriteDistance[i]);
+            this->buf[y][stripe] = distance_shade(color, spriteDistance[i] / 5);
 			// paint pixel if it isn't black,
             // black is the invisible color
         }
     }
-  }
+}
+
+void	renderer__raycast__sprites(
+	t_renderer* this, t_camera* camera, double zbuffer[WIDTH]) {
+	// SPRITE CASTING
+	// sort sprites from far to close
+	for (int i = 0; i < numSprites; i++) {
+	  spriteOrder[i] = i;
+	  spriteDistance[i] =
+	      ((camera->pos.x - sprites[i].x) * (camera->pos.x - sprites[i].x) +
+	       (camera->pos.y - sprites[i].y) * (camera->pos.y - sprites[i].y));  // sqrt not taken, unneeded
+	}
+	sortSprites(spriteOrder, spriteDistance, numSprites);
+	// after sorting the sprites, do the projection and draw them
+	for (int i = 0; i < numSprites; i++) {
+		renderer__raycast__sprite(this, camera, zbuffer, i);
+	}
 }
 
 void	renderer__raycast(t_renderer *this, t_camera *camera)
@@ -176,5 +181,5 @@ void	renderer__raycast(t_renderer *this, t_camera *camera)
 
 	renderer__raycast__floor(this, camera);
 	renderer__raycast__wall(this, camera, zbuffer);
-	renderer__raycast__sprite(this, camera, zbuffer);
+	renderer__raycast__sprites(this, camera, zbuffer);
 }

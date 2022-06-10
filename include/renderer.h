@@ -83,6 +83,8 @@ void		renderer__raycast__wall(t_renderer *this, t_camera *camera,
 void		sort_order(t_pair* orders, int amount);
 void		sortSprites(int* order, double* dist, int amount);
 void		renderer__raycast__sprite(t_renderer* this, t_camera* camera,
+				double zbuffer[WIDTH], int i);
+void		renderer__raycast__sprites(t_renderer* this, t_camera* camera,
 				double zbuffer[WIDTH]);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
 /*
