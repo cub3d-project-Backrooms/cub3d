@@ -12,7 +12,6 @@
 
 #ifndef PARSER_H
 # define PARSER_H
-
 # include "types__parser.h"
 # include "types__renderer.h"
 # include "std__types__math.h"
@@ -37,6 +36,9 @@ bool			mapformat__is_valid_bonus(t_mapfmt this);
 bool			mapformat__is_valid_fluidfill(t_mapfmt this);
 void			mapformat__assert_valid(t_mapfmt this,
 					t_mapformat__validator_f func);
+/*
+** < check__map2.c > */
+
 void			raw_map_arr__check_valid(t_string_arr this);
 /*
 ** < check__map__index.c > */

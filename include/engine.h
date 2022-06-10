@@ -51,6 +51,9 @@ void			engine__try_move_player_straight(t_engine *e, t_sign dir);
 void			engine__try_strafe_player(t_engine *e, t_sign dir);
 void			engine__rotate_player(t_engine *e, double angle);
 t_mousemotion	is_mouse_motion(const t_inputhandler *this);
+/*
+** < movement2.c > */
+
 void			engine__move_player(t_engine *e);
 /*
 ** < run.c > */

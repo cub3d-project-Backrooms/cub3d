@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types__engine.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/06/10 10:46:54 by tkim             ###   ########.fr       */
+/*   Updated: 2022/06/10 13:35:13 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_inputhandler
 	bool	is_exit;
 	bool	is_shift_pressed;
 	bool	is_toggle_door;
-	int x;
-	float mouse_motion_size;
+	int		x;
+	float	mouse_motion_size;
 }	t_inputhandler;
 
 typedef struct s_engine
@@ -39,6 +39,11 @@ typedef struct s_engine
 	double			rotspeed;
 }	t_engine;
 
-typedef enum s_mousemotion { MOUSEMOTION_LEFT = -1 , MOUSEMOTION_NONE = 0, MOUSEMOTION_RIGHT = 1 } t_mousemotion;
+typedef enum s_mousemotion
+{
+	MOUSEMOTION_LEFT = -1,
+	MOUSEMOTION_NONE = 0,
+	MOUSEMOTION_RIGHT = 1
+}	t_mousemotion;
 
 #endif
