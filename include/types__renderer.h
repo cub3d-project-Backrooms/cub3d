@@ -52,7 +52,6 @@ typedef struct s_camera
 typedef struct s_sprite
 {
 	t_vec	pos;
-	int		order;
 	double	distance;
 }	t_sprite;
 

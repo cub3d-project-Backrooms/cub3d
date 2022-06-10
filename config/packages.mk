@@ -17,7 +17,7 @@ engineV = collision door init keyinput movement movement_impl run
 parserV = check__cubfile check__cubid check__map check__map__format\
 		check__map__index check__parser cubid fluidfill map map__raw\
 		parser rgb sprite world
-raycastV = floor raycast texture wall
+raycastV = floor raycast sprite texture wall
 rendererV = camera dda__dist dda__step deinit draw image init load_tex\
 			minimap util
 

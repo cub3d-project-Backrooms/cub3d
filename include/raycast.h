@@ -22,11 +22,14 @@ void		renderer__draw__floor(t_renderer *this, t_floordata *vecs,
 void		renderer__raycast__floor(t_renderer *this, t_camera *camera);
 void		renderer__raycast__wall(t_renderer *this, t_camera *camera,
 				double zbuffer[WIDTH]);
-void		renderer__raycast__sprite(t_renderer* this, t_camera* camera,
-				double zbuffer[WIDTH], int i);
 void		renderer__raycast__sprites(t_renderer* this, t_camera* camera,
 				double zbuffer[WIDTH]);
 void		renderer__raycast(t_renderer *this, t_camera *camera);
+/*
+** < sprite.c > */
+
+void		renderer__raycast__sprite(t_renderer* this, t_camera* camera,
+				double zbuffer[WIDTH], int i);
 /*
 ** < texture.c > */
 

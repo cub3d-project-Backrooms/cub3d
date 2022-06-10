@@ -7,7 +7,6 @@ static void	world__init__sprite(t_world *this, t_i64vec *pos, int index)
 {
 	const	t_sprite sprite = {
 		.pos = (t_vec){pos->x + 0.5, pos->y + 0.5},
-		.order = UNSET,
 		.distance = UNSET
 	};
 
