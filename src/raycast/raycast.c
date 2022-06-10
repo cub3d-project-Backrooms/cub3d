@@ -13,6 +13,7 @@
 #include "engine.h"
 #include "raycast.h"
 #include "renderer.h"
+#include "std__math.h"
 
 void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 {
@@ -59,17 +60,9 @@ void	renderer__raycast__sprites(
 	t_sprites	sprites;
 
 	sprites = this->world.sprites;
-	// SPRITE CASTING
-	// sort sprites from far to close
 	for (int i = 0; i < this->world.num_sprites; i++) {
-	//   spriteOrder[i] = i;
-	  sprites[i].distance =
-	      ((camera->pos.x - sprites[i].pos.x) * (camera->pos.x - sprites[i].pos.x) +
-	       (camera->pos.y - sprites[i].pos.y) * (camera->pos.y - sprites[i].pos.y));  // sqrt not taken, unneeded
-	}
-	// sortSprites(spriteOrder, spriteDistance, numSprites);
-	// after sorting the sprites, do the projection and draw them
-	for (int i = 0; i < this->world.num_sprites; i++) {
+		const t_vec delta = vec__sub(&sprites[i].pos, &camera->pos);
+		sprites[i].distance = delta.x * delta.x + delta.y * delta.y;
 		renderer__raycast__sprite(this, camera, i);
 	}
 }

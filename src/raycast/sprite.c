@@ -3,6 +3,12 @@
 #include "renderer.h"
 #include "std__math.h"
 
+// void	renderer__draw__sprite_texture(
+// 	t_renderer *this, t_camera* camera, int i)
+// {
+
+// }
+
 void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
 {
 	const t_sprites	sprites = this->world.sprites;
@@ -25,7 +31,7 @@ void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
 	const int drawStarty = math__max(0, -spriteHeight / 2 + HEIGHT / 2);
 	int drawEndy = math__min(HEIGHT - 1, spriteHeight / 2 + HEIGHT / 2);
 
-    // calculate width of the sprites
+	// calculate width of the sprites
     int spriteWidth = (int)fabs((HEIGHT / transform.y));
     int drawStartx = math__max(0, -spriteWidth / 2 + spriteScreenx);
     int drawEndx = math__min(WIDTH - 1, spriteWidth / 2 + spriteScreenx);
@@ -49,4 +55,5 @@ void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
             // black is the invisible color
         }
     }
+	// renderer__draw__sprite_texture(this, camera, i);
 }
