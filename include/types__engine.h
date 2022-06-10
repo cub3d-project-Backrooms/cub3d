@@ -6,7 +6,7 @@
 /*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/06/10 01:51:12 by tkim             ###   ########.fr       */
+/*   Updated: 2022/06/10 10:46:54 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_inputhandler
 	bool	is_shift_pressed;
 	bool	is_toggle_door;
 	int x;
-	int delay_x;
+	float mouse_motion_size;
 }	t_inputhandler;
 
 typedef struct s_engine
@@ -38,5 +38,7 @@ typedef struct s_engine
 	double			movespeed;
 	double			rotspeed;
 }	t_engine;
+
+typedef enum s_mousemotion { MOUSEMOTION_LEFT = -1 , MOUSEMOTION_NONE = 0, MOUSEMOTION_RIGHT = 1 } t_mousemotion;
 
 #endif
