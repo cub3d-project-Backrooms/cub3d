@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "renderer.h"
+#include "raycast.h"
 
 void	floordata__raycast__set_raydir_vector(
 	t_floordata *this, t_camera *camera)

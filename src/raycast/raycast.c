@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "engine.h"
-#include "renderer.h"
-#include <stdio.h>
+#include "raycast.h"
 
 void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 {

@@ -14,9 +14,8 @@
 #include "engine.h"
 #include "mlx.h"
 #include "renderer.h"
+#include "raycast.h"
 #include "std__math.h"
-#include <stdio.h>
-#include <time.h>
 
 void	engine__refresh(t_engine *this)
 {
