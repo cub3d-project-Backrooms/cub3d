@@ -12,6 +12,7 @@
 
 #include "engine.h"
 #include "raycast.h"
+#include "renderer.h"
 
 void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 {

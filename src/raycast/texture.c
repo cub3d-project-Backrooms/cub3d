@@ -12,6 +12,7 @@
 
 #include "engine.h"
 #include "raycast.h"
+#include "renderer.h"
 
 t_texdata	walldata__get_texdata(t_walldata *data, t_mapfmt tile_type)
 {

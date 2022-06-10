@@ -18,7 +18,7 @@ endif
 .PHONY: all bonus clean fclean re
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(DEPENDENCIES)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@

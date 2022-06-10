@@ -60,6 +60,10 @@ typedef struct s_world
 	[TEX__AMOUNT + TEX__AMOUNT_BONUS][TEX__WIDTH * TEX__HEIGHT];
 	t_camera	camera;
 	bool		has_player;
+	int			num_sprites;
+	t_vec		*sprites;
+	int			*sprite_orders;
+	int			*sprite_distances;
 }	t_world;
 
 typedef struct s_image

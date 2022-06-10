@@ -30,16 +30,16 @@ bool			cubid__is_texture(t_cubid id);
 /*
 ** < check__map.c > */
 
+void			raw_map_arr__check_valid(t_string_arr this);
+/*
+** < check__map__format.c > */
+
 bool			mapformat__is_player(t_mapfmt this);
 bool			mapformat__is_valid(t_mapfmt this);
 bool			mapformat__is_valid_bonus(t_mapfmt this);
 bool			mapformat__is_valid_fluidfill(t_mapfmt this);
 void			mapformat__assert_valid(t_mapfmt this,
 					t_mapformat__validator_f func);
-/*
-** < check__map2.c > */
-
-void			raw_map_arr__check_valid(t_string_arr this);
 /*
 ** < check__map__index.c > */
 
@@ -84,4 +84,9 @@ void			parser__parse(t_parser *this, t_world *world);
 void			rgb__print(t_rgb rgb);
 t_rgb			rgb__from_arr(int raw_rgb[3]);
 t_rgb			rgb__from_string(t_const_string str, t_const_string delim);
+/*
+** < world.c > */
+
+void			world__init(t_world *this, t_string_arr raw_map,
+					t_sizevec map_size);
 #endif
