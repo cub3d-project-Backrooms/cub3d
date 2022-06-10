@@ -149,4 +149,15 @@ typedef struct s_walldata
 	double		tex_pos;
 }	t_walldata;
 
+typedef struct s_spritedata
+{
+	t_vec		d;
+	double		inverse_determinant;
+	t_vec		transform;
+	int			screen_x;
+	t_sizevec	size;
+	t_irange	x_range;
+	t_irange	y_range;
+}	t_spritedata;
+
 #endif

@@ -55,12 +55,14 @@ void	renderer__raycast__wall(
 	}
 }
 
-void	renderer__raycast__sprites(
-	t_renderer* this, t_camera* camera) {
+void	renderer__raycast__sprites(t_renderer* this, t_camera* camera) {
+	int			i;
 	t_sprites	sprites;
 
 	sprites = this->world.sprites;
-	for (int i = 0; i < this->world.num_sprites; i++) {
+	i = -1;
+	while (++i < this->world.num_sprites)
+	{
 		const t_vec delta = vec__sub(&sprites[i].pos, &camera->pos);
 		sprites[i].distance = delta.x * delta.x + delta.y * delta.y;
 		renderer__raycast__sprite(this, camera, i);
