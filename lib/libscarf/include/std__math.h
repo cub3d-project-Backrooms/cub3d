@@ -36,9 +36,9 @@ bool	math__in_range(int num, t_irange range);
 
 int		math__max(int a, int b);
 int		math__min(int a, int b);
-int		math__clamp(int n, t_irange range);
+int		math__clamp(int n, const t_irange range);
 int		math__digit_len(int num);
-int		math__normalize(int num, t_irange from, t_irange to);
+int		math__normalize(int num, const t_irange from, const t_irange to);
 /*
 ** < vector.c > */
 
