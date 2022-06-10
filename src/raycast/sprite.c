@@ -9,11 +9,10 @@
 
 // }
 
-void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
+t_spritedata	spritedata__init(const t_sprites sprites, t_camera* camera, int i)
 {
-	const t_sprites	sprites = this->world.sprites;
+	t_spritedata 		s;
 
-    t_spritedata 	s;
 	s.d = vec__sub(&sprites[i].pos, &camera->pos);
 	s.inverse_determinant
 		= 1.0 / (camera->plane.x * camera->dir.y - camera->dir.x * camera->plane.y);
@@ -44,6 +43,14 @@ void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
 		math__max(0,  HEIGHT / 2 - s.size.height / 2),
 		math__min(HEIGHT - 1, HEIGHT / 2 + s.size.height / 2)
 	};
+
+	return s;
+}
+
+void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
+{
+	const t_sprites		sprites = this->world.sprites;
+	const t_spritedata	s = spritedata__init(sprites, camera, i);
 
     // loop through every vertical stripe of the sprites on screen
     for (int stripe = s.x_range.start; stripe < s.x_range.end; stripe++) {
