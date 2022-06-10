@@ -14,6 +14,14 @@
 #include "parser.h"
 #include "flags.h"
 
+void	mapformat__assert_valid(
+	t_mapfmt this, t_mapformat__validator_f func)
+{
+	if (!(func(this)))
+		std__panic__value__char(
+			"raw_map_arr__check_valid: invalid tile", this);
+}
+
 void	raw_map_arr__check_valid(t_string_arr this)
 {
 	t_ivec						it;

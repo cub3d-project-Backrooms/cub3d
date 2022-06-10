@@ -49,6 +49,15 @@ typedef struct s_camera
 	t_vec				plane;
 }	t_camera;
 
+typedef struct s_sprite
+{
+	t_vec	pos;
+	int		order;
+	double	distance;
+}	t_sprite;
+
+typedef t_sprite*	t_sprites;
+
 typedef struct s_world
 {
 	int			world_width;
@@ -61,9 +70,7 @@ typedef struct s_world
 	t_camera	camera;
 	bool		has_player;
 	int			num_sprites;
-	t_vec		*sprites;
-	int			*sprite_orders;
-	int			*sprite_distances;
+	t_sprites	sprites;
 }	t_world;
 
 typedef struct s_image

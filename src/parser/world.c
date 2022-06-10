@@ -8,11 +8,12 @@
  *
  * 0.5 is added to x && y to avoid 'ghosting' thru walls.
  */
-static void	world__init__player(
-	t_world *this, t_string_arr raw_map, t_i64vec it)
+static void	world__init__player(t_world *this, t_i64vec it)
 {
-	const t_mapfmt	fmt = raw_map[it.y][it.x];
+	const t_mapfmt	fmt = this->worldmap[it.y][it.x];
 
+	if (!mapformat__is_player(fmt))
+		return ;
 	if (this->has_player)
 		std__panic("duplicate player position");
 	this->has_player = true;
@@ -23,6 +24,14 @@ static void	world__init__player(
 		camera__rotate(&this->camera, -STD__PI / 2);
 	else if (fmt == MAPFMT__EAST)
 		camera__rotate(&this->camera, STD__PI / 2);
+}
+
+static void	world__count_sprites(t_world *this, t_i64vec it)
+{
+	const t_mapfmt	fmt = this->worldmap[it.y][it.x];
+
+	if (fmt == MAPFMT__SPRITE)
+		this->num_sprites++;
 }
 
 static t_camera	camera__init(void)
@@ -44,17 +53,18 @@ void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 	this->camera = camera__init();
 	this->world_height = map_size.height;
 	this->world_width = map_size.width;
+	this->num_sprites = 0;
 	this->worldmap = std__allocate(map_size.height, sizeof(t_mapfmt *));
 	it.y = -1;
 	while (++it.y < map_size.height)
 	{
-		it.x = -1;
 		this->worldmap[it.y] = std__allocate(map_size.width, sizeof(t_mapfmt));
+		it.x = -1;
 		while (++it.x < map_size.width)
 		{
 			this->worldmap[it.y][it.x] = raw_map[it.y][it.x];
-			if (mapformat__is_player(this->worldmap[it.y][it.x]))
-				world__init__player(this, raw_map, it);
+			world__init__player(this, it);
+			world__count_sprites(this, it);
 		}
 	}
 	if (!this->has_player)

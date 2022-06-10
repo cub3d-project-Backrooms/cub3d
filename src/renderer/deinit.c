@@ -22,8 +22,6 @@ void	world__deinit(t_world *this)
 		free(this->worldmap[i]);
 	free(this->worldmap);
 	// free(this->sprites);
-	// free(this->sprite_orders);
-	// free(this->sprite_distances);
 }
 
 void	renderer__deinit(t_renderer *this)

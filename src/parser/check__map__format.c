@@ -41,11 +41,3 @@ bool	mapformat__is_valid_fluidfill(t_mapfmt this)
 			|| this == MAPFMT__EMPTY
 			|| this == MAPFMT__FILL));
 }
-
-void	mapformat__assert_valid(
-	t_mapfmt this, t_mapformat__validator_f func)
-{
-	if (!(func(this)))
-		std__panic__value__char(
-			"raw_map_arr__check_valid: invalid tile", this);
-}

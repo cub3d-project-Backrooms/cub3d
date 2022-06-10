@@ -13,7 +13,7 @@
 #include "engine.h"
 #include "renderer.h"
 #include "parser.h"
-
+#include <stdio.h> // FIXME: remove
 int	main(int argc, t_const_string argv[])
 {
 	t_parser	parser;
@@ -25,6 +25,7 @@ int	main(int argc, t_const_string argv[])
 	parser__init(&parser, argv[1]);
 	parser__parse(&parser, &world);
 	engine__init(&engine, &world);
+	printf("sprites: %d\n", world.num_sprites);
 	engine__run(&engine);
 	return (0);
 }
