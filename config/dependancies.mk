@@ -17,7 +17,7 @@ ifeq ($(UNAME), Darwin)
 	MLX_DIR   := lib/mlx_mac
 	LIBMLX    := $(MLX_DIR)/libmlx.dylib
 	LIB       += -L. -lmlx -framework Metal -framework MetalKit
-	CFLAGS    += -I include/mac/
+	SRC       += include/mac/platform__hook.c
 else ifeq ($(UNAME), Linux)
 	ENV_STR   := 🐧
 	MLX_DIR   := lib/mlx_linux
@@ -27,7 +27,7 @@ else ifeq ($(UNAME), Linux)
 else
 	$(error "Cannot support $(UNAME)!")
 endif
-CFLAGS += -I $(MLX_DIR)
+CFLAGS += -I $(MLX_DIR) -I include/$(UNAME)/
 
 # Libft
 LIBFT_DIR := lib/libscarf

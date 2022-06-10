@@ -21,6 +21,13 @@
 # include <stdbool.h>
 
 // clang-format off
+
+// wrapper for all platforms
+void		platform_mouse_get_pos(
+				t_mlx__ref mlx, t_mlx__window_ref window, int *x, int *y);
+void		platform_mouse_move(
+				t_mlx__ref mlx, t_mlx__window_ref window, int x, int y);
+
 //@func
 /*
 ** < camera.c > */

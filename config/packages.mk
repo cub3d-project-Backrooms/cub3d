@@ -28,9 +28,10 @@ define choose_modules
 		$(foreach file, $($(pkg)V),\
 			$(SRC_DIR)$(pkg)/$(file).c\
 		)\
-	) $(SRC_DIR)/main.c
+	) $(SRC_DIR)/main.c include/$(UNAME)/platform__hook.c
 endef
 
 # Sources & Objects
 SRC = $(call choose_modules, $(PKGS))
 OBJ = $(SRC:%.c=%.o)
+
