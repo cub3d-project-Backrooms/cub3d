@@ -68,4 +68,5 @@ void	world__init(t_world *this, t_string_arr raw_map, t_sizevec map_size)
 	}
 	if (!this->has_player)
 		std__panic("player not in map");
+	world__init__sprites(this);
 }

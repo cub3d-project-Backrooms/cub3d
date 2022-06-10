@@ -54,61 +54,63 @@ void	renderer__raycast__wall(
 	}
 }
 
-#define numSprites 4
-int spriteOrder[numSprites];
-double spriteDistance[numSprites];
-t_vec sprites[numSprites] = {
-	{20.5, 11.5},
-	{20.5, 10.5},
-	{10.5, 4.5},
-	{9.5, 4.5}
-};
+// #define numSprites 4
+// int spriteOrder[numSprites];
+// double spriteDistance[numSprites];
+// t_vec sprites[numSprites] = {
+// 	{20.5, 11.5},
+// 	{20.5, 10.5},
+// 	{10.5, 4.5},
+// 	{9.5, 4.5}
+// };
 
-void sort_order(t_pair* orders, int amount) {
-  t_pair tmp;
+// void sort_order(t_pair* orders, int amount) {
+//   t_pair tmp;
 
-  for (int i = 0; i < amount; i++) {
-    for (int j = 0; j < amount - 1; j++) {
-      if (orders[j].first > orders[j + 1].first) {
-        tmp.first = orders[j].first;
-        tmp.second = orders[j].second;
-        orders[j].first = orders[j + 1].first;
-        orders[j].second = orders[j + 1].second;
-        orders[j + 1].first = tmp.first;
-        orders[j + 1].second = tmp.second;
-      }
-    }
-  }
-}
+//   for (int i = 0; i < amount; i++) {
+//     for (int j = 0; j < amount - 1; j++) {
+//       if (orders[j].first > orders[j + 1].first) {
+//         tmp.first = orders[j].first;
+//         tmp.second = orders[j].second;
+//         orders[j].first = orders[j + 1].first;
+//         orders[j].second = orders[j + 1].second;
+//         orders[j + 1].first = tmp.first;
+//         orders[j + 1].second = tmp.second;
+//       }
+//     }
+//   }
+// }
 
 #include "std__math.h"
 #include <math.h>
 #include <stdlib.h>
 #include "std__system.h"
-void sortSprites(int* order, double* dist, int amount) {
-  t_pair* sprites;
+// void sortSprites(int* order, double* dist, int amount) {
+//   t_pair* sprites;
 
-  // std::vector<std::pair<double, int>> sprites(amount);
-  sprites = std__allocate(amount, sizeof(t_pair));
-  // sprites = malloc(sizeof(t_pair) * amount);
-  for (int i = 0; i < amount; i++) {
-    sprites[i].first = dist[i];
-    sprites[i].second = order[i];
-  }
-  sort_order(sprites, amount);
-  // std::sort(sprites.begin(), sprites.end());
-  for (int i = 0; i < amount; i++) {
-    dist[i] = sprites[amount - i - 1].first;
-    order[i] = sprites[amount - i - 1].second;
-  }
-  free(sprites);
-}
+//   // std::vector<std::pair<double, int>> sprites(amount);
+//   sprites = std__allocate(amount, sizeof(t_pair));
+//   // sprites = malloc(sizeof(t_pair) * amount);
+//   for (int i = 0; i < amount; i++) {
+//     sprites[i].first = dist[i];
+//     sprites[i].second = order[i];
+//   }
+//   sort_order(sprites, amount);
+//   // std::sort(sprites.begin(), sprites.end());
+//   for (int i = 0; i < amount; i++) {
+//     dist[i] = sprites[amount - i - 1].first;
+//     order[i] = sprites[amount - i - 1].second;
+//   }
+//   free(sprites);
+// }
 
 void	renderer__raycast__sprite(
 	t_renderer* this, t_camera* camera, double zbuffer[WIDTH], int i) {
 // translate sprites position to relative to camera
-    double spritex = sprites[spriteOrder[i]].x - camera->pos.x;
-    double spritey = sprites[spriteOrder[i]].y - camera->pos.y;
+	const t_sprites	sprites = this->world.sprites;
+
+    double spritex = sprites[i].pos.x - camera->pos.x;
+    double spritey = sprites[i].pos.y - camera->pos.y;
 
     double inverse_determinant = 1.0 / (camera->plane.x * camera->dir.y -
                            camera->dir.x * camera->plane.y);
@@ -135,7 +137,6 @@ void	renderer__raycast__sprite(
     int spriteWidth = (int)fabs((HEIGHT / transformy));
     int drawStartx = math__max(0, -spriteWidth / 2 + spriteScreenx);
     int drawEndx = math__min(WIDTH - 1, spriteWidth / 2 + spriteScreenx);
-
     // loop through every vertical stripe of the sprites on screen
     for (int stripe = drawStartx; stripe < drawEndx; stripe++) {
       int texx = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenx)) * TEX__WIDTH / spriteWidth) / 256);
@@ -151,7 +152,7 @@ void	renderer__raycast__sprite(
           int texy = ((d * TEX__HEIGHT) / spriteHeight) / 256;
           int color = this->world.texture[TEX__SPRITE0][TEX__WIDTH * texy + texx];  // get current color from the texture
           if ((color & 0xFFFFFF) != 0)
-            this->buf[y][stripe] = distance_shade(color, spriteDistance[i] / 5);
+            this->buf[y][stripe] = distance_shade(color, sprites[i].distance / 5);
 			// paint pixel if it isn't black,
             // black is the invisible color
         }
@@ -160,17 +161,21 @@ void	renderer__raycast__sprite(
 
 void	renderer__raycast__sprites(
 	t_renderer* this, t_camera* camera, double zbuffer[WIDTH]) {
+	t_sprites	sprites;
+	(void)zbuffer;
+
+	sprites = this->world.sprites;
 	// SPRITE CASTING
 	// sort sprites from far to close
-	for (int i = 0; i < numSprites; i++) {
-	  spriteOrder[i] = i;
-	  spriteDistance[i] =
-	      ((camera->pos.x - sprites[i].x) * (camera->pos.x - sprites[i].x) +
-	       (camera->pos.y - sprites[i].y) * (camera->pos.y - sprites[i].y));  // sqrt not taken, unneeded
+	for (int i = 0; i < this->world.num_sprites; i++) {
+	//   spriteOrder[i] = i;
+	  sprites[i].distance =
+	      ((camera->pos.x - sprites[i].pos.x) * (camera->pos.x - sprites[i].pos.x) +
+	       (camera->pos.y - sprites[i].pos.y) * (camera->pos.y - sprites[i].pos.y));  // sqrt not taken, unneeded
 	}
-	sortSprites(spriteOrder, spriteDistance, numSprites);
+	// sortSprites(spriteOrder, spriteDistance, numSprites);
 	// after sorting the sprites, do the projection and draw them
-	for (int i = 0; i < numSprites; i++) {
+	for (int i = 0; i < this->world.num_sprites; i++) {
 		renderer__raycast__sprite(this, camera, zbuffer, i);
 	}
 }
