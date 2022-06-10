@@ -68,4 +68,3 @@ void	walldata__draw__set_texture_data(t_walldata *this)
 		= (this->draw_start - HEIGHT / 2 + this->lineheight / 2)
 		* this->step_val;
 }
-

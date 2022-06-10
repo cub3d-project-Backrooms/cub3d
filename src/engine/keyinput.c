@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   keyinput.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/06/10 10:40:23 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "renderer.h"
-#include <stdlib.h>
 
 t_inputhandler	inputhandler__init(void)
 {
@@ -26,7 +25,7 @@ bool	inputhandler__is_action(t_inputhandler *this)
 	return (this->is_up_pressed || this->is_down_pressed
 		|| this->is_left_pressed || this->is_right_pressed
 		|| this->is_left_rotate_pressed || this->is_right_rotate_pressed
-		|| this->is_toggle_door);
+		|| this->is_toggle_door || is_mouse_motion(this));
 }
 
 static void	inputhandler__key_action(
