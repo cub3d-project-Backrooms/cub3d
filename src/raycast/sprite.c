@@ -3,8 +3,8 @@
 #include "renderer.h"
 #include "std__math.h"
 
-void	renderer__raycast__sprite(
-	t_renderer* this, t_camera* camera, double zbuffer[WIDTH], int i) {
+void	renderer__raycast__sprite(t_renderer* this, t_camera* camera, int i)
+{
 	const t_sprites	sprites = this->world.sprites;
 	const t_vec		pos = vec__sub(&sprites[i].pos, &camera->pos);
     const double	inverse_determinant
@@ -37,7 +37,7 @@ void	renderer__raycast__sprite(
       // 2) it's on the screen (left)
       // 3) it's on the screen (right)
       // 4) ZBuffer, with perpendicular distance
-      if (transform.y > 0 && stripe > 0 && stripe < WIDTH && transform.y < zbuffer[stripe])
+      if (transform.y > 0 && stripe > 0 && stripe < WIDTH && transform.y < this->zbuffer[stripe])
         for (int y = drawStarty; y < drawEndy; y++)  // for every pixel of the current stripe
         {
           int d = y * 256 - HEIGHT * 128 + spriteHeight * 128;  // 256 and 128 factors to avoid floats

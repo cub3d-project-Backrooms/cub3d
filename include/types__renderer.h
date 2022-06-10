@@ -110,6 +110,7 @@ typedef struct s_renderer
 	t_mlx__window_ref	window;
 	t_image				buffer_window;
 	int					buf[HEIGHT][WIDTH];
+	double				zbuffer[WIDTH];
 }	t_renderer;
 
 typedef struct s_pair

@@ -36,7 +36,7 @@ void	renderer__raycast__floor(t_renderer *this, t_camera *camera)
 }
 
 void	renderer__raycast__wall(
-	t_renderer *this, t_camera *camera, double zbuffer[WIDTH])
+	t_renderer *this, t_camera *camera)
 {
 	t_walldata	walldata;
 	t_ivec		v;
@@ -47,7 +47,7 @@ void	renderer__raycast__wall(
 		walldata__raycast__set_dda_vector(&walldata, camera, v.x, &this->world);
 		walldata__draw__set_wall_data(&walldata, camera);
 		walldata__draw__set_texture_data(&walldata);
-		zbuffer[v.x] = walldata.perp_wall_dist;
+		this->zbuffer[v.x] = walldata.perp_wall_dist;
 		v.y = walldata.draw_start - 1;
 		while (++v.y < walldata.draw_end)
 			this->buf[v.y][v.x] = renderer__draw__wall_texture(this, &walldata);
@@ -55,9 +55,8 @@ void	renderer__raycast__wall(
 }
 
 void	renderer__raycast__sprites(
-	t_renderer* this, t_camera* camera, double zbuffer[WIDTH]) {
+	t_renderer* this, t_camera* camera) {
 	t_sprites	sprites;
-	(void)zbuffer;
 
 	sprites = this->world.sprites;
 	// SPRITE CASTING
@@ -71,15 +70,13 @@ void	renderer__raycast__sprites(
 	// sortSprites(spriteOrder, spriteDistance, numSprites);
 	// after sorting the sprites, do the projection and draw them
 	for (int i = 0; i < this->world.num_sprites; i++) {
-		renderer__raycast__sprite(this, camera, zbuffer, i);
+		renderer__raycast__sprite(this, camera, i);
 	}
 }
 
 void	renderer__raycast(t_renderer *this, t_camera *camera)
 {
-	double zbuffer[WIDTH];
-
 	renderer__raycast__floor(this, camera);
-	renderer__raycast__wall(this, camera, zbuffer);
-	renderer__raycast__sprites(this, camera, zbuffer);
+	renderer__raycast__wall(this, camera);
+	renderer__raycast__sprites(this, camera);
 }
