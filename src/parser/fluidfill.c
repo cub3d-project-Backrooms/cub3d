@@ -51,10 +51,10 @@ void	fluidfill__recursive(t_string_arr this, t_ivec node)
 	};
 
 	if (node.x < 0 || node.y < 0 || !this[node.y] || !this[node.y][node.x])
-		std__panic("Invalid map");
+		std__panic("Invalid map position");
 	tile = this[node.y][node.x];
 	if (tile == MAPFMT__EMPTY || tile == MAPFMT__ERR)
-		std__panic("Invalid map");
+		std__panic__value__char("Invalid map", tile);
 	if (tile == MAPFMT__FILL || tile == MAPFMT__WALL)
 		return ;
 	this[node.y][node.x] = MAPFMT__FILL;

@@ -20,12 +20,17 @@ try: all
 # ./$(NAME) asset/map/mandatory.cub
 
 test: all
-	@set -e ;\
-		for cub in map/**/*; do\
-			echo "🚨 $${cub%.*}" ;\
-			! ./$(NAME) $$cub;\
-			echo ;\
-		done
+	@for cub in map/invalid/*; do\
+		echo "🚨 $${cub%.*}" ;\
+		./$(NAME) $$cub;\
+		if [[ $$? == 1 ]]; then\
+			echo "✅ $${cub%.*}";\
+		else\
+			echo "❌ $${cub%.*}";\
+			exit 1;\
+		fi;\
+		echo ;\
+	done
 	@echo ✅ all invalid maps failed successfully
 
 #./$(NAME) $$cub ;\
