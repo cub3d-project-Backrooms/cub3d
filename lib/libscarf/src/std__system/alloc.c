@@ -57,8 +57,8 @@ void	*std__allocate(size_t count, size_t size)
 	return (ptr);
 }
 
-/** @brief free pointer && set it to NULL */
-void	std__dealloc(void **ptr_ptr)
+/** @brief deallocate pointer to data && set it to NULL */
+void	std__deallocate(void **ptr_ptr)
 {
 	free(*ptr_ptr);
 	*ptr_ptr = NULL;

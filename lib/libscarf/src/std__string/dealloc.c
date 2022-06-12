@@ -21,7 +21,7 @@
  */
 void	str__delete(t_string *this)
 {
-	std__dealloc((void **)this);
+	std__deallocate((void **)this);
 }
 
 void	str__delete__arr(t_string_arr *arr_ptr)
@@ -31,5 +31,5 @@ void	str__delete__arr(t_string_arr *arr_ptr)
 	i = -1;
 	while ((*arr_ptr)[++i])
 		str__delete(&(*arr_ptr)[i]);
-	std__dealloc((void **)arr_ptr);
+	std__deallocate((void **)arr_ptr);
 }

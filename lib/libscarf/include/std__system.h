@@ -28,7 +28,7 @@
 
 void		*std__calloc(size_t count, size_t size);
 void		*std__allocate(size_t count, size_t size);
-void		std__dealloc(void **ptr_ptr);
+void		std__deallocate(void **ptr_ptr);
 /*
 ** < mem.c > */
 
