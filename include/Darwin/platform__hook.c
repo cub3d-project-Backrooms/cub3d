@@ -1,7 +1,7 @@
 #include "mlx.h"
 #include "types__renderer.h"
 
-void	platform_mlx_mouse_get_pos(
+void	platform_mouse_get_pos(
 	t_mlx__ref mlx, t_mlx__window_ref window, int *x, int *y)
 {
 	(void)mlx;
