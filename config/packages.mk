@@ -11,16 +11,16 @@
 # **************************************************************************** #
 
 # @Packages
-PKGS = renderer raycast engine parser
+PKGS = renderer parser raycast engine
 
-rendererV = camera image init minimap draw sprite load_tex deinit util\
-			dda__dist dda__step
-raycastV = floor wall raycast texture
-engineV = animation door collision init keyinput movement movement_impl\
-		run
-parserV = map check__parser check__map__format check__cubid parser\
-		check__cubfile cubid map__raw fluidfill check__map__index\
-		sprite rgb check__map world
+rendererV = sprite dda__dist util load_tex init dda__step draw image\
+			minimap camera deinit
+parserV = cubid sprite check__map__format check__cubfile check__map\
+		fluidfill world check__map__index rgb map map__raw\
+		check__parser check__cubid parser
+raycastV = raycast texture floor wall
+engineV = door init run animation movement collision movement_impl\
+		keyinput
 
 # Macro
 SRC_DIR = src/

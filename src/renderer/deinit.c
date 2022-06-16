@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deinit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim    <youkim@student.42seoul.kr>      +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 10:13:06 by youkim           ###   ########.fr       */
+/*   Updated: 2022/06/12 17:07:47 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	world__deinit(t_world *this)
 	while (++i < this->world_height)
 		free(this->worldmap[i]);
 	free(this->worldmap);
-	// free(this->sprites);
+	free(this->sprites);
 }
 
 void	renderer__deinit(t_renderer *this)
