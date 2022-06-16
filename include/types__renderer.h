@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types__renderer.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 13:26:48 by youkim           ###   ########.fr       */
+/*   Updated: 2022/06/16 20:49:07 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct s_spritedata
 	t_sizevec	size;
 	t_irange	x_range;
 	t_irange	y_range;
+	int			frame;
 }	t_spritedata;
 
 #endif
