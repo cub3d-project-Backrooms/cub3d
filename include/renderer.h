@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youkim <youkim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/05/04 15:11:20 by youkim           ###   ########.fr       */
+/*   Updated: 2022/06/16 22:02:09 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 // clang-format off
 
 // wrapper for all platforms
-void		platform_mouse_get_pos(
-				t_mlx__ref mlx, t_mlx__window_ref window, int *x, int *y);
-void		platform_mouse_move(
-				t_mlx__ref mlx, t_mlx__window_ref window, int x, int y);
+void			platform_mouse_get_pos(
+					t_mlx__ref mlx, t_mlx__window_ref window, int *x, int *y);
+void			platform_mouse_move(
+					t_mlx__ref mlx, t_mlx__window_ref window, int x, int y);
 
 //@func
 /*
@@ -86,6 +86,8 @@ void			renderer__draw_minimap(t_renderer *this, t_camera *camera);
 
 t_spritedata	spritedata__init(const t_sprites sprites, t_camera *camera,
 					int i, int frame);
+void			renderer__draw__sprite_texture(t_renderer *this, t_spritedata s,
+					int i, int stripe);
 void			renderer__raycast__sprite(t_renderer *this, t_camera *camera,
 					int i, int frame);
 void			renderer__draw__sprites(t_renderer *this, t_camera *camera,

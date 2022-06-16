@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types__renderer.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 10:13:06 by youkim            #+#    #+#             */
-/*   Updated: 2022/06/16 20:49:07 by tkim             ###   ########.fr       */
+/*   Updated: 2022/06/16 22:03:06 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_sprite
 	double	distance;
 }	t_sprite;
 
-typedef t_sprite*	t_sprites;
+typedef t_sprite*		t_sprites;
 
 typedef struct s_world
 {

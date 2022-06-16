@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkim <tkim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: tkim <tkim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 21:30:53 by tkim              #+#    #+#             */
-/*   Updated: 2022/06/16 21:03:31 by tkim             ###   ########.fr       */
+/*   Updated: 2022/06/16 21:58:09 by tkim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,35 @@ t_spritedata	spritedata__init(
 }
 
 void	renderer__draw__sprite_texture(
- 	t_renderer *this, t_spritedata	s, int i, int stripe, int y)
+	t_renderer *this, t_spritedata s, int i, int stripe)
 {
-	const t_sprites		sprites = this->world.sprites;
-	
-	int texx = (int)((256 * (stripe - (s.screen_x - s.size.width / 2)) \
-	* TEX__WIDTH / s.size.width) / 256);
-	int d = y * 256 - HEIGHT * 128 + s.size.height * 128;
-	int texy = ((d * TEX__HEIGHT) / s.size.height) / 256;
-	int color = this->world.texture[TEX__SPRITE0 + is_other_frame(s.frame)][TEX__WIDTH * texy + texx];
-	if ((color & 0xFFFFFF) != 0)
-		this->buf[y][stripe] = make_colorful(distance_shade(color, sprites[i].distance / 4), s.frame);
+	int	y;
+	int	texx;
+	int	texy;
+	int	d;
+	int	color;
 
+	y = s.y_range.start - 1;
+	while (++y < s.y_range.end)
+	{
+		texx = (int)((256 * (stripe - (s.screen_x - s.size.width / 2)) \
+		* TEX__WIDTH / s.size.width) / 256);
+		d = y * 256 - HEIGHT * 128 + s.size.height * 128;
+		texy = ((d * TEX__HEIGHT) / s.size.height) / 256;
+		color = this->world.texture[TEX__SPRITE0 + is_other_frame(s.frame)][\
+		TEX__WIDTH * texy + texx];
+		if ((color & 0xFFFFFF) != 0)
+			this->buf[y][stripe] = make_colorful(distance_shade(color, \
+			(this->world.sprites)[i].distance / 4), s.frame);
+	}
 }
+
 void	renderer__raycast__sprite(
 	t_renderer *this, t_camera *camera, int i, int frame)
 {
 	const t_sprites		sprites = this->world.sprites;
 	const t_spritedata	s = spritedata__init(sprites, camera, i, frame);
 	int					stripe;
-	int					y;
 
 	stripe = s.x_range.start - 1;
 	while (++stripe < s.x_range.end)
@@ -74,20 +83,7 @@ void	renderer__raycast__sprite(
 		if (s.transform.y > 0 && stripe > 0 && stripe < WIDTH && \
 			s.transform.y < this->zbuffer[stripe])
 		{
-			y = s.y_range.start - 1;
-			while (++y < s.y_range.end)
-			{
-			//	int texx = (int)((256 * (stripe - (s.screen_x - s.size.width / 2)) \
-			//	* TEX__WIDTH / s.size.width) / 256);
-			//	int d = y * 256 - HEIGHT * 128 + s.size.height * 128;
-			//	int texy = ((d * TEX__HEIGHT) / s.size.height) / 256;
-			//	int color = this->world.texture[TEX__SPRITE0 + is_other_frame(s.frame)][TEX__WIDTH * texy + texx];
-			//	if ((color & 0xFFFFFF) != 0)
-			//		this->buf[y][stripe] = make_colorful(distance_shade(color, sprites[i].distance / 4), s.frame);
-			renderer__draw__sprite_texture(this, s, i, stripe, y);
-			}
- 	//t_renderer *this, t_spritedata	s, int i, int stripe)
-
+			renderer__draw__sprite_texture(this, s, i, stripe);
 		}
 	}
 }
@@ -97,12 +93,13 @@ void	renderer__draw__sprites(
 {
 	int			i;
 	t_sprites	sprites;
+	t_vec		delta;
 
 	sprites = this->world.sprites;
 	i = -1;
 	while (++i < this->world.num_sprites)
 	{
-		const t_vec	delta = vec__sub(&sprites[i].pos, &camera->pos);
+		delta = vec__sub(&sprites[i].pos, &camera->pos);
 		sprites[i].distance = delta.x * delta.x + delta.y * delta.y;
 		renderer__raycast__sprite(this, camera, i, frame);
 	}
